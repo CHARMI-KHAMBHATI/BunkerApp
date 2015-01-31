@@ -1,12 +1,14 @@
 package com.pyrospiral.android.tabbedtimetable;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by kaano8 on 25/1/15.
@@ -30,60 +32,286 @@ public class DetailsFragment extends Fragment {
             check =intent.getStringExtra(Intent.EXTRA_TEXT);
         }
 
+        //Toast.makeText(getActivity(),check,Toast.LENGTH_LONG).show();
+
+        String subject="";
+        String teacher="TEACHERS :";
+        String timing="TIMINGS :";
+        String timingss;
+        String classAttended="TOTAL PRESENT: ";
+        String classAbsent="TOTAL ABSENT :";
+
+
+
+
+
+
+
         subName = (TextView) rootView.findViewById(R.id.subName);
         teacherName = (TextView) rootView.findViewById(R.id.teacherName);
         timings = (TextView) rootView.findViewById(R.id.timings);
         ca = (TextView) rootView.findViewById(R.id.classesAttended);
         cb = (TextView) rootView.findViewById(R.id.classCanBunk);
 
-        if(check.equals("Database Management Systems"))
+
+        final DBAdapterM dbm=new DBAdapterM(getActivity());
+        final DBAdapterTu dbtu=new DBAdapterTu(getActivity());
+        final DBAdapterW dbw=new DBAdapterW(getActivity());
+        final DBAdapterTh dbth=new DBAdapterTh(getActivity());
+        final DBAdapterF dbf=new DBAdapterF(getActivity());
+        final DBAttendence dba=new DBAttendence(getActivity());
+
+        subject=check;
+
+
+
+
+       Cursor c,c2;
+        dbm.open();
+        c=dbm.getPosition(check);
+
+        if(c.moveToFirst())
         {
-            subName.setText("Database Management Systems");
-            teacherName.setText("Dipti Rana, Pinak Patel");
-            timings.setText("11:25-12:20, 2:00-2:55");
-            ca.setText("20");
-            cb.setText("1");
+            do{
+                //subject=subject+c.getString(c.getColumnIndex(DBAdapterM.SUBJECT))+"  ";
+                teacher=teacher+c.getString(c.getColumnIndex(DBAdapterM.TEACHER))+"  ";
+                int index7=c.getColumnIndex(DBAdapterM.START_TIME);
+                double a=Double.parseDouble(c.getString(index7));
+                int x=(int)a;
+                a=a-x;
+                a=a*60;
+                a=(double)Math.round(a * 100)/100;
+                int y=(int)a;
+                if(y<10)
+                   timingss=Integer.toString(x)+":0"+Integer.toString(y);
+                else
+                    timingss=Integer.toString(x)+":"+Integer.toString(y);
+
+                int index8=c.getColumnIndex(DBAdapterM.END_TIME);
+
+                a=Double.parseDouble(c.getString(index8));
+                x=(int)a;
+                a=a-x;
+                a=a*60;
+                a=(double)Math.round(a * 100)/100;
+                y=(int)a;
+                if(y<10)
+                    timingss=timingss+"-"+Integer.toString(x)+":0"+Integer.toString(y);
+                else
+                    timingss=timingss+"-"+Integer.toString(x)+":"+Integer.toString(y);
+
+                timing=timing+timingss+" ";
+
+
+
+
+
+
+
+            }while(c.moveToNext());
         }
-        else if(check.equals("Theory of Computer Science"))
+        dbm.close();
+
+        dbtu.open();
+        c=dbtu.getPosition(check);
+
+        if(c.moveToFirst())
         {
-            subName.setText("Theory of Computer Science");
-            teacherName.setText("Mr. M.A. Zaveri");
-            timings.setText("11:25-12:20, 2:00-2:55");
-            ca.setText("20");
-            cb.setText("1");
+            do{
+                //subject=subject+c.getString(c.getColumnIndex(DBAdapterTu.SUBJECT))+"  ";
+                teacher=teacher+c.getString(c.getColumnIndex(DBAdapterTu.TEACHER))+"  ";
+                int index7=c.getColumnIndex(DBAdapterTu.START_TIME);
+                double a=Double.parseDouble(c.getString(index7));
+                int x=(int)a;
+                a=a-x;
+                a=a*60;
+                a=(double)Math.round(a * 100)/100;
+                int y=(int)a;
+                if(y<10)
+                    timingss=Integer.toString(x)+":0"+Integer.toString(y);
+                else
+                    timingss=Integer.toString(x)+":"+Integer.toString(y);
+
+                int index8=c.getColumnIndex(DBAdapterTu.END_TIME);
+
+                a=Double.parseDouble(c.getString(index8));
+                x=(int)a;
+                a=a-x;
+                a=a*60;
+                a=(double)Math.round(a * 100)/100;
+                y=(int)a;
+                if(y<10)
+                    timingss=timingss+"-"+Integer.toString(x)+":0"+Integer.toString(y);
+                else
+                    timingss=timingss+"-"+Integer.toString(x)+":"+Integer.toString(y);
+
+                timing=timing+timingss+" ";
+
+
+
+
+
+
+
+            }while(c.moveToNext());
         }
-        else if(check.equals("Communication Systems"))
+        dbtu.close();
+
+
+
+        dbw.open();
+        c=dbw.getPosition(check);
+
+        if(c.moveToFirst())
         {
-            subName.setText("Communication Systems");
-            teacherName.setText("Mr. Abhilash Mandloi");
-            timings.setText("11:25-12:20, 2:00-2:55");
-            ca.setText("20");
-            cb.setText("1");
+            do{
+               // subject=subject+c.getString(c.getColumnIndex(DBAdapterW.SUBJECT))+"  ";
+                teacher=teacher+c.getString(c.getColumnIndex(DBAdapterW.TEACHER))+"  ";
+                int index7=c.getColumnIndex(DBAdapterW.START_TIME);
+                double a=Double.parseDouble(c.getString(index7));
+                int x=(int)a;
+                a=a-x;
+                a=a*60;
+                a=(double)Math.round(a * 100)/100;
+                int y=(int)a;
+                if(y<10)
+                    timingss=Integer.toString(x)+":0"+Integer.toString(y);
+                else
+                    timingss=Integer.toString(x)+":"+Integer.toString(y);
+
+                int index8=c.getColumnIndex(DBAdapterW.END_TIME);
+
+                a=Double.parseDouble(c.getString(index8));
+                x=(int)a;
+                a=a-x;
+                a=a*60;
+                a=(double)Math.round(a * 100)/100;
+                y=(int)a;
+                if(y<10)
+                    timingss=timingss+"-"+Integer.toString(x)+":0"+Integer.toString(y);
+                else
+                    timingss=timingss+"-"+Integer.toString(x)+":"+Integer.toString(y);
+
+                timing=timing+timingss+" ";
+
+
+
+
+
+
+
+            }while(c.moveToNext());
         }
-        else if(check.equals("Control Systems"))
+        dbw.close();
+
+        dbth.open();
+        c=dbth.getPosition(check);
+
+        if(c.moveToFirst())
         {
-            subName.setText("Control Systems");
-            teacherName.setText("Mr. Hiren G. Patel");
-            timings.setText("11:25-12:20, 2:00-2:55");
-            ca.setText("20");
-            cb.setText("1");
+            do{
+                //subject=subject+c.getString(c.getColumnIndex(DBAdapterTh.SUBJECT))+"  ";
+                teacher=teacher+c.getString(c.getColumnIndex(DBAdapterTh.TEACHER))+"  ";
+                int index7=c.getColumnIndex(DBAdapterTh.START_TIME);
+                double a=Double.parseDouble(c.getString(index7));
+                int x=(int)a;
+                a=a-x;
+                a=a*60;
+                a=(double)Math.round(a * 100)/100;
+                int y=(int)a;
+                if(y<10)
+                    timingss=Integer.toString(x)+":0"+Integer.toString(y);
+                else
+                    timingss=Integer.toString(x)+":"+Integer.toString(y);
+
+                int index8=c.getColumnIndex(DBAdapterTh.END_TIME);
+
+                a=Double.parseDouble(c.getString(index8));
+                x=(int)a;
+                a=a-x;
+                a=a*60;
+                a=(double)Math.round(a * 100)/100;
+                y=(int)a;
+                if(y<10)
+                    timingss=timingss+"-"+Integer.toString(x)+":0"+Integer.toString(y);
+                else
+                    timingss=timingss+"-"+Integer.toString(x)+":"+Integer.toString(y);
+
+                timing=timing+timingss+" ";
+
+
+
+
+
+
+
+            }while(c.moveToNext());
         }
-        else if(check.equals("Engg. Maths III"))
+        dbth.close();
+
+        dbf.open();
+        c=dbf.getPosition(check);
+
+        if(c.moveToFirst())
         {
-            subName.setText("Engg. Maths III");
-            teacherName.setText("Mr. Jana");
-            timings.setText("11:25-12:20, 2:00-2:55");
-            ca.setText("20");
-            cb.setText("1");
+            do{
+                //subject=subject+c.getString(c.getColumnIndex(DBAdapterF.SUBJECT))+"  ";
+                teacher=teacher+c.getString(c.getColumnIndex(DBAdapterF.TEACHER))+"  ";
+                int index7=c.getColumnIndex(DBAdapterF.START_TIME);
+                double a=Double.parseDouble(c.getString(index7));
+                int x=(int)a;
+                a=a-x;
+                a=a*60;
+                a=(double)Math.round(a * 100)/100;
+                int y=(int)a;
+                if(y<10)
+                    timingss=Integer.toString(x)+":0"+Integer.toString(y);
+                else
+                    timingss=Integer.toString(x)+":"+Integer.toString(y);
+
+                int index8=c.getColumnIndex(DBAdapterF.END_TIME);
+
+                a=Double.parseDouble(c.getString(index8));
+                x=(int)a;
+                a=a-x;
+                a=a*60;
+                a=(double)Math.round(a * 100)/100;
+                y=(int)a;
+                if(y<10)
+                    timingss=timingss+"-"+Integer.toString(x)+":0"+Integer.toString(y);
+                else
+                    timingss=timingss+"-"+Integer.toString(x)+":"+Integer.toString(y);
+
+                timing=timing+timingss+" ";
+
+
+
+
+
+
+
+            }while(c.moveToNext());
         }
-        else if(check.equals("Software Tools II"))
+        dbf.close();
+
+
+        dba.open();
+        c=dba.getContact(check);
+        if(c.moveToFirst())
         {
-            subName.setText("Database Management Systems");
-            teacherName.setText("Ammy Ma'am");
-            timings.setText("11:25-12:20, 2:00-2:55");
-            ca.setText("20");
-            cb.setText("1");
+            classAttended=classAttended+c.getString(c.getColumnIndex(DBAttendence.PRESENT));
+            classAbsent=classAbsent+c.getString(c.getColumnIndex(DBAttendence.ABSENT));
         }
+
+        dba.close();
+
+
+        subName.setText(subject);
+        teacherName.setText(teacher);
+        timings.setText(timing);
+        ca.setText(classAttended);
+        cb.setText(classAbsent);
+
 
         return rootView;
     }
