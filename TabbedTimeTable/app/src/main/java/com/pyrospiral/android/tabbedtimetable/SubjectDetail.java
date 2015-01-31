@@ -77,7 +77,7 @@ public class SubjectDetail extends ActionBarActivity {
                 case 0:
                     return new PieFragment();
                 case 1:
-                    return new PieFragment();
+                    return new DetailsFragment();
             }
 
             return null;
@@ -92,7 +92,7 @@ public class SubjectDetail extends ActionBarActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             // return the page title
-            String[] titles = {"Attendance", "Assignments"};
+            String[] titles = {"Attendance", "Details"};
             return titles[position];
         }
 
