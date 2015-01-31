@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -18,21 +19,26 @@ public class SilenceService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        mIntent = intent;
         return null;
     }
 
     @Override
-    public void onCreate() {
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        mIntent = intent;
+        Log.e("service",""+mIntent+"  "+mIntent.hasExtra(Intent.EXTRA_TEXT));
 
+        if(mIntent != null)
+        {
+
+            val = mIntent.getIntExtra("value",5);
+            Log.e("Silence service","mIntent  "+val);
+        }
 
         mAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
+        Log.e("Silence service","works");
 
-        if(mIntent != null && mIntent.hasExtra(Intent.EXTRA_TEXT))
-        {
-            val = mIntent.getIntExtra("value",5);
-        }
+
 
 
         if(val == 1) {
@@ -46,6 +52,11 @@ public class SilenceService extends Service {
             mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
         }
 
+        return START_STICKY;
+    }
+
+    @Override
+    public void onCreate() {
         super.onCreate();
     }
 }
