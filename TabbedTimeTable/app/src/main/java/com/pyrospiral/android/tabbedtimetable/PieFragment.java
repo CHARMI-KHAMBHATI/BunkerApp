@@ -3,7 +3,9 @@ package com.pyrospiral.android.tabbedtimetable;
 
 import android.animation.Animator;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,12 @@ import com.echo.holographlibrary.PieSlice;
  */
 public class PieFragment extends Fragment {
 
+    private String check;
+
+
+
+
+
 
 
     //TODO:GET PERCENTAGE ATTENDANCE FROM DATABASE, CONVERT TO FLOAT
@@ -32,6 +40,41 @@ public class PieFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Intent intent = getActivity().getIntent();
+        // View rootView = inflater.inflate(R.layout.fragment_details, container, false);
+        if(intent != null && intent.hasExtra(Intent.EXTRA_TEXT))
+        {
+            check =intent.getStringExtra(Intent.EXTRA_TEXT);
+        }
+
+        final DBAttendence dba=new DBAttendence(getActivity());
+        dba.open();
+        Cursor c=dba.getContact(check);
+       if(c.moveToFirst())
+        {
+            int index1,index2;
+            float a,b;
+            index1=c.getColumnIndex(DBAttendence.PRESENT);
+            index2=c.getColumnIndex(DBAttendence.TOTAL);
+            a=c.getFloat(index1);
+            b=c.getFloat(index2);
+
+            Log.e("",""+a+"");
+            Log.e("",""+b+"");
+            Log.e("",""+a/b+"");
+
+
+            if(b!=0.0)
+            value=a/b*100;
+            else
+                value=100;
+        }
+
+
+
+        dba.close();
+
         final View v = inflater.inflate(R.layout.fragment_pie, container, false);
         final Resources resources = getResources();
         TextView text = (TextView) v.findViewById(R.id.text);
