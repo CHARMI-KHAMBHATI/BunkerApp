@@ -65,8 +65,8 @@ public class MainActivity extends ActionBarActivity {
 
             Calendar cal = Calendar.getInstance();
             //Get time from database
-            cal.set(Calendar.HOUR_OF_DAY, 23);
-            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.HOUR_OF_DAY, 18);
+            cal.set(Calendar.MINUTE, 30);
             cal.set(Calendar.SECOND, 0);
 
             PendingIntent silentIntent = PendingIntent.getService(this, 0,

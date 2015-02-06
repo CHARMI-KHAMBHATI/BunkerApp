@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -19,8 +20,14 @@ public class SubjectDetail extends ActionBarActivity {
     private TabsPagerAdapter adapter;
     private Toolbar toolbar;
 
+   // ViewAttFragment vi=new ViewAttFragment();
+    //int position=vi.getPos();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+       // Toast.makeText(this,"POS IS "+position+"",Toast.LENGTH_LONG).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_detail);
 

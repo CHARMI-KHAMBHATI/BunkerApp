@@ -36,7 +36,7 @@ public class DBAdapterAssign {
     //public static final String TEACHER = "teacher";
     //public static final String START_TIME = "strtime";
     public static final String DUE_DATE = "due_date";
-    //public static final String ATTENDANCE = "attendance";
+    public static final String DELETE = "delete_";
     public static final String  ASSIGNMENT="assignement";
 
     // public static final String KEY_EMAIL = "email";
@@ -48,7 +48,7 @@ public class DBAdapterAssign {
     private static final String DATABASE_CREATE =
             "create table "+DATABASE_TABLE+" ("+ROW_ID+" integer primary key autoincrement, "
                     +SUBJECT+" VARCHAR(255), "
-                    +DUE_DATE+" VARCHAR(255), "+ASSIGNMENT+" VARCHAR(255));";
+                    +DUE_DATE+" VARCHAR(255), "+DELETE+" INTEGER, "+ASSIGNMENT+" VARCHAR(255));";
     private final Context context;
     private DatabaseHelper DBHelper;
     private SQLiteDatabase db;
@@ -100,7 +100,7 @@ public class DBAdapterAssign {
 
 
     //---insert a contact into the database---
-    public long insertContact(String subject,String end_time,String assignemnt) {
+    public long insertContact(String subject,String end_time,String assignemnt,int delete) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(SUBJECT, subject);
         //initialValues.put(TEACHER, teacher);
@@ -110,6 +110,8 @@ public class DBAdapterAssign {
         initialValues.put(DUE_DATE, end_time);
 
         initialValues.put(ASSIGNMENT, assignemnt);
+
+        initialValues.put(DELETE,delete);
 
         return db.insert(DATABASE_TABLE, null, initialValues);
     }
@@ -123,27 +125,27 @@ public class DBAdapterAssign {
 
     //---retrieves all the contacts---
     public Cursor getAllContacts() {
-        return db.query(DATABASE_TABLE, new String[]{ROW_ID,SUBJECT,DUE_DATE,ASSIGNMENT},
+        return db.query(DATABASE_TABLE, new String[]{ROW_ID,SUBJECT,DUE_DATE,ASSIGNMENT,DELETE},
                 null, null, null, null,null);
     }
 
 
     //  ---retrieves a particular contact---
     public Cursor getContact(String days) throws SQLException {
-        return db.query(DATABASE_TABLE, new String[]{ROW_ID,SUBJECT,DUE_DATE,ASSIGNMENT},DBAdapterAssign.ASSIGNMENT+"= "+"'"+days+"'",
+        return db.query(DATABASE_TABLE, new String[]{ROW_ID,SUBJECT,DUE_DATE,ASSIGNMENT,DELETE},DBAdapterAssign.ASSIGNMENT+"= "+"'"+days+"'",
                 null, null, null, null,null);
 
     }
 
-/*
+
     //---updates a contact---
-    public boolean updateContact(long rowId, String name, String email) {
+    public boolean updateContact(long row_id,int val) {
         ContentValues args = new ContentValues();
-        args.put(KEY_NAME, name);
-        args.put(KEY_EMAIL, email);
-        return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+        args.put(DELETE, val);
+
+        return db.update(DATABASE_TABLE, args, ROW_ID + "=" + row_id, null) > 0;
     }
-*/
+
 
 }
 

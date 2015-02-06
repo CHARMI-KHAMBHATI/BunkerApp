@@ -1,5 +1,6 @@
 package com.pyrospiral.android.tabbedtimetable;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
@@ -11,9 +12,24 @@ public class FillAttendance extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fill_attendance);
-        if (savedInstanceState == null) {
+
+        String check=null;
+        Intent intent = this.getIntent();
+
+        if(intent != null && intent.hasExtra(Intent.EXTRA_TEXT))
+        {
+            check =intent.getStringExtra(Intent.EXTRA_TEXT);
+        }
+
+        if (savedInstanceState == null && check.equals("Fill")) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container1, new AttendanceFragment())
+                    .commit();
+        }
+        else if(savedInstanceState == null && check.equals("Edit"))
+        {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container1, new Modify_Attendance())
                     .commit();
         }
     }

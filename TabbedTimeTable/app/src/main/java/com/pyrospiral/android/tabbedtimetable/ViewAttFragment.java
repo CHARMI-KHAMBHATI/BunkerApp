@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -32,6 +33,8 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
     String[] subName=new String[100];
     String[] teacherName=new String[100];
     String[] timings=new String[100];
+    int pos;
+
 
 
     @Override
@@ -86,22 +89,23 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mrecyclerView.setLayoutManager(mLayoutManager);
 
-        FloatingActionButton buttona = (FloatingActionButton) rootView.findViewById(R.id.action_a);
+        FloatingActionButton buttona = (FloatingActionButton) rootView.findViewById(R.id.action_button1);
         buttona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), FillAttendance.class));
+                Intent intent = new Intent(getActivity(), FillAttendance.class).putExtra(Intent
+                        .EXTRA_TEXT, "Fill");
+                startActivity(intent);
             }
         });
 
-      View view = inflater.inflate(R.layout.view_att_row, null);
-      TextView  textview1 = (TextView) view.findViewById(R.id.subName);
-      textview1.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton buttonb = (FloatingActionButton) rootView.findViewById(R.id.action_button2);
+        buttonb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(" ", "Its entering");
-                Intent intent = new Intent(getActivity(), SubjectDetail.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(getActivity(), FillAttendance.class).putExtra(Intent
+                        .EXTRA_TEXT, "Edit");
+                startActivity(intent2);
             }
         });
 
@@ -132,8 +136,23 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
         return data;
     }
 
+
+
+
     @Override
-    public void itemClicked(View view, int position) {
+    public void itemClicked(View view,int position) {
+       // SubjectDetail sb=new SubjectDetail(position);
+        //Log.e("","THIS IS "+position+"");
+       pos=position;
+
      startActivity(new Intent(getActivity(), SubjectDetail.class));
+
+
     }
+
+    public int loc(){
+        return pos;
+    }
+
+
 }

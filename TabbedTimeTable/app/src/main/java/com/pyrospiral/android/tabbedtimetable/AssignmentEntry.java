@@ -55,7 +55,7 @@ public class AssignmentEntry extends ActionBarActivity {
                 String subject_tt=subject.getText().toString();
                 String assignment_tt=assignment.getText().toString();
                 String times=time.getText().toString();
-                db.insertContact(subject_tt,times,assignment_tt);
+                db.insertContact(subject_tt,times,assignment_tt,0);
 
                 db.close();
                 Toast.makeText(getBaseContext(),"YOLO",Toast.LENGTH_LONG).show();
