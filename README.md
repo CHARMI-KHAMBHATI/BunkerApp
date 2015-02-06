@@ -8,6 +8,6 @@ This is an android application project, created as a utility for college student
 
 Kushagra Chauhan
 
-Adesh Kala
+Adesh Kala YO
 
 Rahul Kanojia
