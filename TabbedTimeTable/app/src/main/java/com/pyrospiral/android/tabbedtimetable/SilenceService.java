@@ -25,7 +25,6 @@ public class SilenceService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mIntent = intent;
-        Log.e("service",""+mIntent+"  "+mIntent.hasExtra(Intent.EXTRA_TEXT));
 
         if(mIntent != null)
         {
@@ -36,19 +35,21 @@ public class SilenceService extends Service {
 
         mAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-        Log.e("Silence service","works");
+
 
 
 
 
         if(val == 1) {
-            Toast.makeText(this, "Phone on silent", Toast.LENGTH_SHORT);
+            Log.e("Silence service","phone silent");
+            Toast.makeText(this, "Phone on silent", Toast.LENGTH_SHORT).show();
             mAudioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
         }
 
 
         if(val == 2) {
-            Toast.makeText(this, "Phone removed from silent", Toast.LENGTH_SHORT);
+            Log.e("Silence service","phone normal");
+            Toast.makeText(this, "Phone removed from silent", Toast.LENGTH_SHORT).show();
             mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
         }
 

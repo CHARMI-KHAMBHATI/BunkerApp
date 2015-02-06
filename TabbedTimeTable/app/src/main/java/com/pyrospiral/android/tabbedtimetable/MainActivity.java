@@ -4,9 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -53,29 +51,6 @@ public class MainActivity extends ActionBarActivity {
         AlarmManager am = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pi);
-
-
-        //FOR SILENCING PHONE
-
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean value = prefs.getBoolean("silent_checkbox", true);
-        if(value) {
-
-
-            Calendar cal = Calendar.getInstance();
-            //Get time from database
-            cal.set(Calendar.HOUR_OF_DAY, 18);
-            cal.set(Calendar.MINUTE, 30);
-            cal.set(Calendar.SECOND, 0);
-
-            PendingIntent silentIntent = PendingIntent.getService(this, 0,
-                    new Intent(this, SilenceService.class).putExtra("value", 1), PendingIntent.FLAG_UPDATE_CURRENT);
-
-            AlarmManager am2 = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-            am2.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), silentIntent);
-
-        }
 
 
 
