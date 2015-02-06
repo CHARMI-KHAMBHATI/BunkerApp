@@ -58,9 +58,6 @@ public class MainActivity extends ActionBarActivity {
         /////////////////////  FOR PHONE SILENT
 
 
-
-
-
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean value = prefs.getBoolean("silent_checkbox", true);
 
@@ -75,8 +72,8 @@ public class MainActivity extends ActionBarActivity {
 
             Calendar cal = Calendar.getInstance();
             //Get time from database
-            cal.set(Calendar.HOUR_OF_DAY, 2);
-            cal.set(Calendar.MINUTE, 37);
+            cal.set(Calendar.HOUR_OF_DAY, 3);
+            cal.set(Calendar.MINUTE, 11);
             cal.set(Calendar.SECOND, 0);
 
 
