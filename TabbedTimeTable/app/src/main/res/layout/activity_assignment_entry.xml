@@ -1,0 +1,104 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.pyrospiral.android.tabbedtimetable.TimeTableEntry">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#333333"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/discard_ass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#333333"
+                android:text="@string/discard_button"
+                android:textColor="@color/accentColor" />
+
+            <Button
+                android:id="@+id/save_ass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#333333"
+                android:text="@string/save_button"
+                android:textColor="@color/accentColor" />
+
+        </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <EditText
+                    android:id="@+id/subject_ass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/Subject" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/primaryColor">
+                <EditText
+                    android:id="@+id/assignment_ass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:textColor="@color/primaryColorLight"
+                    android:background="#00ffffff"
+                    android:hint="Type assignment here" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:text="Due Date" />
+
+                    <TextView
+                        android:id="@+id/dueDate"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_weight="1"
+                        android:background="#ddd"
+                        android:gravity="center"
+                        android:padding="4dp"
+                        android:text="12/11/1994"
+                        android:textSize="16sp" />
+
+                    </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>

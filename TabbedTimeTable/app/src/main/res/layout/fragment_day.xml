@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="#FFFFFF"
+    android:layout_height="match_parent"
+    tools:context="com.pyrospiral.android.tabbedtimetable.Monday"
+    android:padding="4dp">
+
+
+    <ListView android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:drawSelectorOnTop="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        fab:fab_addButtonColorNormal="@color/accentColor"
+        fab:fab_addButtonColorPressed="#80FFC107"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        fab:fab_addButtonPlusIconColor="#444"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="#ff4433"
+            fab:fab_title="Add Subject"
+            fab:fab_size="mini"
+            fab:fab_icon="@drawable/attendance"
+            fab:fab_colorPressed="#99ff4433"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="#ff4433"
+            fab:fab_title="Remove Subject"
+            fab:fab_size="mini"
+            fab:fab_icon="@drawable/timetable"
+            fab:fab_colorPressed="#99ff4433"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+</RelativeLayout>
