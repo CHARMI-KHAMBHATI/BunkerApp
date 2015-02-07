@@ -21,10 +21,9 @@ public class SilenceReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-
         mAudioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        //Log.e("Receiver","received");
+        Log.e("Receiver","received");
 
         mIntent = intent;
 
@@ -32,7 +31,7 @@ public class SilenceReceiver extends BroadcastReceiver {
         {
 
             val = mIntent.getIntExtra("value",5);
-            //Log.e("Silence service","mIntent  "+val);
+            Log.e("Silence service","silenceValue  "+val);
         }
 
 
@@ -40,7 +39,7 @@ public class SilenceReceiver extends BroadcastReceiver {
         {
             if(val == 1 && +mAudioManager.getRingerMode()!=1) {
                 Log.e("Silence service","phone silent");
-                Toast.makeText(context, "Phone on silent", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Phone on silent", Toast.LENGTH_SHORT).show();
                 mAudioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
 
             }
@@ -48,7 +47,7 @@ public class SilenceReceiver extends BroadcastReceiver {
 
             if(val == 2 && +mAudioManager.getRingerMode()!=2) {
                 Log.e("Silence service","phone normal");
-                Toast.makeText(context, "Phone removed from silent", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Phone removed from silent", Toast.LENGTH_SHORT).show();
                 mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 
             }
@@ -59,7 +58,7 @@ public class SilenceReceiver extends BroadcastReceiver {
 
 
             if (val == 1 && +mAudioManager.getRingerMode() != 0) {
-                Log.e("Silence service", "phone silent");
+                Log.e("Silence receiver", "phone silent");
                 Toast.makeText(context, "Phone on silent", Toast.LENGTH_SHORT).show();
                 mAudioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 
@@ -67,13 +66,14 @@ public class SilenceReceiver extends BroadcastReceiver {
 
 
             if (val == 2 && +mAudioManager.getRingerMode() != 2) {
-                Log.e("Silence service", "phone normal");
+                Log.e("Silence receiver", "phone normal");
                 Toast.makeText(context, "Phone removed from silent", Toast.LENGTH_SHORT).show();
                 mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 
             }
         }
     }
+
 
 
 }
