@@ -68,6 +68,27 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
         data.add(dataPosition,temp);
         mAdapter.notifyDataSetChanged();
 
+        String s=assignmentName[dataPosition];
+
+
+
+
+
+        final DBAdapterAssign db=new DBAdapterAssign(getActivity());
+
+        db.open();
+        int x=0;
+        Cursor c2=db.getContact(s);
+        if(c2.moveToFirst())
+        {
+            x=c2.getInt(c2.getColumnIndex(DBAdapterAssign.ROW_ID));
+            db.updateContact(x,0);
+
+
+        }
+        db.close();
+
+
         Log.e("on adding position",temp.subject+"  "+dataPosition);
     }
 
@@ -94,15 +115,24 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
         if(c.moveToFirst())
         {
             do {
-                int index1,index2,index3;
+                int index1,index2,index3,index4,index5;
+                index5=c.getColumnIndex(DBAdapterAssign.ROW_ID);
+                index4=c.getColumnIndex(DBAdapterAssign.DELETE);
                 index1=c.getColumnIndex(DBAdapterAssign.SUBJECT);
                 index2=c.getColumnIndex(DBAdapterAssign.ASSIGNMENT);
                 index3=c.getColumnIndex(DBAdapterAssign.DUE_DATE);
-                subName[i]=c.getString(index1);
-                assignmentName[i]=c.getString(index2);
-                dueDates[i]=c.getString(index3);
+                int y=c.getInt(index4);
+                if(y==0) {
+                    subName[i] = c.getString(index1);
+                    assignmentName[i] = c.getString(index2);
+                    dueDates[i] = c.getString(index3);
 
-                i++;
+                    i++;
+                }
+                else
+                {
+                    db.deleteContact(c.getInt(index5));
+                }
 
 
             }while(c.moveToNext());
@@ -193,21 +223,18 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
                                     final DBAdapterAssign db=new DBAdapterAssign(getActivity());
 
                                     db.open();
-
+                                    int x=0;
                                     Cursor c2=db.getContact(s);
                                     if(c2.moveToFirst())
                                     {
-                                        int x=c2.getInt(c2.getColumnIndex(DBAdapterAssign.ROW_ID));
-                                        db.deleteContact(x);
+                                        x=c2.getInt(c2.getColumnIndex(DBAdapterAssign.ROW_ID));
+                                        db.updateContact(x,1);
 
 
                                     }
-
-
-
-
-
                                     db.close();
+
+
 
 
 
@@ -215,7 +242,7 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
                                     Log.e("set position",""+position);
                                     //Create Snackbar
-                                    new SnackBar.Builder(getActivity().getApplicationContext(), rootView)
+                                   new SnackBar.Builder(getActivity().getApplicationContext(), rootView)
                                             .withMessage("Assignment Deleted.")
                                             .withActionMessage("UNDO")
                                             .withOnClickListener(AssignmentList.this)
@@ -226,7 +253,10 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
 
 
+
+
                                     data.remove(position);
+
 
                                     Log.e("after removing position",""+position);
 

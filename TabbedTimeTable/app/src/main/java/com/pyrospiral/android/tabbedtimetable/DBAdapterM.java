@@ -186,7 +186,7 @@ public class DBAdapterM {
 
     public Cursor getPosition(String days) throws SQLException {
         return db.query(DATABASE_TABLE, new String[]{ROW_ID,LEC_NO,SUBJECT,TEACHER
-                        ,START_TIME,END_TIME},SUBJECT+"="+days,
+                        ,START_TIME,END_TIME},SUBJECT+"= '" + days+"'",
                 null, null, null, null,null);
 
     }
@@ -208,6 +208,8 @@ public class DBAdapterM {
         args.put(DONE,1);
         return db.update(DATABASE_TABLE, args, DBAdapterM.SUBJECT + "= '" + subjects+"'", null) > 0;
     }
+
+
 
 
 }
