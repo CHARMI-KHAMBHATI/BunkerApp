@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,8 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
     public RecyclerView mrecyclerView;
     private ViewAttAdapter mAdapter;
 
+    int doing=0;
+
     public ViewAttFragment() {
     }
 
@@ -47,6 +50,8 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        doing=1;
 
 
         final DBAttendence db=new DBAttendence(getActivity());
@@ -93,6 +98,7 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
         buttona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                doing=0;
                 Intent intent = new Intent(getActivity(), FillAttendance.class).putExtra(Intent
                         .EXTRA_TEXT, "Fill");
                 startActivity(intent);
@@ -103,6 +109,7 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
         buttonb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                doing=0;
                 Intent intent2 = new Intent(getActivity(), FillAttendance.class).putExtra(Intent
                         .EXTRA_TEXT, "Edit");
                 startActivity(intent2);
@@ -112,6 +119,8 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
         ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Attendance");
         return rootView;
     }
+
+
 
 
     //Inserting some fake data
@@ -136,16 +145,33 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
         return data;
     }
 
+    @Override
+    public void onResume(
+    ) {
+
+        super.onResume();
+        Log.e("", "onResume");
+        Log.e("", "value of doing is " + doing + "");
+        if (doing == 0) {
+
+            final FragmentManager fragmentManager = getFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new ViewAttFragment())
+                    .commit();
+        }
+    }
+
 
 
 
     @Override
     public void itemClicked(View view,int position) {
-       // SubjectDetail sb=new SubjectDetail(position);
+        // SubjectDetail sb=new SubjectDetail(position);
         //Log.e("","THIS IS "+position+"");
-       pos=position;
+        pos=position;
 
-     startActivity(new Intent(getActivity(), SubjectDetail.class));
+        startActivity(new Intent(getActivity(), SubjectDetail.class));
 
 
     }

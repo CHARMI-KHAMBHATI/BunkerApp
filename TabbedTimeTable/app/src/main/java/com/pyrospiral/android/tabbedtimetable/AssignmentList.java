@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.github.mrengineer13.snackbar.SnackBar;
@@ -29,6 +31,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class AssignmentList extends Fragment implements SnackBar.OnMessageClickListener {
+
+    int doing=0;
 
     String[] subName = new String[100];
 
@@ -57,54 +61,6 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onMessageClick(Parcelable parcelable) {
-
-        Log.e("before adding position",""+dataPosition);
-        data.add(dataPosition,temp);
-        mAdapter.notifyDataSetChanged();
-
-        String s=assignmentName[dataPosition];
-
-
-
-
-
-        final DBAdapterAssign db=new DBAdapterAssign(getActivity());
-
-        db.open();
-        int x=0;
-        Cursor c2=db.getContact(s);
-        if(c2.moveToFirst())
-        {
-            x=c2.getInt(c2.getColumnIndex(DBAdapterAssign.ROW_ID));
-            db.updateContact(x,0);
-
-
-        }
-        db.close();
-
-
-        Log.e("on adding position",temp.subject+"  "+dataPosition);
-    }
-
-    public AssignmentList() {
-        // Required empty public constructor
-    }
-
-
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        rootView = inflater.inflate(R.layout.fragment_assignment, container, false);
-
 
         data = new ArrayList<>();
 
@@ -139,9 +95,6 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
         }
         db.close();
 
-
-
-
         for(i=0;i<subName.length && i<assignmentName.length;i++)
         {
 
@@ -153,6 +106,97 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
             current.dueDate=dueDates[i];
             data.add(current);
         }
+
+        Log.e("","onCreate");
+
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onMessageClick(Parcelable parcelable) {
+
+
+
+        Log.e("before adding position",""+dataPosition);
+        data.add(dataPosition,temp);
+        mAdapter.notifyDataSetChanged();
+
+        String s=assignmentName[dataPosition];
+
+
+
+
+
+        final DBAdapterAssign db=new DBAdapterAssign(getActivity());
+
+        db.open();
+        int x=0;
+        Cursor c2=db.getContact(s);
+        if(c2.moveToFirst())
+        {
+            x=c2.getInt(c2.getColumnIndex(DBAdapterAssign.ROW_ID));
+            db.updateContact(x,0);
+
+
+        }
+        db.close();
+
+
+        Log.e("on adding position",temp.subject+"  "+dataPosition);
+    }
+
+    public AssignmentList() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public void onResume(
+    ){
+
+        super.onResume();
+        Log.e("","onResume");
+        Log.e("","value of doing is "+doing+"");
+        if(doing==0) {
+
+            final FragmentManager fragmentManager = getFragmentManager();
+
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new AssignmentList())
+                    .commit();
+
+            //    return rootView;
+        }
+
+
+
+    }
+
+
+
+
+
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        doing=1;
+
+        rootView = inflater.inflate(R.layout.fragment_assignment, container, false);
+
+
+
+
+        Log.e("","onCreateView");
+
+
+
+
+
 
 
 
@@ -168,6 +212,12 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
         buttona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // onDestroyView();
+                // fragmentTransaction.remove(yourfragment).commit()
+
+                doing=0;
+
+
                 startActivity(new Intent(getActivity(),AssignmentEntry.class));
             }
         });
@@ -242,7 +292,7 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
                                     Log.e("set position",""+position);
                                     //Create Snackbar
-                                   new SnackBar.Builder(getActivity().getApplicationContext(), rootView)
+                                    new SnackBar.Builder(getActivity().getApplicationContext(), rootView)
                                             .withMessage("Assignment Deleted.")
                                             .withActionMessage("UNDO")
                                             .withOnClickListener(AssignmentList.this)
