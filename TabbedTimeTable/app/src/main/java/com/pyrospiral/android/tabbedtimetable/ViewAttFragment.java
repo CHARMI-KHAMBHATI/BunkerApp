@@ -12,8 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -99,6 +97,7 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
             @Override
             public void onClick(View v) {
                 doing=0;
+
                 Intent intent = new Intent(getActivity(), FillAttendance.class).putExtra(Intent
                         .EXTRA_TEXT, "Fill");
                 startActivity(intent);
@@ -110,6 +109,7 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
             @Override
             public void onClick(View v) {
                 doing=0;
+
                 Intent intent2 = new Intent(getActivity(), FillAttendance.class).putExtra(Intent
                         .EXTRA_TEXT, "Edit");
                 startActivity(intent2);
@@ -145,7 +145,11 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
         return data;
     }
 
+
+
+
     @Override
+
     public void onResume(
     ) {
 
@@ -172,7 +176,6 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
         pos=position;
 
         startActivity(new Intent(getActivity(), SubjectDetail.class));
-
 
     }
 

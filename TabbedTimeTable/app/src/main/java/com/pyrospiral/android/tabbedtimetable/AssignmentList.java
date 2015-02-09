@@ -61,6 +61,7 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD
 
         data = new ArrayList<>();
 
@@ -109,6 +110,9 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
         Log.e("","onCreate");
 
+=======
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Assignments");
+>>>>>>> master
         super.onCreate(savedInstanceState);
     }
 
@@ -188,7 +192,35 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
         rootView = inflater.inflate(R.layout.fragment_assignment, container, false);
 
+<<<<<<< HEAD
 
+=======
+        final DBAdapterAssign db=new DBAdapterAssign(getActivity());
+        db.open();
+        Cursor c = db.getAllContacts();
+        int i=0;
+        if(c.moveToFirst())
+        {
+            do {
+                int index1,index2,index3,index4,index5;
+                index5=c.getColumnIndex(DBAdapterAssign.ROW_ID);
+                index4=c.getColumnIndex(DBAdapterAssign.DELETE);
+                index1=c.getColumnIndex(DBAdapterAssign.SUBJECT);
+                index2=c.getColumnIndex(DBAdapterAssign.ASSIGNMENT);
+                index3=c.getColumnIndex(DBAdapterAssign.DUE_DATE);
+                int y=c.getInt(index4);
+                if(y==0) {
+                    subName[i] = c.getString(index1);
+                    assignmentName[i] = c.getString(index2);
+                    dueDates[i] = c.getString(index3);
+
+                    i++;
+                }
+                else
+                {
+                    db.deleteContact(c.getInt(index5));
+                }
+>>>>>>> master
 
 
         Log.e("","onCreateView");
@@ -229,7 +261,7 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
         applyToRecycler();
 
-        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Assignments");
+
 
         return rootView;
     }
@@ -292,7 +324,7 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
                                     Log.e("set position",""+position);
                                     //Create Snackbar
-                                    new SnackBar.Builder(getActivity().getApplicationContext(), rootView)
+                                   new SnackBar.Builder(getActivity().getApplicationContext(), rootView)
                                             .withMessage("Assignment Deleted.")
                                             .withActionMessage("UNDO")
                                             .withOnClickListener(AssignmentList.this)
