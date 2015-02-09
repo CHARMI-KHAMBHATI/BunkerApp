@@ -32,15 +32,12 @@ public class TimeTableViewPagerFragment extends Fragment {
     }
 
 
-<<<<<<< HEAD
-=======
     @Override
     public void onCreate(Bundle savedInstanceState) {
         ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("TimeTable");
         super.onCreate(savedInstanceState);
     }
 
->>>>>>> master
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
