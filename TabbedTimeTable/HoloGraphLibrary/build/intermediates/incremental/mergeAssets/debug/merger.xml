@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<merger version="3"><dataSet config="main"><source path="/Users/adeshkala/Documents/workspaces_git/BunkerApp/TabbedTimeTable/HoloGraphLibrary/src/main/assets"/></dataSet><dataSet config="debug"><source path="/Users/adeshkala/Documents/workspaces_git/BunkerApp/TabbedTimeTable/HoloGraphLibrary/src/debug/assets"/></dataSet></merger>
-=======
 <merger version="3"><dataSet config="main"><source path="E:\ANDROID DEV\Projects\TabbedTimeTable\HoloGraphLibrary\src\main\assets"/></dataSet><dataSet config="debug"><source path="E:\ANDROID DEV\Projects\TabbedTimeTable\HoloGraphLibrary\src\debug\assets"/></dataSet></merger>
->>>>>>> master
