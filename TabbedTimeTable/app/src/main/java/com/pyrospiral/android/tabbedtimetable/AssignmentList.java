@@ -57,7 +57,7 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Assignments");
         super.onCreate(savedInstanceState);
     }
 
@@ -179,7 +179,7 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
         applyToRecycler();
 
-        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Assignments");
+
 
         return rootView;
     }

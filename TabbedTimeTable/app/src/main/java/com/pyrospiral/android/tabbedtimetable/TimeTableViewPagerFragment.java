@@ -28,6 +28,11 @@ public class TimeTableViewPagerFragment extends Fragment {
     }
 
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("TimeTable");
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +44,7 @@ public class TimeTableViewPagerFragment extends Fragment {
         // Bind the tabs to the ViewPager
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
         tabs.setViewPager(viewPager);
-        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("TimeTable");
+
         return rootView;
     }
 
