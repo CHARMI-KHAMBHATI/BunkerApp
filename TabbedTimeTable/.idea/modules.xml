@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HoloGraphLibrary/HoloGraphLibrary.iml" filepath="$PROJECT_DIR$/HoloGraphLibrary/HoloGraphLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TabbedTimeTable.iml" filepath="$PROJECT_DIR$/TabbedTimeTable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TabbedTimeTable copy.iml" filepath="$PROJECT_DIR$/TabbedTimeTable copy.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/floatingaction_library/floatingaction_library.iml" filepath="$PROJECT_DIR$/floatingaction_library/floatingaction_library.iml" />
       <module fileurl="file://$PROJECT_DIR$/pagerslider_library/pagerslider_library.iml" filepath="$PROJECT_DIR$/pagerslider_library/pagerslider_library.iml" />

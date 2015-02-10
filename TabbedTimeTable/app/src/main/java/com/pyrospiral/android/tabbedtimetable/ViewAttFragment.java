@@ -167,11 +167,11 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
 
     @Override
     public void itemClicked(View view,int position) {
-        // SubjectDetail sb=new SubjectDetail(position);
+       // SubjectDetail sb=new SubjectDetail(position);
         //Log.e("","THIS IS "+position+"");
-        pos=position;
+       pos=position;
 
-        startActivity(new Intent(getActivity(), SubjectDetail.class));
+     startActivity(new Intent(getActivity(), SubjectDetail.class));
 
 
     }

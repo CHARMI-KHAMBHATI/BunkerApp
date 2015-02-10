@@ -21,7 +21,7 @@ public class NotificationMaker extends Service {
 
     @Override
     public void onCreate() {
-        Log.e("Notification Service","Oncreated");
+        Log.e("Service","Oncreated");
 
 
 

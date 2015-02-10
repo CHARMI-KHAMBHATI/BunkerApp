@@ -1,14 +1,9 @@
 package com.pyrospiral.android.tabbedtimetable;
 
-import android.app.AlarmManager;
 import android.app.DialogFragment;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -21,21 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
-
 
 public class TimeTableEntry extends ActionBarActivity {
 
-    private Calendar monCalStart= Calendar.getInstance();
-    private Calendar tueCalStart= Calendar.getInstance();
-    private Calendar wedCalStart= Calendar.getInstance();
-    private Calendar thuCalStart= Calendar.getInstance();
-    private Calendar friCalStart= Calendar.getInstance();
-    private Calendar monCalEnd= Calendar.getInstance();
-    private Calendar tueCalEnd= Calendar.getInstance();
-    private Calendar wedCalEnd= Calendar.getInstance();
-    private Calendar thuCalEnd= Calendar.getInstance();
-    private Calendar friCalEnd= Calendar.getInstance();
 
     private LinearLayout monTime;
     private LinearLayout tueTime;
@@ -95,9 +78,10 @@ public class TimeTableEntry extends ActionBarActivity {
         monStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Entry", "Button Clicked");
+                Log.e("Entry","Button Clicked");
+                Toast.makeText(getBaseContext(), "yololl", Toast.LENGTH_LONG).show();
                 showTimePickerDialog();
-                TimePicker.updateTime(monStartTime,monCalStart,0);
+                TimePicker.updateTime(monStartTime);
             }
         });
         tueStartTime.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +89,7 @@ public class TimeTableEntry extends ActionBarActivity {
             public void onClick(View v) {
                 Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
-                TimePicker.updateTime(tueStartTime,tueCalStart,1);
+                TimePicker.updateTime(tueStartTime);
             }
         });
         wedStartTime.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +97,7 @@ public class TimeTableEntry extends ActionBarActivity {
             public void onClick(View v) {
                 Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
-                TimePicker.updateTime(wedStartTime,wedCalStart,2);
+                TimePicker.updateTime(wedStartTime);
             }
         });
         thuStartTime.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +105,7 @@ public class TimeTableEntry extends ActionBarActivity {
             public void onClick(View v) {
                 Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
-                TimePicker.updateTime(thuStartTime,thuCalStart,3);
+                TimePicker.updateTime(thuStartTime);
             }
         });
         friStartTime.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +113,7 @@ public class TimeTableEntry extends ActionBarActivity {
             public void onClick(View v) {
                 Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
-                TimePicker.updateTime(friStartTime,friCalStart,4);
+                TimePicker.updateTime(friStartTime);
             }
         });
         monEndTime.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +121,7 @@ public class TimeTableEntry extends ActionBarActivity {
             public void onClick(View v) {
                 Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
-                TimePicker.updateTime(monEndTime,monCalEnd,0);
+                TimePicker.updateTime(monEndTime);
             }
         });
         tueEndTime.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +129,7 @@ public class TimeTableEntry extends ActionBarActivity {
             public void onClick(View v) {
                 Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
-                TimePicker.updateTime(tueEndTime,tueCalEnd,1);
+                TimePicker.updateTime(tueEndTime);
             }
         });
         wedEndTime.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +137,7 @@ public class TimeTableEntry extends ActionBarActivity {
             public void onClick(View v) {
                 Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
-                TimePicker.updateTime(wedEndTime,wedCalEnd,2);
+                TimePicker.updateTime(wedEndTime);
             }
         });
         thuEndTime.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +145,7 @@ public class TimeTableEntry extends ActionBarActivity {
             public void onClick(View v) {
                 Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
-                TimePicker.updateTime(thuEndTime,thuCalEnd,3);
+                TimePicker.updateTime(thuEndTime);
             }
         });
         friEndTime.setOnClickListener(new View.OnClickListener() {
@@ -169,18 +153,17 @@ public class TimeTableEntry extends ActionBarActivity {
             public void onClick(View v) {
                 Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
-                TimePicker.updateTime(friEndTime,friCalEnd,4);
+                TimePicker.updateTime(friEndTime);
             }
         });
 
 
-        final DBAdapterM db=new DBAdapterM(TimeTableEntry.this);
+        final DBAdapter db=new DBAdapter(TimeTableEntry.this);
 
         saves.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.e("Timetable entry","Saving start");
 
                 int flag=0;
 
@@ -193,8 +176,6 @@ public class TimeTableEntry extends ActionBarActivity {
 
                 if(val)
                 {
-                    setAlarm(monCalStart,1);
-                    setAlarm(monCalEnd,2);
                     String start_ts=monStartTime.getText().toString();
                     String end_ts=monEndTime.getText().toString();
                     double start_t=0,end_t=0;
@@ -206,6 +187,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     start_t=start_t+(double)((start_ts.charAt(j+1)-48)*10+(start_ts.charAt(j+2)-48))/60;
 
+                    Toast.makeText(getBaseContext(), "VALUE IS "+start_t+"", Toast.LENGTH_LONG).show();
 
                     for(j=0;end_ts.charAt(j)!=':';j++)
                     {
@@ -227,12 +209,12 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     if(start_t>=end_t || subject_t=="" || teacher_t=="")
                     {
-                        Toast.makeText(getBaseContext(), "Invalid Entry", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "you drunk bro?", Toast.LENGTH_LONG).show();
                         flag=1;
                     }
 
                     if(flag==0)
-                        db.insertContact(subject_t,start_t,end_t,teacher_t);
+                        db.insertContact(subject_t,start_t,end_t,teacher_t,"MONDAY");
 
                     //Toast.makeText(getBaseContext(), "yolo", Toast.LENGTH_LONG).show();
 
@@ -254,15 +236,12 @@ public class TimeTableEntry extends ActionBarActivity {
 
                 //TUESDAY
                 flag=0;
-                final DBAdapterTu dbt=new DBAdapterTu(TimeTableEntry.this);
+
                 bix = (CheckBox) findViewById(R.id.checkBoxTue);
                 val = bix.isChecked();
-                dbt.open();
+                db.open();
                 if(val)
                 {
-
-                    setAlarm(tueCalStart,1);
-                    setAlarm(tueCalEnd,2);
                     String start_ts=tueStartTime.getText().toString();
                     String end_ts=tueEndTime.getText().toString();
                     double start_t=0,end_t=0;
@@ -274,6 +253,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     start_t=start_t+(double)((start_ts.charAt(j+1)-48)*10+(start_ts.charAt(j+2)-48))/60;
 
+                    Toast.makeText(getBaseContext(), "VALUE IS "+start_t+"", Toast.LENGTH_LONG).show();
 
                     for(j=0;end_ts.charAt(j)!=':';j++)
                     {
@@ -295,27 +275,26 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     if(start_t>=end_t || subject_t=="" || teacher_t=="")
                     {
-                        Toast.makeText(getBaseContext(), "Invalid Entry", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "you drunk bro?", Toast.LENGTH_LONG).show();
                         flag=1;
                     }
 
                     if(flag==0)
-                        dbt.insertContact(subject_t,start_t,end_t,teacher_t);
+                        db.insertContact(subject_t,start_t,end_t,teacher_t,"TUESDAY");
 
+                 //   Toast.makeText(getBaseContext(), "OY DUDE", Toast.LENGTH_LONG).show();
 
                 }
-                dbt.close();
+                db.close();
 
                 //WEDNESDAY
                 flag=0;
-                final DBAdapterW dbw=new DBAdapterW(TimeTableEntry.this);
+
                 bix = (CheckBox) findViewById(R.id.checkBoxWed);
                 val = bix.isChecked();
-                dbw.open();
+                db.open();
                 if(val)
                 {
-                    setAlarm(wedCalStart,1);
-                    setAlarm(wedCalEnd,2);
                     String start_ts=wedStartTime.getText().toString();
                     String end_ts=wedEndTime.getText().toString();
                     double start_t=0,end_t=0;
@@ -327,6 +306,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     start_t=start_t+(double)((start_ts.charAt(j+1)-48)*10+(start_ts.charAt(j+2)-48))/60;
 
+                    Toast.makeText(getBaseContext(), "VALUE IS "+start_t+"", Toast.LENGTH_LONG).show();
 
                     for(j=0;end_ts.charAt(j)!=':';j++)
                     {
@@ -348,28 +328,26 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     if(start_t>=end_t || subject_t=="" || teacher_t=="")
                     {
-                        Toast.makeText(getBaseContext(), "Invalid Entry", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "you drunk bro?", Toast.LENGTH_LONG).show();
                         flag=1;
                     }
 
                     if(flag==0)
-                        dbw.insertContact(subject_t,start_t,end_t,teacher_t);
+                        db.insertContact(subject_t,start_t,end_t,teacher_t,"WEDNESDAY");
 
 
 
                 }
-                dbw.close();
+                db.close();
 
                 //THURSDAY
                 flag=0;
-                final DBAdapterTh dbth=new DBAdapterTh(TimeTableEntry.this);
+               // final DBAdapter dbth=new DBAdapter(TimeTableEntry.this);
                 bix = (CheckBox) findViewById(R.id.checkBoxThu);
                 val = bix.isChecked();
-                dbth.open();
+                db.open();
                 if(val)
                 {
-                    setAlarm(thuCalStart,1);
-                    setAlarm(thuCalEnd,2);
                     String start_ts=thuStartTime.getText().toString();
                     String end_ts=thuEndTime.getText().toString();
                     double start_t=0,end_t=0;
@@ -381,6 +359,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     start_t=start_t+(double)((start_ts.charAt(j+1)-48)*10+(start_ts.charAt(j+2)-48))/60;
 
+                    Toast.makeText(getBaseContext(), "VALUE IS "+start_t+"", Toast.LENGTH_LONG).show();
 
                     for(j=0;end_ts.charAt(j)!=':';j++)
                     {
@@ -402,28 +381,26 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     if(start_t>=end_t || subject_t=="" || teacher_t=="")
                     {
-                        Toast.makeText(getBaseContext(), "Invalid Entry", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "you drunk bro?", Toast.LENGTH_LONG).show();
                         flag=1;
                     }
 
                     if(flag==0)
-                        dbth.insertContact(subject_t,start_t,end_t,teacher_t);
+                        db.insertContact(subject_t,start_t,end_t,teacher_t,"THURSDAY");
 
 
 
                 }
-                dbth.close();
+                db.close();
 
                 //FRIDAY
                 flag=0;
-                final DBAdapterF dbf=new DBAdapterF(TimeTableEntry.this);
+                //final DBAdapter dbf=new DBAdapter(TimeTableEntry.this);
                 bix = (CheckBox) findViewById(R.id.checkBoxFri);
                 val = bix.isChecked();
-                dbf.open();
+                db.open();
                 if(val)
                 {
-                    setAlarm(friCalStart,1);
-                    setAlarm(friCalEnd,2);
                     String start_ts=friStartTime.getText().toString();
                     String end_ts=friEndTime.getText().toString();
                     double start_t=0,end_t=0;
@@ -435,6 +412,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     start_t=start_t+(double)((start_ts.charAt(j+1)-48)*10+(start_ts.charAt(j+2)-48))/60;
 
+                    Toast.makeText(getBaseContext(), "VALUE IS "+start_t+"", Toast.LENGTH_LONG).show();
 
                     for(j=0;end_ts.charAt(j)!=':';j++)
                     {
@@ -454,21 +432,22 @@ public class TimeTableEntry extends ActionBarActivity {
                     String teacher_t=teachers.getText().toString();
                     teacher_t=teacher_t.toUpperCase();
 
-                    if(start_t>=end_t || subject_t.equals(""))
+                    if(start_t>=end_t || subject_t=="" || teacher_t=="")
                     {
-                        Toast.makeText(getBaseContext(), "Invalid Entry", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getBaseContext(), "you drunk bro?", Toast.LENGTH_LONG).show();
                         flag=1;
                     }
 
                     if(flag==0)
-                        dbf.insertContact(subject_t,start_t,end_t,teacher_t);
+                        db.insertContact(subject_t,start_t,end_t,teacher_t,"FRIDAY");
 
 
 
                 }
-                dbf.close();
+                db.close();
 
 
+              //  Toast.makeText(getBaseContext(), "yolo", Toast.LENGTH_LONG).show();
 
 
 
@@ -486,6 +465,8 @@ public class TimeTableEntry extends ActionBarActivity {
                         int index1=c.getColumnIndex(DBAttendence.SUBJECT);
                         s=c.getString(index1);
                         subject_t=subject_t.toUpperCase();
+                        Log.e("USER INPUT IS ",subject_t);
+                        Log.e("DATABSE IS ",s);
 
                         if(s.compareTo(subject_t)==0)
                         {
@@ -641,37 +622,4 @@ public class TimeTableEntry extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-    private void setAlarm(Calendar cal, int silenceValue)
-    {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean value = prefs.getBoolean("silent_checkbox", true);
-
-        Log.e("Alarm set"," value "+silenceValue+" "+cal);
-
-        if(value) {
-
-            Intent i = new Intent(this, SilenceReceiver.class).putExtra("value", silenceValue).setAction(""+cal);
-            int a  = i.getIntExtra("value",9);
-            Log.e("intent extra silence "," "+a);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, i, 0);
-
-
-            AlarmManager am2 = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-
-                am2.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY *7, pendingIntent);
-            } else {
-                am2.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY *7,pendingIntent);
-
-            }
-
-
-
-        }
-    }
-
 }

@@ -80,11 +80,8 @@ public class TimeTableFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
 
-        final DBAdapterM dbm=new DBAdapterM(getActivity());
-        final DBAdapterTu dbtu=new DBAdapterTu(getActivity());
-        final DBAdapterW dbw=new DBAdapterW(getActivity());
-        final DBAdapterTh dbth=new DBAdapterTh(getActivity());
-        final DBAdapterF dbf=new DBAdapterF(getActivity());
+        final DBAdapter db=new DBAdapter(getActivity());
+
 
 
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
@@ -94,29 +91,29 @@ public class TimeTableFragment extends ListFragment {
             case 0:
 
                 int i=0;
-                dbm.open();
-                Cursor c = dbm.getAllContacts();
+                db.open();
+                Cursor c = db.getAllContacts("MONDAY");
                 if (c.moveToFirst()) {
                     do {
-                        int index=c.getColumnIndex(DBAdapterM.SUBJECT);
+                        int index=c.getColumnIndex(DBAdapter.SUBJECT);
                         //Log.e("Adesh",c.getString(3));
                         //mSubjects[i] = ;
                         mSubjects[i]=c.getString(index);
                         //int index2=c.getColumnIndex(DBAdapterM.ATTENDANCE);
                         //mAttendances[i]=c.getString(index2);
-                        int index3=c.getColumnIndex(DBAdapterM.TEACHER);
+                        int index3=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index3);
                         //Log.e("ss",mSubjects[i]);
                        // int index4=c.getColumnIndex(DBAdapterM.ATTENDANCE);
                         //mAttendances[i]=c.getString(index4);
 
-                        int index5=c.getColumnIndex(DBAdapterM.TEACHER);
+                        int index5=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index5);
 
-                        int index6=c.getColumnIndex(DBAdapterM.ASSIGNMENT);
+                        int index6=c.getColumnIndex(DBAdapter.ASSIGNMENT);
                         mAssignments[i]=false;
 
-                        int index7=c.getColumnIndex(DBAdapterM.START_TIME);
+                        int index7=c.getColumnIndex(DBAdapter.START_TIME);
                         double a=Double.parseDouble(c.getString(index7));
                         int x=(int)a;
                         a=a-x;
@@ -128,7 +125,7 @@ public class TimeTableFragment extends ListFragment {
                         else
                             mTimings[i]=Integer.toString(x)+":"+Integer.toString(y);
 
-                        int index8=c.getColumnIndex(DBAdapterM.END_TIME);
+                        int index8=c.getColumnIndex(DBAdapter.END_TIME);
 
                         a=Double.parseDouble(c.getString(index8));
                         x=(int)a;
@@ -152,7 +149,7 @@ public class TimeTableFragment extends ListFragment {
 
                     } while (c.moveToNext());
                 }
-                dbm.close();
+                db.close();
 
 
 
@@ -168,29 +165,29 @@ public class TimeTableFragment extends ListFragment {
             case 1:
 
                 i=0;
-                dbtu.open();
-                c = dbtu.getAllContacts();
+                db.open();
+                c = db.getAllContacts("TUESDAY");
                 if (c.moveToFirst()) {
                     do {
-                        int index=c.getColumnIndex(DBAdapterTu.SUBJECT);
+                        int index=c.getColumnIndex(DBAdapter.SUBJECT);
                         //Log.e("Adesh",c.getString(3));
                         //mSubjects[i] = ;
                         mSubjects[i]=c.getString(index);
                         //int index2=c.getColumnIndex(DBAdapterM.ATTENDANCE);
                         //mAttendances[i]=c.getString(index2);
-                        int index3=c.getColumnIndex(DBAdapterTu.TEACHER);
+                        int index3=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index3);
                         //Log.e("ss",mSubjects[i]);
                        // int index4=c.getColumnIndex(DBAdapterTu.ATTENDANCE);
                         //mAttendances[i]=c.getString(index4);
 
-                        int index5=c.getColumnIndex(DBAdapterTu.TEACHER);
+                        int index5=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index5);
 
-                        int index6=c.getColumnIndex(DBAdapterTu.ASSIGNMENT);
+                        int index6=c.getColumnIndex(DBAdapter.ASSIGNMENT);
                         mAssignments[i]=false;
 
-                        int index7=c.getColumnIndex(DBAdapterTu.START_TIME);
+                        int index7=c.getColumnIndex(DBAdapter.START_TIME);
                         double a=Double.parseDouble(c.getString(index7));
                         int x=(int)a;
                         a=a-x;
@@ -202,7 +199,7 @@ public class TimeTableFragment extends ListFragment {
                         else
                             mTimings[i]=Integer.toString(x)+":"+Integer.toString(y);
 
-                        int index8=c.getColumnIndex(DBAdapterTu.END_TIME);
+                        int index8=c.getColumnIndex(DBAdapter.END_TIME);
 
                         a=Double.parseDouble(c.getString(index8));
                         x=(int)a;
@@ -220,7 +217,7 @@ public class TimeTableFragment extends ListFragment {
 
                     } while (c.moveToNext());
                 }
-                dbtu.close();
+                db.close();
 
 
 
@@ -230,29 +227,29 @@ public class TimeTableFragment extends ListFragment {
                 break;
             case 2:
                 i=0;
-                dbw.open();
-                c = dbw.getAllContacts();
+                db.open();
+                c = db.getAllContacts("WEDNESDAY");
                 if (c.moveToFirst()) {
                     do {
-                        int index=c.getColumnIndex(DBAdapterW.SUBJECT);
+                        int index=c.getColumnIndex(DBAdapter.SUBJECT);
                         //Log.e("Adesh",c.getString(3));
                         //mSubjects[i] = ;
                         mSubjects[i]=c.getString(index);
                         //int index2=c.getColumnIndex(DBAdapterM.ATTENDANCE);
                         //mAttendances[i]=c.getString(index2);
-                        int index3=c.getColumnIndex(DBAdapterW.TEACHER);
+                        int index3=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index3);
                         //Log.e("ss",mSubjects[i]);
                         //int index4=c.getColumnIndex(DBAdapterW.ATTENDANCE);
                         //mAttendances[i]=c.getString(index4);
 
-                        int index5=c.getColumnIndex(DBAdapterW.TEACHER);
+                        int index5=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index5);
 
-                        int index6=c.getColumnIndex(DBAdapterW.ASSIGNMENT);
+                        int index6=c.getColumnIndex(DBAdapter.ASSIGNMENT);
                         mAssignments[i]=false;
 
-                        int index7=c.getColumnIndex(DBAdapterW.START_TIME);
+                        int index7=c.getColumnIndex(DBAdapter.START_TIME);
                         double a=Double.parseDouble(c.getString(index7));
                         int x=(int)a;
                         a=a-x;
@@ -264,7 +261,7 @@ public class TimeTableFragment extends ListFragment {
                         else
                             mTimings[i]=Integer.toString(x)+":"+Integer.toString(y);
 
-                        int index8=c.getColumnIndex(DBAdapterW.END_TIME);
+                        int index8=c.getColumnIndex(DBAdapter.END_TIME);
 
                         a=Double.parseDouble(c.getString(index8));
                         x=(int)a;
@@ -283,34 +280,34 @@ public class TimeTableFragment extends ListFragment {
 
                     } while (c.moveToNext());
                 }
-                dbw.close();
+                db.close();
 
                 break;
             case 3:
                 i=0;
-                dbth.open();
-                c = dbth.getAllContacts();
+                db.open();
+                c = db.getAllContacts("THURSDAY");
                 if (c.moveToFirst()) {
                     do {
-                        int index=c.getColumnIndex(DBAdapterTh.SUBJECT);
+                        int index=c.getColumnIndex(DBAdapter.SUBJECT);
                         //Log.e("Adesh",c.getString(3));
                         //mSubjects[i] = ;
                         mSubjects[i]=c.getString(index);
                         //int index2=c.getColumnIndex(DBAdapterM.ATTENDANCE);
                         //mAttendances[i]=c.getString(index2);
-                        int index3=c.getColumnIndex(DBAdapterTh.TEACHER);
+                        int index3=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index3);
                         //Log.e("ss",mSubjects[i]);
                         //int index4=c.getColumnIndex(DBAdapterTh.ATTENDANCE);
                         //mAttendances[i]=c.getString(index4);
 
-                        int index5=c.getColumnIndex(DBAdapterTh.TEACHER);
+                        int index5=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index5);
 
-                        int index6=c.getColumnIndex(DBAdapterTh.ASSIGNMENT);
+                        int index6=c.getColumnIndex(DBAdapter.ASSIGNMENT);
                         mAssignments[i]=false;
 
-                        int index7=c.getColumnIndex(DBAdapterTh.START_TIME);
+                        int index7=c.getColumnIndex(DBAdapter.START_TIME);
                         double a=Double.parseDouble(c.getString(index7));
                         int x=(int)a;
                         a=a-x;
@@ -322,7 +319,7 @@ public class TimeTableFragment extends ListFragment {
                         else
                             mTimings[i]=Integer.toString(x)+":"+Integer.toString(y);
 
-                        int index8=c.getColumnIndex(DBAdapterTh.END_TIME);
+                        int index8=c.getColumnIndex(DBAdapter.END_TIME);
 
                         a=Double.parseDouble(c.getString(index8));
                         x=(int)a;
@@ -341,33 +338,33 @@ public class TimeTableFragment extends ListFragment {
 
                     } while (c.moveToNext());
                 }
-                dbth.close();
+                db.close();
                 break;
             case 4:
                 i=0;
-                dbf.open();
-                c = dbf.getAllContacts();
+                db.open();
+                c = db.getAllContacts("FRIDAY");
                 if (c.moveToFirst()) {
                     do {
-                        int index=c.getColumnIndex(DBAdapterF.SUBJECT);
+                        int index=c.getColumnIndex(DBAdapter.SUBJECT);
                         //Log.e("Adesh",c.getString(3));
                         //mSubjects[i] = ;
                         mSubjects[i]=c.getString(index);
                         //int index2=c.getColumnIndex(DBAdapterM.ATTENDANCE);
                         //mAttendances[i]=c.getString(index2);
-                        int index3=c.getColumnIndex(DBAdapterF.TEACHER);
+                        int index3=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index3);
                         //Log.e("ss",mSubjects[i]);
                        // int index4=c.getColumnIndex(DBAdapterF.ATTENDANCE);
                        // mAttendances[i]=c.getString(index4);
 
-                        int index5=c.getColumnIndex(DBAdapterF.TEACHER);
+                        int index5=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index5);
 
-                        int index6=c.getColumnIndex(DBAdapterF.ASSIGNMENT);
+                        int index6=c.getColumnIndex(DBAdapter.ASSIGNMENT);
                         mAssignments[i]=false;
 
-                        int index7=c.getColumnIndex(DBAdapterF.START_TIME);
+                        int index7=c.getColumnIndex(DBAdapter.START_TIME);
                         double a=Double.parseDouble(c.getString(index7));
                         int x=(int)a;
                         a=a-x;
@@ -379,7 +376,7 @@ public class TimeTableFragment extends ListFragment {
                         else
                             mTimings[i]=Integer.toString(x)+":"+Integer.toString(y);
 
-                        int index8=c.getColumnIndex(DBAdapterF.END_TIME);
+                        int index8=c.getColumnIndex(DBAdapter.END_TIME);
 
                         a=Double.parseDouble(c.getString(index8));
                         x=(int)a;
@@ -396,7 +393,7 @@ public class TimeTableFragment extends ListFragment {
 
                     } while (c.moveToNext());
                 }
-                dbf.close();
+                db.close();
                 break;
 
             default:
@@ -408,7 +405,7 @@ public class TimeTableFragment extends ListFragment {
                 break;
 
         }
-        dbm.close();
+        db.close();
 
 
         list = new TimeTableArrayList(mSubjects, mAssignments, mAttendances, mTeachers,mTimings);

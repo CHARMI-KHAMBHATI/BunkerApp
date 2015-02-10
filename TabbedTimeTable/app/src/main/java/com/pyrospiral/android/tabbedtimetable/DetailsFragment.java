@@ -54,11 +54,8 @@ public class DetailsFragment extends Fragment {
         cb = (TextView) rootView.findViewById(R.id.classCanBunk);
 
 
-        final DBAdapterM dbm=new DBAdapterM(getActivity());
-        final DBAdapterTu dbtu=new DBAdapterTu(getActivity());
-        final DBAdapterW dbw=new DBAdapterW(getActivity());
-        final DBAdapterTh dbth=new DBAdapterTh(getActivity());
-        final DBAdapterF dbf=new DBAdapterF(getActivity());
+        final DBAdapter db=new DBAdapter(getActivity());
+
         final DBAttendence dba=new DBAttendence(getActivity());
 
         subject=check;
@@ -67,15 +64,15 @@ public class DetailsFragment extends Fragment {
 
 
        Cursor c,c2;
-        dbm.open();
-        c=dbm.getPosition(check);
+        db.open();
+        c=db.getPosition(check,"MONDAY");
 
         if(c.moveToFirst())
         {
             do{
                 //subject=subject+c.getString(c.getColumnIndex(DBAdapterM.SUBJECT))+"  ";
-                teacher=teacher+c.getString(c.getColumnIndex(DBAdapterM.TEACHER))+"  ";
-                int index7=c.getColumnIndex(DBAdapterM.START_TIME);
+                teacher=teacher+c.getString(c.getColumnIndex(DBAdapter.TEACHER))+"  ";
+                int index7=c.getColumnIndex(DBAdapter.START_TIME);
                 double a=Double.parseDouble(c.getString(index7));
                 int x=(int)a;
                 a=a-x;
@@ -87,7 +84,7 @@ public class DetailsFragment extends Fragment {
                 else
                     timingss=Integer.toString(x)+":"+Integer.toString(y);
 
-                int index8=c.getColumnIndex(DBAdapterM.END_TIME);
+                int index8=c.getColumnIndex(DBAdapter.END_TIME);
 
                 a=Double.parseDouble(c.getString(index8));
                 x=(int)a;
@@ -110,17 +107,17 @@ public class DetailsFragment extends Fragment {
 
             }while(c.moveToNext());
         }
-        dbm.close();
+        db.close();
 
-        dbtu.open();
-        c=dbtu.getPosition(check);
+        db.open();
+        c=db.getPosition(check,"TUESDAY");
 
         if(c.moveToFirst())
         {
             do{
                 //subject=subject+c.getString(c.getColumnIndex(DBAdapterTu.SUBJECT))+"  ";
-                teacher=teacher+c.getString(c.getColumnIndex(DBAdapterTu.TEACHER))+"  ";
-                int index7=c.getColumnIndex(DBAdapterTu.START_TIME);
+                teacher=teacher+c.getString(c.getColumnIndex(DBAdapter.TEACHER))+"  ";
+                int index7=c.getColumnIndex(DBAdapter.START_TIME);
                 double a=Double.parseDouble(c.getString(index7));
                 int x=(int)a;
                 a=a-x;
@@ -132,7 +129,7 @@ public class DetailsFragment extends Fragment {
                 else
                     timingss=Integer.toString(x)+":"+Integer.toString(y);
 
-                int index8=c.getColumnIndex(DBAdapterTu.END_TIME);
+                int index8=c.getColumnIndex(DBAdapter.END_TIME);
 
                 a=Double.parseDouble(c.getString(index8));
                 x=(int)a;
@@ -155,19 +152,19 @@ public class DetailsFragment extends Fragment {
 
             }while(c.moveToNext());
         }
-        dbtu.close();
+        db.close();
 
 
 
-        dbw.open();
-        c=dbw.getPosition(check);
+        db.open();
+        c=db.getPosition(check,"WEDNESDAY");
 
         if(c.moveToFirst())
         {
             do{
                // subject=subject+c.getString(c.getColumnIndex(DBAdapterW.SUBJECT))+"  ";
-                teacher=teacher+c.getString(c.getColumnIndex(DBAdapterW.TEACHER))+"  ";
-                int index7=c.getColumnIndex(DBAdapterW.START_TIME);
+                teacher=teacher+c.getString(c.getColumnIndex(DBAdapter.TEACHER))+"  ";
+                int index7=c.getColumnIndex(DBAdapter.START_TIME);
                 double a=Double.parseDouble(c.getString(index7));
                 int x=(int)a;
                 a=a-x;
@@ -179,7 +176,7 @@ public class DetailsFragment extends Fragment {
                 else
                     timingss=Integer.toString(x)+":"+Integer.toString(y);
 
-                int index8=c.getColumnIndex(DBAdapterW.END_TIME);
+                int index8=c.getColumnIndex(DBAdapter.END_TIME);
 
                 a=Double.parseDouble(c.getString(index8));
                 x=(int)a;
@@ -202,17 +199,17 @@ public class DetailsFragment extends Fragment {
 
             }while(c.moveToNext());
         }
-        dbw.close();
+        db.close();
 
-        dbth.open();
-        c=dbth.getPosition(check);
+        db.open();
+        c=db.getPosition(check,"THURSDAY");
 
         if(c.moveToFirst())
         {
             do{
                 //subject=subject+c.getString(c.getColumnIndex(DBAdapterTh.SUBJECT))+"  ";
-                teacher=teacher+c.getString(c.getColumnIndex(DBAdapterTh.TEACHER))+"  ";
-                int index7=c.getColumnIndex(DBAdapterTh.START_TIME);
+                teacher=teacher+c.getString(c.getColumnIndex(DBAdapter.TEACHER))+"  ";
+                int index7=c.getColumnIndex(DBAdapter.START_TIME);
                 double a=Double.parseDouble(c.getString(index7));
                 int x=(int)a;
                 a=a-x;
@@ -224,7 +221,7 @@ public class DetailsFragment extends Fragment {
                 else
                     timingss=Integer.toString(x)+":"+Integer.toString(y);
 
-                int index8=c.getColumnIndex(DBAdapterTh.END_TIME);
+                int index8=c.getColumnIndex(DBAdapter.END_TIME);
 
                 a=Double.parseDouble(c.getString(index8));
                 x=(int)a;
@@ -247,17 +244,17 @@ public class DetailsFragment extends Fragment {
 
             }while(c.moveToNext());
         }
-        dbth.close();
+        db.close();
 
-        dbf.open();
-        c=dbf.getPosition(check);
+        db.open();
+        c=db.getPosition(check,"FRIDAY");
 
         if(c.moveToFirst())
         {
             do{
                 //subject=subject+c.getString(c.getColumnIndex(DBAdapterF.SUBJECT))+"  ";
-                teacher=teacher+c.getString(c.getColumnIndex(DBAdapterF.TEACHER))+"  ";
-                int index7=c.getColumnIndex(DBAdapterF.START_TIME);
+                teacher=teacher+c.getString(c.getColumnIndex(DBAdapter.TEACHER))+"  ";
+                int index7=c.getColumnIndex(DBAdapter.START_TIME);
                 double a=Double.parseDouble(c.getString(index7));
                 int x=(int)a;
                 a=a-x;
@@ -269,7 +266,7 @@ public class DetailsFragment extends Fragment {
                 else
                     timingss=Integer.toString(x)+":"+Integer.toString(y);
 
-                int index8=c.getColumnIndex(DBAdapterF.END_TIME);
+                int index8=c.getColumnIndex(DBAdapter.END_TIME);
 
                 a=Double.parseDouble(c.getString(index8));
                 x=(int)a;
@@ -292,7 +289,7 @@ public class DetailsFragment extends Fragment {
 
             }while(c.moveToNext());
         }
-        dbf.close();
+        db.close();
 
 
         dba.open();

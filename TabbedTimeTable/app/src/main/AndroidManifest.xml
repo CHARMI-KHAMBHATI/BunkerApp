@@ -1,76 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pyrospiral.android.tabbedtimetable">
+    package="com.pyrospiral.android.tabbedtimetable" >
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".TimeTableWeek"
             android:configChanges="orientation"
             android:label="@string/title_activity_time_table_week"
-            android:screenOrientation="landscape">
-            </activity>
-
+            android:screenOrientation="landscape" >
+        </activity>
         <activity
             android:name=".TimeTableEntry"
             android:configChanges="orientation"
             android:label="@string/title_activity_time_table_entry"
-            android:screenOrientation="portrait">
-            </activity>
-
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name=".SubjectDetail"
             android:label="@string/title_activity_subject_detail"
             android:parentActivityName=".MainActivity">
-
-            </activity>
-
+        </activity>
         <activity
             android:name=".AssignmentEntry"
             android:configChanges="orientation"
             android:label="@string/title_activity_assignment_entry"
-            android:screenOrientation="portrait">
-            </activity>
-
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name=".SubjectRemoveActivity"
-            android:label="@string/title_activity_subject_remove">
-            </activity>
+            android:label="@string/title_activity_subject_remove" >
+        </activity>
 
         <service
             android:name=".NotificationMaker"
-            android:label="@string/title_activity_notification_maker">
-            </service>
+            android:label="@string/title_activity_notification_maker" >
+        </service>
 
-
+        <service
+            android:name=".SilenceService"
+            android:label="SilenceService" >
+        </service>
 
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings">
-            </activity>
+            android:label="@string/title_activity_settings" >
+        </activity>
 
         <activity
             android:name=".FillAttendance"
-            android:label="@string/title_activity_fill_attendance">
-            </activity>
-
-        <receiver
-            android:name=".SilenceReceiver">
-        </receiver>
-
-
+            android:label="@string/title_activity_fill_attendance" >
+        </activity>
     </application>
 
 </manifest>

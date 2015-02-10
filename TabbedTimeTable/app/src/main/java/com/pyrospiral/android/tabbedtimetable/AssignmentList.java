@@ -150,26 +150,26 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
     }
 
 
-    @Override
+   @Override
     public void onResume(
-    ){
+                         ){
 
-        super.onResume();
+       super.onResume();
         Log.e("","onResume");
-        Log.e("","value of doing is "+doing+"");
-        if(doing==0) {
+       Log.e("","value of doing is "+doing+"");
+       if(doing==0) {
 
-            final FragmentManager fragmentManager = getFragmentManager();
-
-
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, new AssignmentList())
-                    .commit();
-
-            //    return rootView;
-        }
+           final FragmentManager fragmentManager = getFragmentManager();
 
 
+           fragmentManager.beginTransaction()
+                   .replace(R.id.container, new AssignmentList())
+                   .commit();
+
+           //    return rootView;
+       }
+
+        
 
     }
 
@@ -212,8 +212,8 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
         buttona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // onDestroyView();
-                // fragmentTransaction.remove(yourfragment).commit()
+               // onDestroyView();
+               // fragmentTransaction.remove(yourfragment).commit()
 
                 doing=0;
 
@@ -292,7 +292,7 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
                                     Log.e("set position",""+position);
                                     //Create Snackbar
-                                    new SnackBar.Builder(getActivity().getApplicationContext(), rootView)
+                                   new SnackBar.Builder(getActivity().getApplicationContext(), rootView)
                                             .withMessage("Assignment Deleted.")
                                             .withActionMessage("UNDO")
                                             .withOnClickListener(AssignmentList.this)
