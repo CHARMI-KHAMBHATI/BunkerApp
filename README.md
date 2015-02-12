@@ -6,8 +6,8 @@ This is an android application project, created as a utility for college student
 
 # Team
 
-Kushagra Chauhan yo
+Kushagra Chauhan 
 
-Adesh Kala YO
+Adesh Kala
 
 Rahul Kanojia
