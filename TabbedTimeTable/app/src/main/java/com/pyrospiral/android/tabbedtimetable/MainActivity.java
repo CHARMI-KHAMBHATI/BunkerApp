@@ -44,15 +44,16 @@ public class MainActivity extends ActionBarActivity {
         //FOR DAILY ATTENDANCE NOTIFICATION
 
         Calendar calendar = Calendar.getInstance();
+        Intent intent1 = new Intent(this,NotificationMaker.class);
 
-        calendar.set(Calendar.HOUR_OF_DAY, 21); // For 1 PM or 2 PM
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        PendingIntent pi = PendingIntent.getService(this, 0,
-                new Intent(this, NotificationMaker.class),PendingIntent.FLAG_UPDATE_CURRENT);
+        calendar.set(Calendar.HOUR_OF_DAY, 22); // For 9PM
+        calendar.set(Calendar.MINUTE, 29);
+        calendar.set(Calendar.SECOND, 00);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, pi);
+                AlarmManager.INTERVAL_DAY, pendingIntent);
 
 
         //FOR SILENCING PHONE

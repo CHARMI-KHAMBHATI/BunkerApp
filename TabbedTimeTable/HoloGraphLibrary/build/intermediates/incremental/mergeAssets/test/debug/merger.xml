@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="debug"><source path="/Users/adeshkala/Documents/workspaces_git/BunkerApp/TabbedTimeTable/HoloGraphLibrary/build/intermediates/bundles/debug/assets"/></dataSet><dataSet config="main"><source path="/Users/adeshkala/Documents/workspaces_git/BunkerApp/TabbedTimeTable/HoloGraphLibrary/src/androidTest/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="debug"><source path="/home/kaano8/new_github_project/TabbedTimeTable/HoloGraphLibrary/build/intermediates/bundles/debug/assets"/></dataSet><dataSet config="main"><source path="/home/kaano8/new_github_project/TabbedTimeTable/HoloGraphLibrary/src/androidTest/assets"/></dataSet></merger>
