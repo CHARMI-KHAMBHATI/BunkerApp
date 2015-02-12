@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,11 +40,49 @@ public class AssignmentEntry extends ActionBarActivity {
             }
         });
 
+        final DBAttendence dba=new DBAttendence(AssignmentEntry.this);
+        int i=0;
+        dba.open();
+        Cursor c=dba.getAllContacts();
+        if(c.moveToFirst()){
+            do{
+                i++;
 
+            }while (c.moveToNext());
+
+        }
+
+        final String[] COUNTRIES = new String[i];
+
+        i=0;
+
+
+        c=dba.getAllContacts();
+        if(c.moveToFirst()){
+            do{
+
+
+                int index=c.getColumnIndex(DBAttendence.SUBJECT);
+                COUNTRIES[i]=c.getString(index);
+                Log.e("","what is "+COUNTRIES[i]);
+                i++;
+
+
+
+
+            }while (c.moveToNext());
+
+        }
+        dba.close();
         Button saves=(Button)findViewById(R.id.save_ass);
         Button discards=(Button)findViewById(R.id.discard_ass);
 
-        final EditText subject=(EditText)findViewById(R.id.subject_ass);
+       // final EditText subject=(EditText)findViewById(R.id.subject_ass);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+        final AutoCompleteTextView subject = (AutoCompleteTextView)
+                findViewById(R.id.subject_ass);
+        subject.setAdapter(adapter);
         final EditText assignment=(EditText)findViewById(R.id.assignment_ass);
         final TextView time=(TextView)findViewById(R.id.dueDate);
 
@@ -86,6 +127,8 @@ public class AssignmentEntry extends ActionBarActivity {
 
 
     }
+
+
 
 
     public void showDatePickerDialog() {
