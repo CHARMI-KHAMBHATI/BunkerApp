@@ -16,13 +16,13 @@ import java.util.Calendar;
  */
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
-   int pHour;
-   int pMinute;
+    int pHour;
+    int pMinute;
 
-   int day;
+    int day;
 
-   TextView text;
-   Calendar cal;
+    TextView text;
+    Calendar cal;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -68,7 +68,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         cal.set(Calendar.MINUTE, pMinute);
         cal.set(Calendar.SECOND, 0);
 
-        Log.e("Timepicker","calender "+cal);
 
         text.setText(
                 new StringBuilder()

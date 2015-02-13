@@ -113,7 +113,7 @@ public class SubjectRemoveActivity extends ActionBarActivity {
 
                 dba.close();
 
-                final DBAdapterM dbm = new DBAdapterM(SubjectRemoveActivity.this);
+                final DBAdapter dbm = new DBAdapter(SubjectRemoveActivity.this);
                 dbm.open();
 
                 dbm.deleteContact(subname[x]);
@@ -122,39 +122,6 @@ public class SubjectRemoveActivity extends ActionBarActivity {
 
                 //tuesday
 
-                final DBAdapterTu dbtu = new DBAdapterTu(SubjectRemoveActivity.this);
-                dbtu.open();
-
-                dbtu.deleteContact(subname[x]);
-
-                dbtu.close();
-
-                //wednesday
-
-                final DBAdapterW dbw = new DBAdapterW(SubjectRemoveActivity.this);
-                dbw.open();
-
-                dbw.deleteContact(subname[x]);
-
-                dbw.close();
-
-                //thursday
-
-                final DBAdapterTh dbth = new DBAdapterTh(SubjectRemoveActivity.this);
-                dbth.open();
-
-                dbth.deleteContact(subname[x]);
-
-                dbth.close();
-
-                //friday
-
-                final DBAdapterF dbf = new DBAdapterF(SubjectRemoveActivity.this);
-                dbf.open();
-
-                dbf.deleteContact(subname[x]);
-
-                dbf.close();
 
             }
         });

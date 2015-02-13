@@ -50,4 +50,6 @@
     <string name="title_activity_details">Details</string>
     <string name="title_activity_fill_attendance">FillAttendance</string>
 
+    <!-- Strings related to fragment details -->
+    <string name="taughtBy" translatable="false">Taught By</string>
 </resources>

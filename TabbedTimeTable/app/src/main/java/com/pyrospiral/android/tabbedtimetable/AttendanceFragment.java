@@ -56,16 +56,16 @@ public class AttendanceFragment extends Fragment {
             case Calendar.MONDAY:
 
                 i = 0;
-                final DBAdapterM dbm = new DBAdapterM(getActivity());
+                final DBAdapter dbm = new DBAdapter(getActivity());
                 dbm.open();
-                Cursor c = dbm.getAllContacts();
+                Cursor c = dbm.getAllContacts("MONDAY");
                 if (c.moveToFirst()) {
                     do {
                         flag = 0;
-                        index9 = c.getColumnIndex(DBAdapterM.DAY);
-                        index10 = c.getColumnIndex(DBAdapterM.DONE);
+                        index9 = c.getColumnIndex(DBAdapter.DAY);
+                        index10 = c.getColumnIndex(DBAdapter.DONE);
                         day_get = c.getDouble(index9);
-                        index11 = c.getColumnIndex(DBAdapterM.ROW_ID);
+                        index11 = c.getColumnIndex(DBAdapter.ROW_ID);
                         done = c.getDouble(index10);
                         int x = calendar.get(Calendar.DATE);
                         if (x == day_get) {
@@ -77,27 +77,27 @@ public class AttendanceFragment extends Fragment {
                             }
 
                         } else {
-                            dbm.updateContact(c.getInt(index11), x,0);
+                            dbm.updateContact(c.getInt(index11), x,0,"MONDAY");
                         }
                     } while (c.moveToNext());
                 }
                 i=0;
-                c=dbm.getAllContacts();
+                c=dbm.getAllContacts("MONDAY");
                 if(c.moveToFirst() ){
                     do{
                         int x;
 
-                        if(c.getInt(c.getColumnIndex(DBAdapterM.DONE))==1)
+                        if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
                             continue;
 
-                        index9 = c.getColumnIndex(DBAdapterM.DAY);
+                        index9 = c.getColumnIndex(DBAdapter.DAY);
                         //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
-                        index1 = c.getColumnIndex(DBAdapterM.SUBJECT);
+                        index1 = c.getColumnIndex(DBAdapter.SUBJECT);
                         subName[i] = c.getString(index1);
-                        index2 = c.getColumnIndex(DBAdapterM.TEACHER);
+                        index2 = c.getColumnIndex(DBAdapter.TEACHER);
                         teacherName[i] = c.getString(index2);
 
-                        index3 = c.getColumnIndex(DBAdapterM.START_TIME);
+                        index3 = c.getColumnIndex(DBAdapter.START_TIME);
                         double a = Double.parseDouble(c.getString(index3));
                         x = (int) a;
                         a = a - x;
@@ -109,7 +109,7 @@ public class AttendanceFragment extends Fragment {
                         else
                             timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
 
-                        index4 = c.getColumnIndex(DBAdapterM.END_TIME);
+                        index4 = c.getColumnIndex(DBAdapter.END_TIME);
 
                         a = Double.parseDouble(c.getString(index4));
                         x = (int) a;
@@ -136,16 +136,16 @@ public class AttendanceFragment extends Fragment {
 
 
                             i = 0;
-                            final DBAdapterTu dbtu = new DBAdapterTu(getActivity());
+                            final DBAdapter dbtu = new DBAdapter(getActivity());
                             dbtu.open();
-                             c = dbtu.getAllContacts();
+                             c = dbtu.getAllContacts("TUESDAY");
                             if (c.moveToFirst()) {
                                 do {
                                     flag = 0;
-                                    index9 = c.getColumnIndex(DBAdapterTu.DAY);
-                                    index10 = c.getColumnIndex(DBAdapterTu.DONE);
+                                    index9 = c.getColumnIndex(DBAdapter.DAY);
+                                    index10 = c.getColumnIndex(DBAdapter.DONE);
                                     day_get = c.getDouble(index9);
-                                    index11 = c.getColumnIndex(DBAdapterTu.ROW_ID);
+                                    index11 = c.getColumnIndex(DBAdapter.ROW_ID);
                                     done = c.getDouble(index10);
                                     int x = calendar.get(Calendar.DATE);
                                     if (x == day_get) {
@@ -157,27 +157,27 @@ public class AttendanceFragment extends Fragment {
                                         }
 
                                     } else {
-                                        dbtu.updateContact(c.getInt(index11),x,0);
+                                        dbtu.updateContact(c.getInt(index11),x,0,"TUESDAY");
                                     }
                                 } while (c.moveToNext());
                             }
                             i=0;
-                            c=dbtu.getAllContacts();
+                            c=dbtu.getAllContacts("TUESDAY");
                             if(c.moveToFirst() ){
                                 do{
                                     int x;
 
-                                    if(c.getInt(c.getColumnIndex(DBAdapterTu.DONE))==1)
+                                    if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
                                         continue;
 
-                                    index9 = c.getColumnIndex(DBAdapterTu.DAY);
+                                    index9 = c.getColumnIndex(DBAdapter.DAY);
                                     //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
-                                    index1 = c.getColumnIndex(DBAdapterTu.SUBJECT);
+                                    index1 = c.getColumnIndex(DBAdapter.SUBJECT);
                                     subName[i] = c.getString(index1);
-                                    index2 = c.getColumnIndex(DBAdapterTu.TEACHER);
+                                    index2 = c.getColumnIndex(DBAdapter.TEACHER);
                                     teacherName[i] = c.getString(index2);
 
-                                    index3 = c.getColumnIndex(DBAdapterTu.START_TIME);
+                                    index3 = c.getColumnIndex(DBAdapter.START_TIME);
                                     double a = Double.parseDouble(c.getString(index3));
                                     x = (int) a;
                                     a = a - x;
@@ -189,7 +189,7 @@ public class AttendanceFragment extends Fragment {
                                     else
                                         timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
 
-                                    index4 = c.getColumnIndex(DBAdapterTu.END_TIME);
+                                    index4 = c.getColumnIndex(DBAdapter.END_TIME);
 
                                     a = Double.parseDouble(c.getString(index4));
                                     x = (int) a;
@@ -215,16 +215,16 @@ public class AttendanceFragment extends Fragment {
                         case Calendar.WEDNESDAY:
 
                             i = 0;
-                            final DBAdapterW dbw = new DBAdapterW(getActivity());
+                            final DBAdapter dbw = new DBAdapter(getActivity());
                             dbw.open();
-                            c = dbw.getAllContacts();
+                            c = dbw.getAllContacts("WEDNESDAY");
                             if (c.moveToFirst()) {
                                 do {
                                     flag = 0;
-                                    index9 = c.getColumnIndex(DBAdapterW.DAY);
-                                    index10 = c.getColumnIndex(DBAdapterW.DONE);
+                                    index9 = c.getColumnIndex(DBAdapter.DAY);
+                                    index10 = c.getColumnIndex(DBAdapter.DONE);
                                     day_get = c.getDouble(index9);
-                                    index11 = c.getColumnIndex(DBAdapterW.ROW_ID);
+                                    index11 = c.getColumnIndex(DBAdapter.ROW_ID);
                                     done = c.getDouble(index10);
                                     int x = calendar.get(Calendar.DATE);
                                     if (x == day_get) {
@@ -236,27 +236,27 @@ public class AttendanceFragment extends Fragment {
                                         }
 
                                     } else {
-                                        dbw.updateContact(c.getInt(index11), x,0);
+                                        dbw.updateContact(c.getInt(index11), x,0,"WEDNESDAY");
                                     }
                                 } while (c.moveToNext());
                             }
                             i=0;
-                            c=dbw.getAllContacts();
+                            c=dbw.getAllContacts("WEDNESDAY");
                             if(c.moveToFirst() ){
                                 do{
                                     int x;
 
-                                    if(c.getInt(c.getColumnIndex(DBAdapterW.DONE))==1)
+                                    if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
                                         continue;
 
-                                    index9 = c.getColumnIndex(DBAdapterW.DAY);
+                                    index9 = c.getColumnIndex(DBAdapter.DAY);
                                     //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
-                                    index1 = c.getColumnIndex(DBAdapterW.SUBJECT);
+                                    index1 = c.getColumnIndex(DBAdapter.SUBJECT);
                                     subName[i] = c.getString(index1);
-                                    index2 = c.getColumnIndex(DBAdapterW.TEACHER);
+                                    index2 = c.getColumnIndex(DBAdapter.TEACHER);
                                     teacherName[i] = c.getString(index2);
 
-                                    index3 = c.getColumnIndex(DBAdapterW.START_TIME);
+                                    index3 = c.getColumnIndex(DBAdapter.START_TIME);
                                     double a = Double.parseDouble(c.getString(index3));
                                     x = (int) a;
                                     a = a - x;
@@ -268,7 +268,7 @@ public class AttendanceFragment extends Fragment {
                                     else
                                         timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
 
-                                    index4 = c.getColumnIndex(DBAdapterW.END_TIME);
+                                    index4 = c.getColumnIndex(DBAdapter.END_TIME);
 
                                     a = Double.parseDouble(c.getString(index4));
                                     x = (int) a;
@@ -296,16 +296,16 @@ public class AttendanceFragment extends Fragment {
 
 
                             i = 0;
-                            final DBAdapterTh dbth = new DBAdapterTh(getActivity());
+                            final DBAdapter dbth = new DBAdapter(getActivity());
                             dbth.open();
-                            c = dbth.getAllContacts();
+                            c = dbth.getAllContacts("THURSDAY");
                             if (c.moveToFirst()) {
                                 do {
                                     flag = 0;
-                                    index9 = c.getColumnIndex(DBAdapterTh.DAY);
-                                    index10 = c.getColumnIndex(DBAdapterTh.DONE);
+                                    index9 = c.getColumnIndex(DBAdapter.DAY);
+                                    index10 = c.getColumnIndex(DBAdapter.DONE);
                                     day_get = c.getDouble(index9);
-                                    index11 = c.getColumnIndex(DBAdapterTh.ROW_ID);
+                                    index11 = c.getColumnIndex(DBAdapter.ROW_ID);
                                     done = c.getDouble(index10);
                                     int x = calendar.get(Calendar.DATE);
                                     if (x == day_get) {
@@ -317,27 +317,27 @@ public class AttendanceFragment extends Fragment {
                                         }
 
                                     } else {
-                                        dbth.updateContact(c.getInt(index11), x,0);
+                                        dbth.updateContact(c.getInt(index11), x,0,"THURSDAY");
                                     }
                                 } while (c.moveToNext());
                             }
                             i=0;
-                            c=dbth.getAllContacts();
+                            c=dbth.getAllContacts("THURSDAY");
                             if(c.moveToFirst() ){
                                 do{
                                     int x;
 
-                                    if(c.getInt(c.getColumnIndex(DBAdapterTh.DONE))==1)
+                                    if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
                                         continue;
 
-                                    index9 = c.getColumnIndex(DBAdapterTh.DAY);
+                                    index9 = c.getColumnIndex(DBAdapter.DAY);
                                     //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
-                                    index1 = c.getColumnIndex(DBAdapterTh.SUBJECT);
+                                    index1 = c.getColumnIndex(DBAdapter.SUBJECT);
                                     subName[i] = c.getString(index1);
-                                    index2 = c.getColumnIndex(DBAdapterTh.TEACHER);
+                                    index2 = c.getColumnIndex(DBAdapter.TEACHER);
                                     teacherName[i] = c.getString(index2);
 
-                                    index3 = c.getColumnIndex(DBAdapterTh.START_TIME);
+                                    index3 = c.getColumnIndex(DBAdapter.START_TIME);
                                     double a = Double.parseDouble(c.getString(index3));
                                     x = (int) a;
                                     a = a - x;
@@ -349,7 +349,7 @@ public class AttendanceFragment extends Fragment {
                                     else
                                         timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
 
-                                    index4 = c.getColumnIndex(DBAdapterTh.END_TIME);
+                                    index4 = c.getColumnIndex(DBAdapter.END_TIME);
 
                                     a = Double.parseDouble(c.getString(index4));
                                     x = (int) a;
@@ -375,16 +375,16 @@ public class AttendanceFragment extends Fragment {
                         case Calendar.FRIDAY:
 
                             i = 0;
-                            final DBAdapterF dbf = new DBAdapterF(getActivity());
+                            final DBAdapter dbf = new DBAdapter(getActivity());
                             dbf.open();
-                            c = dbf.getAllContacts();
+                            c = dbf.getAllContacts("FRIDAY");
                             if (c.moveToFirst()) {
                                 do {
                                     flag = 0;
-                                    index9 = c.getColumnIndex(DBAdapterF.DAY);
-                                    index10 = c.getColumnIndex(DBAdapterF.DONE);
+                                    index9 = c.getColumnIndex(DBAdapter.DAY);
+                                    index10 = c.getColumnIndex(DBAdapter.DONE);
                                     day_get = c.getDouble(index9);
-                                    index11 = c.getColumnIndex(DBAdapterF.ROW_ID);
+                                    index11 = c.getColumnIndex(DBAdapter.ROW_ID);
                                     done = c.getDouble(index10);
                                     int x = calendar.get(Calendar.DATE);
                                     if (x == day_get) {
@@ -396,27 +396,27 @@ public class AttendanceFragment extends Fragment {
                                         }
 
                                     } else {
-                                        dbf.updateContact(c.getInt(index11), x,0);
+                                        dbf.updateContact(c.getInt(index11), x,0,"FRIDAY");
                                     }
                                 } while (c.moveToNext());
                             }
                             i=0;
-                            c=dbf.getAllContacts();
+                            c=dbf.getAllContacts("FRIDAY");
                             if(c.moveToFirst() ){
                                 do{
                                     int x;
 
-                                    if(c.getInt(c.getColumnIndex(DBAdapterF.DONE))==1)
+                                    if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
                                         continue;
 
-                                    index9 = c.getColumnIndex(DBAdapterF.DAY);
+                                    index9 = c.getColumnIndex(DBAdapter.DAY);
                                     //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
-                                    index1 = c.getColumnIndex(DBAdapterF.SUBJECT);
+                                    index1 = c.getColumnIndex(DBAdapter.SUBJECT);
                                     subName[i] = c.getString(index1);
-                                    index2 = c.getColumnIndex(DBAdapterF.TEACHER);
+                                    index2 = c.getColumnIndex(DBAdapter.TEACHER);
                                     teacherName[i] = c.getString(index2);
 
-                                    index3 = c.getColumnIndex(DBAdapterF.START_TIME);
+                                    index3 = c.getColumnIndex(DBAdapter.START_TIME);
                                     double a = Double.parseDouble(c.getString(index3));
                                     x = (int) a;
                                     a = a - x;
@@ -428,7 +428,7 @@ public class AttendanceFragment extends Fragment {
                                     else
                                         timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
 
-                                    index4 = c.getColumnIndex(DBAdapterF.END_TIME);
+                                    index4 = c.getColumnIndex(DBAdapter.END_TIME);
 
                                     a = Double.parseDouble(c.getString(index4));
                                     x = (int) a;
@@ -520,7 +520,7 @@ public class AttendanceFragment extends Fragment {
         all_P.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"All Present", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(),"All Present", Toast.LENGTH_SHORT).show();
 
                     Calendar calendar = Calendar.getInstance();
                     int day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -531,24 +531,24 @@ public class AttendanceFragment extends Fragment {
                     switch (day) {
                         case Calendar.MONDAY:
 
-                            final DBAdapterM dbm=new DBAdapterM(getActivity());
+                            final DBAdapter dbm=new DBAdapter(getActivity());
                             dbm.open();
 
-                            c1=dbm.getAllContacts();
+                            c1=dbm.getAllContacts("MONDAY");
 
                             if(c1.moveToFirst()) {
                                 do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapterM.DONE))==1)
+                                    if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
                                         continue;
                                     final DBAttendence dbA = new DBAttendence(getActivity());
                                     dbA.open();
 
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT)));
+                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
                                     int present, absent, total, row;
                                     if (c2.moveToFirst()) {
-                                        String subname=c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT));
+                                        String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
 
-                                        dbm.updateSubject(subname);
+                                        dbm.updateSubject(subname,"MONDAY");
 
                                         present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
                                         absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
@@ -567,23 +567,23 @@ public class AttendanceFragment extends Fragment {
 
                             break;
                         case Calendar.TUESDAY:
-                            final DBAdapterTu dbtu=new DBAdapterTu(getActivity());
+                            final DBAdapter dbtu=new DBAdapter(getActivity());
                             dbtu.open();
                             // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbtu.getAllContacts();
+                            c1=dbtu.getAllContacts("TUESDAY");
                             if(c1.moveToFirst()) {
                                 do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapterTu.DONE))==1)
+                                    if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
                                         continue;
                                     final DBAttendence dbA = new DBAttendence(getActivity());
                                     dbA.open();
 
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapterTu.SUBJECT)));
+                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
                                     int present, absent, total, row;
                                     if (c2.moveToFirst()) {
-                                        String subname=c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT));
+                                        String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
 
-                                        dbtu.updateSubject(subname);
+                                        dbtu.updateSubject(subname,"TUESDAY");
                                         present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
                                         absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
                                         total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
@@ -597,21 +597,21 @@ public class AttendanceFragment extends Fragment {
                             dbtu.close();
                             break;
                         case Calendar.WEDNESDAY:
-                            final DBAdapterW dbw=new DBAdapterW(getActivity());
+                            final DBAdapter dbw=new DBAdapter(getActivity());
                             dbw.open();
                             // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbw.getAllContacts();
+                            c1=dbw.getAllContacts("WEDNESDAY");
 
                             if(c1.moveToFirst()) {
                                 do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapterW.DONE))==1)
+                                    if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
                                         continue;
                                     final DBAttendence dbA = new DBAttendence(getActivity());
                                     dbA.open();
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapterW.SUBJECT)));
+                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
                                     int present, absent, total, row;
-                                    String subname=c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT));
-                                    dbw.updateSubject(subname);
+                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+                                    dbw.updateSubject(subname,"WEDNESDAY");
                                     if (c2.moveToFirst()) {
                                         present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
                                         absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
@@ -626,21 +626,21 @@ public class AttendanceFragment extends Fragment {
                             dbw.close();
                             break;
                         case Calendar.THURSDAY:
-                            final DBAdapterTh dbth=new DBAdapterTh(getActivity());
+                            final DBAdapter dbth=new DBAdapter(getActivity());
                             dbth.open();
                             // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbth.getAllContacts();
+                            c1=dbth.getAllContacts("THURSDAY");
 
                             if(c1.moveToFirst()) {
                                 do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapterTh.DONE))==1)
+                                    if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
                                         continue;
 
-                                    String subname=c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT));
-                                     dbth.updateSubject(subname);
+                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+                                     dbth.updateSubject(subname,"THURSDAY");
                                     final DBAttendence dbA = new DBAttendence(getActivity());
                                     dbA.open();
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapterTh.SUBJECT)));
+                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
                                     int present, absent, total, row;
                                     if (c2.moveToFirst()) {
                                         present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
@@ -656,21 +656,21 @@ public class AttendanceFragment extends Fragment {
                             dbth.close();
                             break;
                         case Calendar.FRIDAY:
-                            final DBAdapterF dbf=new DBAdapterF(getActivity());
+                            final DBAdapter dbf=new DBAdapter(getActivity());
                             dbf.open();
                             // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbf.getAllContacts();
+                            c1=dbf.getAllContacts("FRIDAY");
 
                             if(c1.moveToFirst()) {
                                 do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapterF.DONE))==1)
+                                    if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
                                         continue;
-                                    String subname=c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT));
+                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
 
-                                    dbf.updateSubject(subname);
+                                    dbf.updateSubject(subname,"FRIDAY");
                                     final DBAttendence dbA = new DBAttendence(getActivity());
                                     dbA.open();
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapterF.SUBJECT)));
+                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
                                     int present, absent, total, row;
                                     if (c2.moveToFirst()) {
                                         present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
@@ -698,172 +698,174 @@ public class AttendanceFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                    Calendar calendar = Calendar.getInstance();
-                    int day = calendar.get(Calendar.DAY_OF_WEEK);
+                Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_WEEK);
 
-                    Cursor c1;
+                Cursor c1;
 
-                    Toast.makeText(getActivity(),"All Absent", Toast.LENGTH_SHORT).show();
-                    switch (day) {
-                        case Calendar.MONDAY:
-                            final DBAdapterM dbm=new DBAdapterM(getActivity());
-                            dbm.open();
 
-                            c1=dbm.getAllContacts();
+                switch (day) {
+                    case Calendar.MONDAY:
 
-                            if(c1.moveToFirst()) {
-                                do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapterM.DONE))==1)
-                                        continue;
-                                    final DBAttendence dbA = new DBAttendence(getActivity());
-                                    dbA.open();
+                        final DBAdapter dbm=new DBAdapter(getActivity());
+                        dbm.open();
 
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT)));
-                                    int present, absent, total, row;
-                                    if (c2.moveToFirst()) {
-                                        String subname=c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT));
+                        c1=dbm.getAllContacts("MONDAY");
 
-                                        dbm.updateSubject(subname);
+                        if(c1.moveToFirst()) {
+                            do {
+                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
+                                    continue;
+                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                dbA.open();
 
-                                        present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                        absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                        total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                        row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                        dbA.updateContact(row, present, absent+1, total + 1);
-                                    }
+                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                int present, absent, total, row;
+                                if (c2.moveToFirst()) {
+                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
 
+                                    dbm.updateSubject(subname,"MONDAY");
+
+                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                    dbA.updateContact(row, present, absent+1, total + 1);
                                 }
-                                while (c1.moveToNext()) ;
+
                             }
+                            while (c1.moveToNext()) ;
+                        }
 
 
-                            dbm.close();
+                        dbm.close();
 
 
-                            break;
-                        case Calendar.TUESDAY:
-                            final DBAdapterTu dbtu=new DBAdapterTu(getActivity());
-                            dbtu.open();
-                            // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbtu.getAllContacts();
-                            if(c1.moveToFirst()) {
-                                do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapterTu.DONE))==1)
-                                        continue;
-                                    final DBAttendence dbA = new DBAttendence(getActivity());
-                                    dbA.open();
+                        break;
+                    case Calendar.TUESDAY:
+                        final DBAdapter dbtu=new DBAdapter(getActivity());
+                        dbtu.open();
+                        // Cursor c2=dbm.getPosition(subName[position]);
+                        c1=dbtu.getAllContacts("TUESDAY");
+                        if(c1.moveToFirst()) {
+                            do {
+                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
+                                    continue;
+                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                dbA.open();
 
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapterTu.SUBJECT)));
-                                    int present, absent, total, row;
-                                    if (c2.moveToFirst()) {
-                                        String subname=c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT));
+                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                int present, absent, total, row;
+                                if (c2.moveToFirst()) {
+                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
 
-                                        dbtu.updateSubject(subname);
-                                        present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                        absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                        total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                        row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                        dbA.updateContact(row, present, absent+1, total + 1);
-                                    }
-
+                                    dbtu.updateSubject(subname,"TUESDAY");
+                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                    dbA.updateContact(row, present, absent+1, total + 1);
                                 }
-                                while (c1.moveToNext()) ;
+
                             }
-                            dbtu.close();
-                            break;
-                        case Calendar.WEDNESDAY:
-                            final DBAdapterW dbw=new DBAdapterW(getActivity());
-                            dbw.open();
-                            // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbw.getAllContacts();
+                            while (c1.moveToNext()) ;
+                        }
+                        dbtu.close();
+                        break;
+                    case Calendar.WEDNESDAY:
+                        final DBAdapter dbw=new DBAdapter(getActivity());
+                        dbw.open();
+                        // Cursor c2=dbm.getPosition(subName[position]);
+                        c1=dbw.getAllContacts("WEDNESDAY");
 
-                            if(c1.moveToFirst()) {
-                                do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapterW.DONE))==1)
-                                        continue;
-                                    final DBAttendence dbA = new DBAttendence(getActivity());
-                                    dbA.open();
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapterW.SUBJECT)));
-                                    int present, absent, total, row;
-                                    String subname=c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT));
-                                    dbw.updateSubject(subname);
-                                    if (c2.moveToFirst()) {
-                                        present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                        absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                        total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                        row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                        dbA.updateContact(row, present, absent+1, total + 1);
-                                    }
-
+                        if(c1.moveToFirst()) {
+                            do {
+                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
+                                    continue;
+                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                dbA.open();
+                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                int present, absent, total, row;
+                                String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+                                dbw.updateSubject(subname,"WEDNESDAY");
+                                if (c2.moveToFirst()) {
+                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                    dbA.updateContact(row, present, absent+1, total + 1);
                                 }
-                                while (c1.moveToNext()) ;
+
                             }
-                            dbw.close();
-                            break;
-                        case Calendar.THURSDAY:
-                            final DBAdapterTh dbth=new DBAdapterTh(getActivity());
-                            dbth.open();
-                            // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbth.getAllContacts();
+                            while (c1.moveToNext()) ;
+                        }
+                        dbw.close();
+                        break;
+                    case Calendar.THURSDAY:
+                        final DBAdapter dbth=new DBAdapter(getActivity());
+                        dbth.open();
+                        // Cursor c2=dbm.getPosition(subName[position]);
+                        c1=dbth.getAllContacts("THURSDAY");
 
-                            if(c1.moveToFirst()) {
-                                do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapterTh.DONE))==1)
-                                        continue;
+                        if(c1.moveToFirst()) {
+                            do {
+                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
+                                    continue;
 
-                                    String subname=c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT));
-                                    dbth.updateSubject(subname);
-                                    final DBAttendence dbA = new DBAttendence(getActivity());
-                                    dbA.open();
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapterTh.SUBJECT)));
-                                    int present, absent, total, row;
-                                    if (c2.moveToFirst()) {
-                                        present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                        absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                        total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                        row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                        dbA.updateContact(row, present, absent+1, total + 1);
-                                    }
-
+                                String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+                                dbth.updateSubject(subname,"THURSDAY");
+                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                dbA.open();
+                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                int present, absent, total, row;
+                                if (c2.moveToFirst()) {
+                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                    dbA.updateContact(row, present, absent+1, total + 1);
                                 }
-                                while (c1.moveToNext()) ;
+
                             }
-                            dbth.close();
-                            break;
-                        case Calendar.FRIDAY:
-                            final DBAdapterF dbf=new DBAdapterF(getActivity());
-                            dbf.open();
-                            // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbf.getAllContacts();
+                            while (c1.moveToNext()) ;
+                        }
+                        dbth.close();
+                        break;
+                    case Calendar.FRIDAY:
+                        final DBAdapter dbf=new DBAdapter(getActivity());
+                        dbf.open();
+                        // Cursor c2=dbm.getPosition(subName[position]);
+                        c1=dbf.getAllContacts("FRIDAY");
 
-                            if(c1.moveToFirst()) {
-                                do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapterF.DONE))==1)
-                                        continue;
-                                    String subname=c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT));
+                        if(c1.moveToFirst()) {
+                            do {
+                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
+                                    continue;
+                                String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
 
-                                    dbf.updateSubject(subname);
-                                    final DBAttendence dbA = new DBAttendence(getActivity());
-                                    dbA.open();
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapterF.SUBJECT)));
-                                    int present, absent, total, row;
-                                    if (c2.moveToFirst()) {
-                                        present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                        absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                        total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                        row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                        dbA.updateContact(row, present, absent+1, total + 1);
-                                    }
-
+                                dbf.updateSubject(subname,"FRIDAY");
+                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                dbA.open();
+                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                int present, absent, total, row;
+                                if (c2.moveToFirst()) {
+                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                    dbA.updateContact(row, present, absent+1, total + 1);
                                 }
-                                while (c1.moveToNext()) ;
+
                             }
-                            dbf.close();
-                            break;
+                            while (c1.moveToNext()) ;
+                        }
+                        dbf.close();
+                        break;
 
 
 
-                    }
+
+                }
                 }
 
 
@@ -904,38 +906,38 @@ public class AttendanceFragment extends Fragment {
                                     switch (day)
                                             {
                                                 case Calendar.MONDAY:
-                                                    final DBAdapterM dbm=new DBAdapterM(getActivity());
+                                                    final DBAdapter dbm=new DBAdapter(getActivity());
                                                     dbm.open();
                                                    // Cursor c2=dbm.getPosition(subName[position]);
-                                                    dbm.updateSubject(subName[position]);
+                                                    dbm.updateSubject(subName[position],"MONDAY");
                                                     dbm.close();
                                                     break;
                                                 case Calendar.TUESDAY:
-                                                    final DBAdapterTu dbtu=new DBAdapterTu(getActivity());
+                                                    final DBAdapter dbtu=new DBAdapter(getActivity());
                                                     dbtu.open();
                                                     // Cursor c2=dbm.getPosition(subName[position]);
-                                                    dbtu.updateSubject(subName[position]);
+                                                    dbtu.updateSubject(subName[position],"TUESDAY");
                                                     dbtu.close();
                                                     break;
                                                 case Calendar.WEDNESDAY:
-                                                    final DBAdapterW dbw=new DBAdapterW(getActivity());
+                                                    final DBAdapter dbw=new DBAdapter(getActivity());
                                                     dbw.open();
                                                     // Cursor c2=dbm.getPosition(subName[position]);
-                                                    dbw.updateSubject(subName[position]);
+                                                    dbw.updateSubject(subName[position],"WEDNESDAY");
                                                     dbw.close();
                                                     break;
                                                 case Calendar.THURSDAY:
-                                                    final DBAdapterTh dbth=new DBAdapterTh(getActivity());
+                                                    final DBAdapter dbth=new DBAdapter(getActivity());
                                                     dbth.open();
                                                     // Cursor c2=dbm.getPosition(subName[position]);
-                                                    dbth.updateSubject(subName[position]);
+                                                    dbth.updateSubject(subName[position],"THURSDAY");
                                                     dbth.close();
                                                     break;
                                                 case Calendar.FRIDAY:
-                                                    final DBAdapterF dbf=new DBAdapterF(getActivity());
+                                                    final DBAdapter dbf=new DBAdapter(getActivity());
                                                     dbf.open();
                                                     // Cursor c2=dbm.getPosition(subName[position]);
-                                                    dbf.updateSubject(subName[position]);
+                                                    dbf.updateSubject(subName[position],"FRIDAY");
                                                     dbf.close();
                                                     break;
                                                 default:
@@ -1001,38 +1003,38 @@ public class AttendanceFragment extends Fragment {
                                     switch (day)
                                     {
                                         case Calendar.MONDAY:
-                                            final DBAdapterM dbm=new DBAdapterM(getActivity());
+                                            final DBAdapter dbm=new DBAdapter(getActivity());
                                             dbm.open();
                                             // Cursor c2=dbm.getPosition(subName[position]);
-                                            dbm.updateSubject(subName[position]);
+                                            dbm.updateSubject(subName[position],"MONDAY");
                                             dbm.close();
                                             break;
                                         case Calendar.TUESDAY:
-                                            final DBAdapterTu dbtu=new DBAdapterTu(getActivity());
+                                            final DBAdapter dbtu=new DBAdapter(getActivity());
                                             dbtu.open();
                                             // Cursor c2=dbm.getPosition(subName[position]);
-                                            dbtu.updateSubject(subName[position]);
+                                            dbtu.updateSubject(subName[position],"TUESDAY");
                                             dbtu.close();
                                             break;
                                         case Calendar.WEDNESDAY:
-                                            final DBAdapterW dbw=new DBAdapterW(getActivity());
+                                            final DBAdapter dbw=new DBAdapter(getActivity());
                                             dbw.open();
                                             // Cursor c2=dbm.getPosition(subName[position]);
-                                            dbw.updateSubject(subName[position]);
+                                            dbw.updateSubject(subName[position],"WEDNESDAY");
                                             dbw.close();
                                             break;
                                         case Calendar.THURSDAY:
-                                            final DBAdapterTh dbth=new DBAdapterTh(getActivity());
+                                            final DBAdapter dbth=new DBAdapter(getActivity());
                                             dbth.open();
                                             // Cursor c2=dbm.getPosition(subName[position]);
-                                            dbth.updateSubject(subName[position]);
+                                            dbth.updateSubject(subName[position],"THURSDAY");
                                             dbth.close();
                                             break;
                                         case Calendar.FRIDAY:
-                                            final DBAdapterF dbf=new DBAdapterF(getActivity());
+                                            final DBAdapter dbf=new DBAdapter(getActivity());
                                             dbf.open();
                                             // Cursor c2=dbm.getPosition(subName[position]);
-                                            dbf.updateSubject(subName[position]);
+                                            dbf.updateSubject(subName[position],"FRIDAY");
                                             dbf.close();
                                             break;
                                         default:

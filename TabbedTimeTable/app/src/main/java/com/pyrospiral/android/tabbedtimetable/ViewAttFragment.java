@@ -39,13 +39,6 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Attendance");
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -97,7 +90,6 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
             @Override
             public void onClick(View v) {
                 doing=0;
-
                 Intent intent = new Intent(getActivity(), FillAttendance.class).putExtra(Intent
                         .EXTRA_TEXT, "Fill");
                 startActivity(intent);
@@ -109,7 +101,6 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
             @Override
             public void onClick(View v) {
                 doing=0;
-
                 Intent intent2 = new Intent(getActivity(), FillAttendance.class).putExtra(Intent
                         .EXTRA_TEXT, "Edit");
                 startActivity(intent2);
@@ -145,11 +136,7 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
         return data;
     }
 
-
-
-
     @Override
-
     public void onResume(
     ) {
 
@@ -171,11 +158,12 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
 
     @Override
     public void itemClicked(View view,int position) {
-        // SubjectDetail sb=new SubjectDetail(position);
+       // SubjectDetail sb=new SubjectDetail(position);
         //Log.e("","THIS IS "+position+"");
-        pos=position;
+       pos=position;
 
-        startActivity(new Intent(getActivity(), SubjectDetail.class));
+     startActivity(new Intent(getActivity(), SubjectDetail.class));
+
 
     }
 

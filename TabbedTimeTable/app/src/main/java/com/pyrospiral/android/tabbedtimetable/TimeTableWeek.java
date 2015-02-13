@@ -54,16 +54,16 @@ public class TimeTableWeek extends Activity {
         i=0;j=0;
 
 
-        final DBAdapterM dbm=new DBAdapterM(TimeTableWeek.this);
-        dbm.open();
-        Cursor c1=dbm.getAllContacts();
+        final DBAdapter db=new DBAdapter(TimeTableWeek.this);
+        db.open();
+        Cursor c1=db.getAllContacts("MONDAY");
         if(c1.moveToFirst())
         {
 
             do{
 
-                subject_[i][j]=c1.getString(c1.getColumnIndex(DBAdapterM.SUBJECT));
-                int index7=c1.getColumnIndex(DBAdapterM.START_TIME);
+                subject_[i][j]=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+                int index7=c1.getColumnIndex(DBAdapter.START_TIME);
                 double a=Double.parseDouble(c1.getString(index7));
                 int x=(int)a;
                 a=a-x;
@@ -75,7 +75,7 @@ public class TimeTableWeek extends Activity {
                 else
                 timing_[i][j]=Integer.toString(x)+":"+Integer.toString(y);
 
-                int index8=c1.getColumnIndex(DBAdapterM.END_TIME);
+                int index8=c1.getColumnIndex(DBAdapter.END_TIME);
 
                 a=Double.parseDouble(c1.getString(index8));
                 x=(int)a;
@@ -96,21 +96,21 @@ public class TimeTableWeek extends Activity {
 
         }
 
-        dbm.close();
+        db.close();
         j++;
         i=0;
         //tuesday
 
-        final DBAdapterTu dbtu=new DBAdapterTu(TimeTableWeek.this);
-        dbtu.open();
-        Cursor c2=dbtu.getAllContacts();
+
+        db.open();
+        Cursor c2=db.getAllContacts("TUESDAY");
         if(c2.moveToFirst())
         {
 
             do{
 
-                subject_[i][j]=c2.getString(c2.getColumnIndex(DBAdapterTu.SUBJECT));
-                int index7=c2.getColumnIndex(DBAdapterTu.START_TIME);
+                subject_[i][j]=c2.getString(c2.getColumnIndex(DBAdapter.SUBJECT));
+                int index7=c2.getColumnIndex(DBAdapter.START_TIME);
                 double a=Double.parseDouble(c2.getString(index7));
                 int x=(int)a;
                 a=a-x;
@@ -122,7 +122,7 @@ public class TimeTableWeek extends Activity {
                 else
                     timing_[i][j]=Integer.toString(x)+":"+Integer.toString(y);
 
-                int index8=c2.getColumnIndex(DBAdapterTu.END_TIME);
+                int index8=c2.getColumnIndex(DBAdapter.END_TIME);
 
                 a=Double.parseDouble(c2.getString(index8));
                 x=(int)a;
@@ -142,23 +142,23 @@ public class TimeTableWeek extends Activity {
             }while(c2.moveToNext());
         }
 
-        dbtu.close();
+        db.close();
         j++;
         i=0;
 
         //wednesday
 
 
-        final DBAdapterW dbw=new DBAdapterW(TimeTableWeek.this);
-        dbw.open();
-        c2=dbw.getAllContacts();
+        //final DBAdapterW dbw=new DBAdapterW(TimeTableWeek.this);
+        db.open();
+        c2=db.getAllContacts("WEDNESDAY");
         if(c2.moveToFirst())
         {
 
             do{
 
-                subject_[i][j]=c2.getString(c2.getColumnIndex(DBAdapterW.SUBJECT));
-                int index7=c2.getColumnIndex(DBAdapterW.START_TIME);
+                subject_[i][j]=c2.getString(c2.getColumnIndex(DBAdapter.SUBJECT));
+                int index7=c2.getColumnIndex(DBAdapter.START_TIME);
                 double a=Double.parseDouble(c2.getString(index7));
                 int x=(int)a;
                 a=a-x;
@@ -170,7 +170,7 @@ public class TimeTableWeek extends Activity {
                 else
                     timing_[i][j]=Integer.toString(x)+":"+Integer.toString(y);
 
-                int index8=c2.getColumnIndex(DBAdapterW.END_TIME);
+                int index8=c2.getColumnIndex(DBAdapter.END_TIME);
 
                 a=Double.parseDouble(c2.getString(index8));
                 x=(int)a;
@@ -190,23 +190,23 @@ public class TimeTableWeek extends Activity {
             }while(c2.moveToNext());
         }
 
-        dbw.close();
+        db.close();
         j++;
         i=0;
 
         //thursday
 
 
-        final DBAdapterTh dbth=new DBAdapterTh(TimeTableWeek.this);
-        dbth.open();
-        c2=dbth.getAllContacts();
+      //  final DBAdapterTh dbth=new DBAdapterTh(TimeTableWeek.this);
+        db.open();
+        c2=db.getAllContacts("THURSDAY");
         if(c2.moveToFirst())
         {
 
             do{
 
-                subject_[i][j]=c2.getString(c2.getColumnIndex(DBAdapterTh.SUBJECT));
-                int index7=c2.getColumnIndex(DBAdapterTh.START_TIME);
+                subject_[i][j]=c2.getString(c2.getColumnIndex(DBAdapter.SUBJECT));
+                int index7=c2.getColumnIndex(DBAdapter.START_TIME);
                 double a=Double.parseDouble(c2.getString(index7));
                 int x=(int)a;
                 a=a-x;
@@ -218,7 +218,7 @@ public class TimeTableWeek extends Activity {
                 else
                     timing_[i][j]=Integer.toString(x)+":"+Integer.toString(y);
 
-                int index8=c2.getColumnIndex(DBAdapterTh.END_TIME);
+                int index8=c2.getColumnIndex(DBAdapter.END_TIME);
 
                 a=Double.parseDouble(c2.getString(index8));
                 x=(int)a;
@@ -238,23 +238,23 @@ public class TimeTableWeek extends Activity {
             }while(c2.moveToNext());
         }
 
-        dbth.close();
+        db.close();
         j++;
         i=0;
 
         //friday
 
 
-        final DBAdapterF dbf=new DBAdapterF(TimeTableWeek.this);
-        dbf.open();
-        c2=dbf.getAllContacts();
+       // final DBAdapterF dbf=new DBAdapterF(TimeTableWeek.this);
+        db.open();
+        c2=db.getAllContacts("FRIDAY");
         if(c2.moveToFirst())
         {
 
             do{
 
-                subject_[i][j]=c2.getString(c2.getColumnIndex(DBAdapterF.SUBJECT));
-                int index7=c2.getColumnIndex(DBAdapterF.START_TIME);
+                subject_[i][j]=c2.getString(c2.getColumnIndex(DBAdapter.SUBJECT));
+                int index7=c2.getColumnIndex(DBAdapter.START_TIME);
                 double a=Double.parseDouble(c2.getString(index7));
                 int x=(int)a;
                 a=a-x;
@@ -266,7 +266,7 @@ public class TimeTableWeek extends Activity {
                 else
                     timing_[i][j]=Integer.toString(x)+":"+Integer.toString(y);
 
-                int index8=c2.getColumnIndex(DBAdapterF.END_TIME);
+                int index8=c2.getColumnIndex(DBAdapter.END_TIME);
 
                 a=Double.parseDouble(c2.getString(index8));
                 x=(int)a;
@@ -286,7 +286,7 @@ public class TimeTableWeek extends Activity {
             }while(c2.moveToNext());
         }
 
-        dbf.close();
+        db.close();
         //j++;
 
         for(int i=0;i<1;i++) {
