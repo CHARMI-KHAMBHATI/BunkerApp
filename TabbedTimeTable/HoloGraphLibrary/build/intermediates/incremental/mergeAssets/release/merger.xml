@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<merger version="3"><dataSet config="main"><source path="/home/kaano8/new_github_project/TabbedTimeTable/HoloGraphLibrary/src/main/assets"/></dataSet><dataSet config="release"><source path="/home/kaano8/new_github_project/TabbedTimeTable/HoloGraphLibrary/src/release/assets"/></dataSet></merger>
-=======
 <merger version="3"><dataSet config="main"><source path="/Users/adeshkala/Documents/workspaces_git/BunkerApp/TabbedTimeTable/HoloGraphLibrary/src/main/assets"/></dataSet><dataSet config="release"><source path="/Users/adeshkala/Documents/workspaces_git/BunkerApp/TabbedTimeTable/HoloGraphLibrary/src/release/assets"/></dataSet></merger>
->>>>>>> bceb084e2813c26a6f51a2f2c986b8e82a8de23e
