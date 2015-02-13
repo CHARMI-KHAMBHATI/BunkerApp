@@ -25,7 +25,7 @@ public class SilenceService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mIntent = intent;
-        Log.e("service",""+mIntent+"  "+mIntent.hasExtra(Intent.EXTRA_TEXT));
+//        Log.e("service",""+mIntent+"  "+mIntent.hasExtra(Intent.EXTRA_TEXT));
 
         if(mIntent != null)
         {
