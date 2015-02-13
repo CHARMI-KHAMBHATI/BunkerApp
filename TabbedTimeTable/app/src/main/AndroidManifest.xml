@@ -43,10 +43,10 @@
             android:label="@string/title_activity_subject_remove" >
         </activity>
 
-        <service
+        <receiver
             android:name=".NotificationMaker"
             android:label="@string/title_activity_notification_maker" >
-        </service>
+        </receiver>
 
         <service
             android:name=".SilenceService"
