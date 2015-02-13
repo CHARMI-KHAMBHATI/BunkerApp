@@ -55,11 +55,8 @@ public class DetailsFragment extends Fragment {
         cb = (TextView) rootView.findViewById(R.id.classCanBunk);
 
 
-        final DBAdapterM dbm=new DBAdapterM(getActivity());
-        final DBAdapterTu dbtu=new DBAdapterTu(getActivity());
-        final DBAdapterW dbw=new DBAdapterW(getActivity());
-        final DBAdapterTh dbth=new DBAdapterTh(getActivity());
-        final DBAdapterF dbf=new DBAdapterF(getActivity());
+        final DBAdapter db=new DBAdapter(getActivity());
+
         final DBAttendence dba=new DBAttendence(getActivity());
 
         subject=check;
@@ -68,15 +65,15 @@ public class DetailsFragment extends Fragment {
 
 
         Cursor c,c2;
-        dbm.open();
-        c=dbm.getPosition(check);
+        db.open();
+        c=db.getPosition(check);
 
         if(c.moveToFirst())
         {
             do{
                 //subject=subject+c.getString(c.getColumnIndex(DBAdapterM.SUBJECT))+"  ";
-                teacher=teacher+c.getString(c.getColumnIndex(DBAdapterM.TEACHER))+"  ";
-                int index7=c.getColumnIndex(DBAdapterM.START_TIME);
+                teacher=teacher+c.getString(c.getColumnIndex(DBAdapter.TEACHER))+"  ";
+                int index7=c.getColumnIndex(DBAdapter.START_TIME);
                 double a=Double.parseDouble(c.getString(index7));
                 int x=(int)a;
                 a=a-x;
@@ -88,7 +85,7 @@ public class DetailsFragment extends Fragment {
                 else
                     timingss=Integer.toString(x)+":"+Integer.toString(y);
 
-                int index8=c.getColumnIndex(DBAdapterM.END_TIME);
+                int index8=c.getColumnIndex(DBAdapter.END_TIME);
 
                 a=Double.parseDouble(c.getString(index8));
                 x=(int)a;
@@ -111,7 +108,10 @@ public class DetailsFragment extends Fragment {
 
             }while(c.moveToNext());
         }
-        dbm.close();
+        db.close();
+
+
+        /*
 
         dbtu.open();
         c=dbtu.getPosition(check);
@@ -294,7 +294,7 @@ public class DetailsFragment extends Fragment {
             }while(c.moveToNext());
         }
         dbf.close();
-
+*/
 
         dba.open();
         c=dba.getContact(check);

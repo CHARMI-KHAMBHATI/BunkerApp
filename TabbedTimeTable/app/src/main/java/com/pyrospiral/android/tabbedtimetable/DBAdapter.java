@@ -133,9 +133,9 @@ public class DBAdapter {
 
     }
 
-    public Cursor getPosition(String subj,String day) throws SQLException {
+    public Cursor getPosition(String subj) throws SQLException {
         return db.query(DATABASE_TABLE, new String[]{ROW_ID,LEC_NO,SUBJECT,TEACHER
-                        ,START_TIME,END_TIME},SUBJECT+"= '" + subj+"'"+" AND "+DAY_WEEK+" = '"+day+"'",
+                        ,START_TIME,END_TIME},SUBJECT+"= '" + subj+"'",
                 null, null, null, null,null);
 
     }
