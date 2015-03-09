@@ -16,10 +16,13 @@ import java.util.Calendar;
  */
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
-   int pHour;
-   int pMinute;
+    int pHour;
+    int pMinute;
 
-   TextView text;
+    int day;
+
+    TextView text;
+    Calendar cal;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -38,14 +41,33 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         pMinute = minute;
         Log.e("Time picker hour", ""+pHour);
         Log.e("Time picker min", ""+pMinute);
-        updateTime(text);
+        updateTime(text,cal,day);
     }
 
 
 
     // Updates time in text View
-    public void updateTime(TextView text){
+    public void updateTime(TextView text,Calendar cal,int day){
         this.text = text;
+        this.cal = cal;
+        this.day =day;
+
+        if (day == 0)
+            cal.set(Calendar.DAY_OF_WEEK,2);
+        else if(day == 1)
+            cal.set(Calendar.DAY_OF_WEEK,3);
+        else if(day == 2)
+            cal.set(Calendar.DAY_OF_WEEK,4);
+        else if(day == 3)
+            cal.set(Calendar.DAY_OF_WEEK,5);
+        else if(day == 4)
+            cal.set(Calendar.DAY_OF_WEEK,6);
+
+
+        cal.set(Calendar.HOUR_OF_DAY, pHour); // For 1 PM or 2 PM
+        cal.set(Calendar.MINUTE, pMinute);
+        cal.set(Calendar.SECOND, 0);
+
 
         text.setText(
                 new StringBuilder()

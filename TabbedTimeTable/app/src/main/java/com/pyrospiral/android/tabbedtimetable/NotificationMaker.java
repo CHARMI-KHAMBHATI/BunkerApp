@@ -38,7 +38,7 @@ public class NotificationMaker extends BroadcastReceiver {
 
         NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(
                 context).setSmallIcon(R.drawable.ic_launcher)
-                .setTicker("Did you went to class today?")
+                .setTicker("Did you go to class today?")
                 .setContentTitle("Bunker App")
                 .setContentText("Fill today's attendance").setSound(alarmSound)
                 .setAutoCancel(true)

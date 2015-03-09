@@ -99,7 +99,7 @@ public class AssignmentEntry extends ActionBarActivity {
                 db.insertContact(subject_tt,times,assignment_tt,0);
 
                 db.close();
-                Toast.makeText(getBaseContext(),"YOLO",Toast.LENGTH_LONG).show();
+            //    Toast.makeText(getBaseContext(),"YOLO",Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent();
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

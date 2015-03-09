@@ -12,8 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -39,13 +37,6 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
     int pos;
 
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Attendance");
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
