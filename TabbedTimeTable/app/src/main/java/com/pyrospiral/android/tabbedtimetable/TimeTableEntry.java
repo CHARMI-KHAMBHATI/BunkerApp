@@ -206,7 +206,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     start_t=start_t+(double)((start_ts.charAt(j+1)-48)*10+(start_ts.charAt(j+2)-48))/60;
 
-                    Toast.makeText(getBaseContext(), "VALUE IS "+start_t+"", Toast.LENGTH_LONG).show();
+
 
                     for(j=0;end_ts.charAt(j)!=':';j++)
                     {
@@ -228,32 +228,24 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     if(start_t>=end_t || subject_t=="" || teacher_t=="")
                     {
-                        Toast.makeText(getBaseContext(), "you drunk bro?", Toast.LENGTH_LONG).show();
+
                         flag=1;
                     }
 
                     if(flag==0)
                         db.insertContact(subject_t,start_t,end_t,teacher_t,"MONDAY");
 
-                    //Toast.makeText(getBaseContext(), "yolo", Toast.LENGTH_LONG).show();
+
 
                 }
 
-                //  Toast.makeText(getBaseContext(), "yolo", Toast.LENGTH_LONG).show();
 
 
 
-                //Cursor c = db.getAllContacts();
-               /*if (c.moveToFirst()) {
-                    do {
-                        //DisplayContact(c);
-                    } while (c.moveToNext());
-                }
-                */
+
+
                 db.close();
-                //Toast.makeText(getBaseContext(), "Update successful", Toast.LENGTH_LONG).show();
 
-                //TUESDAY
                 flag=0;
 
                 bix = (CheckBox) findViewById(R.id.checkBoxTue);
@@ -274,7 +266,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     start_t=start_t+(double)((start_ts.charAt(j+1)-48)*10+(start_ts.charAt(j+2)-48))/60;
 
-                    Toast.makeText(getBaseContext(), "VALUE IS "+start_t+"", Toast.LENGTH_LONG).show();
+
 
                     for(j=0;end_ts.charAt(j)!=':';j++)
                     {
@@ -296,14 +288,14 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     if(start_t>=end_t || subject_t=="" || teacher_t=="")
                     {
-                        Toast.makeText(getBaseContext(), "you drunk bro?", Toast.LENGTH_LONG).show();
+
                         flag=1;
                     }
 
                     if(flag==0)
                         db.insertContact(subject_t,start_t,end_t,teacher_t,"TUESDAY");
 
-                 //   Toast.makeText(getBaseContext(), "OY DUDE", Toast.LENGTH_LONG).show();
+
 
                 }
                 db.close();
@@ -329,7 +321,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     start_t=start_t+(double)((start_ts.charAt(j+1)-48)*10+(start_ts.charAt(j+2)-48))/60;
 
-                    Toast.makeText(getBaseContext(), "VALUE IS "+start_t+"", Toast.LENGTH_LONG).show();
+
 
                     for(j=0;end_ts.charAt(j)!=':';j++)
                     {
@@ -351,7 +343,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     if(start_t>=end_t || subject_t=="" || teacher_t=="")
                     {
-                        Toast.makeText(getBaseContext(), "you drunk bro?", Toast.LENGTH_LONG).show();
+
                         flag=1;
                     }
 
@@ -384,7 +376,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     start_t=start_t+(double)((start_ts.charAt(j+1)-48)*10+(start_ts.charAt(j+2)-48))/60;
 
-                    Toast.makeText(getBaseContext(), "VALUE IS "+start_t+"", Toast.LENGTH_LONG).show();
+               //
 
                     for(j=0;end_ts.charAt(j)!=':';j++)
                     {
@@ -406,7 +398,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     if(start_t>=end_t || subject_t=="" || teacher_t=="")
                     {
-                        Toast.makeText(getBaseContext(), "you drunk bro?", Toast.LENGTH_LONG).show();
+
                         flag=1;
                     }
 
@@ -439,7 +431,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     start_t=start_t+(double)((start_ts.charAt(j+1)-48)*10+(start_ts.charAt(j+2)-48))/60;
 
-                    Toast.makeText(getBaseContext(), "VALUE IS "+start_t+"", Toast.LENGTH_LONG).show();
+
 
                     for(j=0;end_ts.charAt(j)!=':';j++)
                     {
@@ -461,7 +453,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     if(start_t>=end_t || subject_t=="" || teacher_t=="")
                     {
-                        //Toast.makeText(getBaseContext(), "you drunk bro?", Toast.LENGTH_LONG).show();
+
                         flag=1;
                     }
 
@@ -474,7 +466,7 @@ public class TimeTableEntry extends ActionBarActivity {
                 db.close();
 
 
-              //  Toast.makeText(getBaseContext(), "yolo", Toast.LENGTH_LONG).show();
+
 
 
 
