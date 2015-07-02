@@ -52,4 +52,5 @@
 
     <!-- Strings related to fragment details -->
     <string name="taughtBy" translatable="false">Taught By</string>
+    <string name="title_activity_event_details">EventDetails</string>
 </resources>

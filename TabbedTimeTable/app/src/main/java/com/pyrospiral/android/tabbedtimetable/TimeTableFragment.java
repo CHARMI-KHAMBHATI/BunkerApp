@@ -56,7 +56,7 @@ public class TimeTableFragment extends ListFragment {
         buttona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),TimeTableEntry.class));
+                startActivity(new Intent(getActivity(), TimeTableEntry.class));
             }
         });
 
@@ -65,6 +65,14 @@ public class TimeTableFragment extends ListFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),SubjectRemoveActivity.class));
+            }
+        });
+
+        FloatingActionButton buttonc = (FloatingActionButton) v.findViewById(R.id.action_c);
+        buttonc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),TimeTableDownload.class));
             }
         });
 
@@ -104,7 +112,7 @@ public class TimeTableFragment extends ListFragment {
                         int index3=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index3);
                         //Log.e("ss",mSubjects[i]);
-                       // int index4=c.getColumnIndex(DBAdapterM.ATTENDANCE);
+                        // int index4=c.getColumnIndex(DBAdapterM.ATTENDANCE);
                         //mAttendances[i]=c.getString(index4);
 
                         int index5=c.getColumnIndex(DBAdapter.TEACHER);
@@ -178,7 +186,7 @@ public class TimeTableFragment extends ListFragment {
                         int index3=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index3);
                         //Log.e("ss",mSubjects[i]);
-                       // int index4=c.getColumnIndex(DBAdapterTu.ATTENDANCE);
+                        // int index4=c.getColumnIndex(DBAdapterTu.ATTENDANCE);
                         //mAttendances[i]=c.getString(index4);
 
                         int index5=c.getColumnIndex(DBAdapter.TEACHER);
@@ -355,8 +363,8 @@ public class TimeTableFragment extends ListFragment {
                         int index3=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index3);
                         //Log.e("ss",mSubjects[i]);
-                       // int index4=c.getColumnIndex(DBAdapterF.ATTENDANCE);
-                       // mAttendances[i]=c.getString(index4);
+                        // int index4=c.getColumnIndex(DBAdapterF.ATTENDANCE);
+                        // mAttendances[i]=c.getString(index4);
 
                         int index5=c.getColumnIndex(DBAdapter.TEACHER);
                         mTeachers[i]=c.getString(index5);
@@ -409,21 +417,22 @@ public class TimeTableFragment extends ListFragment {
 
 
         list = new TimeTableArrayList(mSubjects, mAssignments, mAttendances, mTeachers,mTimings);
-        for(int i=0;i<10;i++)
-        {
 
+        for(int i=0;i<100;i++)
+        {
             mSubjects[i]=null;
-                  // mAssignments[i]=null;
+
             mAttendances[i]=null;
             mTeachers[i]=null;
             mTimings[i]=null;
 
 
+
         }
+
+
         // mSubjects=null;
     }
 
 
 }
-
-

@@ -22,7 +22,7 @@ public class DetailsFragment extends Fragment {
 
     TextView subName, teacherName, timings, ca,cb;
     String check;
-
+    float density;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +34,7 @@ public class DetailsFragment extends Fragment {
             check =intent.getStringExtra(Intent.EXTRA_TEXT);
         }
 
+        density = this.getResources().getDisplayMetrics().density;
         //Toast.makeText(getActivity(),check,Toast.LENGTH_LONG).show();
 
         String subject="";
@@ -137,22 +138,22 @@ public class DetailsFragment extends Fragment {
 //    Algorithm to set the size of the font
         int temp = subject.length();
         float text_size;
-        int max_value = 125;
+        int max_value = 80;
 
         if(temp<5) {
             text_size = max_value - (temp * 10);
         }
         else if(temp<10){
-            text_size = max_value - (temp * 6);
+            text_size = max_value - (temp * 5);
         }
         else {
-            text_size = max_value - (temp * 5);
+            text_size = max_value - (temp * 4);
         }
 
         subName.setText(subject);
         subName.setTypeface(null, Typeface.BOLD);
         subName.setBackgroundColor(rainbow[n]);
-        subName.setTextSize(text_size);
+        subName.setTextSize(getPx(text_size));
         subName.setText(subject);
         teacherName.setText(teacher);
         timings.setText(timing);
@@ -178,4 +179,9 @@ public class DetailsFragment extends Fragment {
 
         return rootView;
     }
+
+    public int getPx(float dimensionDp) {
+        return (int) (dimensionDp * density + 0.5f);
+    }
+
 }

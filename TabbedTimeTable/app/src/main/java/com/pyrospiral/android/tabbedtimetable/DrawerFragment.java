@@ -141,8 +141,13 @@ public class DrawerFragment extends Fragment {
                                 .replace(R.id.container, new ViewAttFragment())
                                 .commit();
                         break;
+                    case 4:
+                        startActivity(new Intent(getActivity(), SettingsActivity.class));
+                        break;
                     case 3:
-                        startActivity(new Intent(getActivity(),SettingsActivity.class));
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.container, new EventFragment())
+                                .commit();
                         break;
                 }
 
@@ -160,8 +165,8 @@ public class DrawerFragment extends Fragment {
     public static List<DrawerData> getData(){
 
         List<DrawerData> data = new ArrayList<>();
-        int[] icons = {R.drawable.timetable, R.drawable.assignments, R.drawable.attendance, R.drawable.settings };
-        String[] titles = {"Timetable", "Assignments", "Attendance", "Settings"};
+        int[] icons = {R.drawable.timetable, R.drawable.assignments, R.drawable.attendance,R.drawable.timetable, R.drawable.settings };
+        String[] titles = {"Timetable", "Assignments", "Attendance","Events", "Settings"};
         for(int i=0;i<titles.length && i<icons.length ;i++)
         {
             DrawerData current = new DrawerData();

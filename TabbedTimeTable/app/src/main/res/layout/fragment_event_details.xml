@@ -1,0 +1,330 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/list">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/fragback"
+            android:id="@+id/poster"/>
+
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="100dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/logo"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/logo_circle"
+                android:text="A"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="30dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="60"
+                android:id="@+id/chapter_name"
+                android:text="Chapter Name"
+                android:textSize="20dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/event_name"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Event Name"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            />
+
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="2dp"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="Description"
+                    android:textSize="18dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/persuian_blue"
+                    android:textColor="#FFFFFF"
+                    android:padding="8dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/desc"
+                android:text="This event"
+                android:layout_marginLeft="10dp"/>
+
+
+                </LinearLayout>
+         </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="2dp"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="Event Details"
+                    android:textSize="18dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/persuian_blue"
+                    android:textColor="#FFFFFF"
+                    android:padding="8dp"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date :"
+                    android:id="@+id/date_label"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/date"
+                    android:text="25/02/2015"
+                    android:layout_marginLeft="20dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time :"
+                        android:id="@+id/time_label"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/time"
+                        android:text="5:00 P.M."
+                        android:layout_marginLeft="20dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location :"
+                        android:id="@+id/location_label"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/location"
+                        android:text="Computer Dept."
+                        android:layout_marginLeft="20dp"/>
+                </LinearLayout>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Team Size"
+                    android:id="@+id/label_team_size"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/team_size"
+                    android:text="2 members per team"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/label_reg_fee"
+                    android:text="Registration Fee"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reg_fee"
+                    android:text="Rs.500 per team /-"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/label_reg_link"
+                    android:text="Registration Link"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reg_link"
+                    android:text="https://www.google.co.in"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="20dp"/>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="2dp"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="Contact"
+                    android:textSize="18dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/persuian_blue"
+                    android:textColor="#FFFFFF"
+                    android:padding="8dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Coordinator 1 :"
+                    android:id="@+id/cooridinator1"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/co_name"
+                    android:text="Name"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/co_number"
+                    android:text="Number"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Coordinator 2 :"
+                    android:id="@+id/cooridinator2"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/co_name2"
+                    android:text="Name"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/co_number2"
+                    android:text="Number"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"/>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>

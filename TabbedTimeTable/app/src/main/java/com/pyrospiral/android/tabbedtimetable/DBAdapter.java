@@ -158,6 +158,10 @@ public class DBAdapter {
         return db.update(DATABASE_TABLE, args, DBAdapter.SUBJECT + "= '" + subjects+"' AND "+DBAdapter.DAY_WEEK + "= '" + day+"'", null) > 0;
     }
 
+    public void deleteEverything() {
+        db.delete(DATABASE_TABLE, null , null);
+    }
+
 
 }
 

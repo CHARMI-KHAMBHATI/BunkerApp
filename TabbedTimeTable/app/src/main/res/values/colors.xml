@@ -20,6 +20,8 @@
     <color name="my_color_highlight">#FFE99E63</color>
     <color name="my_color_highlight_press">#77E99E63</color>
     <color name="my_color_highlight_focus">#CCE99E63</color>
+    <color name="adesh_color">#005555</color>
+    <color name="adesh_color2">#FAFAFA</color>
 
 
     <!-- Attendance colors !-->

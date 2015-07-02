@@ -1,10 +1,12 @@
 package com.pyrospiral.android.tabbedtimetable;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -35,6 +37,9 @@ public class SubjectDetail extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.app_bar_detail);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
+        //ActionBar acb=getActionBar();
+       // acb.hide();
+
 
         viewPager = (ViewPager) findViewById(R.id.pagerdetail);
         adapter = new TabsPagerAdapter(getSupportFragmentManager());

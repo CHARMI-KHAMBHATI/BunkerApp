@@ -11,6 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 import java.util.Calendar;
 
 
@@ -53,6 +56,8 @@ public class MainActivity extends ActionBarActivity {
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pendingIntent);
 
+
+        // Enable Local Datastore.
 
 
 

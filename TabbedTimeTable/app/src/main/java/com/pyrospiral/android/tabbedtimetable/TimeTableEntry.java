@@ -64,7 +64,7 @@ public class TimeTableEntry extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time_table_entry);
+        setContentView(R.layout.activity_time_table_entry_main);
         Button saves=(Button)findViewById(R.id.save);
         Button discards=(Button)findViewById(R.id.discard);
 
@@ -357,7 +357,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                 //THURSDAY
                 flag=0;
-               // final DBAdapter dbth=new DBAdapter(TimeTableEntry.this);
+                // final DBAdapter dbth=new DBAdapter(TimeTableEntry.this);
                 bix = (CheckBox) findViewById(R.id.checkBoxThu);
                 val = bix.isChecked();
                 db.open();
@@ -376,7 +376,7 @@ public class TimeTableEntry extends ActionBarActivity {
 
                     start_t=start_t+(double)((start_ts.charAt(j+1)-48)*10+(start_ts.charAt(j+2)-48))/60;
 
-               //
+                    //
 
                     for(j=0;end_ts.charAt(j)!=':';j++)
                     {
