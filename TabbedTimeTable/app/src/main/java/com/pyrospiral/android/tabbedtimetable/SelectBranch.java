@@ -10,6 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class SelectBranch extends Fragment {
     private DownloadTTAdapter mAdapter;
 
     Bundle bundle = new Bundle();
+
     final private String key = "#123";
 
     TextView Title;
@@ -85,8 +87,13 @@ public class SelectBranch extends Fragment {
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_select_year, container, false);
 
+        ProgressBar progress;
+        progress=(ProgressBar)rootView.findViewById(R.id.progress);
+        progress.setVisibility(View.GONE);
+
 
         bundle = getArguments();
+
         final String value = bundle.getString("#123");
 
         for (int i=0;i<Branch.length;i++)
@@ -117,6 +124,10 @@ public class SelectBranch extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                             String val = value;
+                            if(val.length()>1)
+                            {
+                                val=""+val.charAt(0);
+                            }
                             val = val.concat(Integer.toString(position));
                             SelectDiv newFragment = new SelectDiv();
                             bundle.putString(key, val);

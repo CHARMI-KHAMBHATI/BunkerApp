@@ -2,17 +2,27 @@ package com.pyrospiral.android.tabbedtimetable;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import org.apache.http.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +41,7 @@ public class SelectDiv extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static String querypassed;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -40,14 +51,27 @@ public class SelectDiv extends Fragment {
     public RecyclerView mrecyclerView;
     private DownloadTTAdapter mAdapter;
 
+    static String[] mSubjects=new String[100];
+    static boolean[] mAssignments=new boolean[10];
+    static String[] mAttendances=new String[100];
+    static String[] mTeachers=new String[100];
+
+    static Double[] mStartTimings=new Double[100];
+
+    static Double[] mEndTimings=new Double[100];
+
+    static String[] mDay=new String[100];
+
     Bundle bundle = new Bundle();
     final private String key = "#123";
+    String value;
 
     TextView Title;
 
     List<String> data = new ArrayList<String>();
 
-    String[] DivI = {"A","B","C","D","E", "F","G","H","I","J"};
+    String[] DivI = new String[1000];
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -77,10 +101,108 @@ public class SelectDiv extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // Toast.makeText(getActivity(),"NOW",Toast.LENGTH_SHORT).show();
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        bundle = getArguments();
+
+        final String value = bundle.getString("#123");
+
+        ParseQuery<ParseObject> query;
+
+
+
+
+        querypassed="Time_Table_Btech";
+        if(value.length()==1)
+        {
+            querypassed=querypassed+"1";
+        }
+        else
+        {
+            querypassed=querypassed+"2_";
+            int branch=Integer.parseInt(value.charAt(1)+"");
+            switch (branch) {
+                case 0:
+                    querypassed=querypassed+"coed";
+                    break;
+                case 1:
+                    querypassed=querypassed+"ec";
+                    break;
+                case 2:
+                    querypassed=querypassed+"ee";
+                    break;
+                case 3:
+                    querypassed=querypassed+"mech";
+                    break;
+                case 4:
+                    querypassed=querypassed+"ce";
+                    break;
+                case 5:
+                    querypassed=querypassed+"ch";
+                    break;
+                default:
+                    break;
+
+
+            }
+
+        }
+
+        query = ParseQuery.getQuery(querypassed);
+
+
+        final DBAllTimeTable dbt=new DBAllTimeTable(getActivity());
+        dbt.open();
+        Cursor c=dbt.getAllContact();
+
+        if(c.moveToFirst()){
+
+            //Toast.makeText(getActivity(),"TRD"+value,Toast.LENGTH_LONG).show();
+
+
+        }
+        else {
+
+            query.findInBackground(new FindCallback<ParseObject>() {
+
+
+                @Override
+                public void done(List<ParseObject> list, com.parse.ParseException e) {
+                    int datalenn=0;
+                    for (ParseObject totem :list)
+                    {
+                        datalenn++;
+                        String data= totem.getString("Division");
+                        dbt.insertContact(data);
+                    }
+                    dbt.close();
+                    if (datalenn==0){
+                        Toast.makeText(getActivity(),"SORRY NO DATA",Toast.LENGTH_SHORT).show();
+
+                        getActivity().finish();
+                    }
+                    SelectDiv newFragment = new SelectDiv();
+
+                    bundle.putString(key, value);
+                    newFragment.setArguments(bundle);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(android.R.id.content, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+
+
+                }
+
+            });
+        }
+
+
     }
 
     @Override
@@ -89,17 +211,68 @@ public class SelectDiv extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_select_year, container, false);
 
+
+        final DBAllTimeTable dbt=new DBAllTimeTable(getActivity());
+
         bundle = getArguments();
+
         final String value = bundle.getString("#123");
 
-        Toast.makeText(getActivity(),value,Toast.LENGTH_SHORT).show();
+        dbt.open();
+        Cursor c2=dbt.getContact();
+        if(c2.moveToFirst())
+        {
+            ProgressBar progress;
+            progress=(ProgressBar)rootView.findViewById(R.id.progress);
+            progress.setVisibility(View.GONE);
+            int j=0;
+            do{
+
+                DivI[j]=c2.getString(c2.getColumnIndex(DBAllTimeTable.DIVISION));
+                j++;
+
+            }while (c2.moveToNext());
+
+        }
+        else
+        {
+           // Toast.makeText(getActivity(),"HERE",Toast.LENGTH_SHORT).show();
+
+        }
+        //dbt.deleteEverything();
+        int lengthh=0;
 
         for (int i=0;i<DivI.length;i++)
         {
-            String current;
-            current = DivI[i%DivI.length];
-            data.add(current);
+            if(DivI[i]==null)
+                continue;
+            lengthh++;
         }
+
+
+        for(int k=lengthh-1;k>-1;k--)
+        {
+            String current;
+            current = DivI[k%DivI.length];
+            data.add(current);
+
+
+        }
+
+
+
+        if(DivI[0]!=null)
+            dbt.deleteEverything();
+        dbt.close();
+
+
+
+
+
+
+       // Toast.makeText(getActivity(),value,Toast.LENGTH_SHORT).show();
+
+
 
         Title = (TextView) rootView.findViewById(R.id.title);
 
@@ -119,10 +292,10 @@ public class SelectDiv extends Fragment {
         mrecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
-                    public void onItemClick(View view, int position) {
+                    public void onItemClick(View view, final int position) {
                         String val = value;
                         val = val.concat(Integer.toString(position));
-                        Toast.makeText(getActivity(),val,Toast.LENGTH_SHORT).show();
+
 
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -138,9 +311,167 @@ public class SelectDiv extends Fragment {
 
                                 // Positive button functionality
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int arg0) {
 
-                             //TODO: Put the code to load the time table here according to the val
+
+
+                                    public void onClick(DialogInterface dialog, int arg0) {
+                                        String divs="";
+                                        switch (position)
+                                        {
+                                            case 0:
+                                                divs="A";
+                                                break;
+                                            case 1:
+                                                divs="B";
+                                                break;
+                                            case 2:
+                                                divs="C";
+                                                break;
+                                            case 3:
+                                                divs="D";
+                                                break;
+                                            case 4:
+                                                divs="E";
+                                                break;
+                                            case 5:
+                                                divs="F";
+                                                break;
+                                            case 6:
+                                                divs="G";
+                                                break;
+                                            case 7:
+                                                divs="H";
+                                                break;
+                                            case 8:
+                                                divs="I";
+                                                break;
+                                            case 9:
+                                                divs="J";
+                                                break;
+                                            case 10:
+                                                divs="K";
+                                                break;
+                                        }
+
+
+
+                                        ParseQuery<ParseObject> query_download=ParseQuery.getQuery(querypassed);
+                                        query_download.whereEqualTo("Division",divs);
+
+                                        query_download.findInBackground(new FindCallback<ParseObject>() {
+
+
+                                            @Override
+                                            public void done(List<ParseObject> list, com.parse.ParseException e) {
+                                                int h=0;
+                                                for(int xl=0;xl<100;xl++)
+                                                {
+                                                    mSubjects[xl]=null;
+                                                }
+                                                for (ParseObject totem : list) {
+
+                                                    mSubjects[h]=totem.getString("Subject");
+
+                                                    mDay[h]=totem.getString("DAY_week");
+                                                    mStartTimings[h]=totem.getDouble("Start_time");
+                                                    mEndTimings[h]=totem.getDouble("End_time");
+                                                    mTeachers[h]=totem.getString("Teacher");
+                                                    h++;
+
+                                                }
+
+                                                final DBAdapter db=new DBAdapter(getActivity());
+                                                db.open();
+                                                db.deleteEverything();
+                                                for(int i=0;;i++)
+                                                {
+                                                    if(mSubjects[i]==null)
+                                                        break;
+
+                                                    db.insertContact(mSubjects[i], mStartTimings[i], mEndTimings[i], mTeachers[i], mDay[i]);
+
+                                                }
+
+                                                final DBAttendence dba=new DBAttendence(getActivity());
+                                                dba.open();
+                                                Cursor c2=dba.getAllContacts();
+
+                                                if(c2.moveToFirst())
+                                                {
+
+                                                    AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
+
+
+                                                    // Set Alert Dialog Title
+                                                    builder2.setTitle("Alert!");
+
+                                                    // Set an Icon for this Alert Dialog
+                                                    builder2.setIcon(R.drawable.warning);
+
+                                                    // Set Alert Dialog Message
+                                                    builder2.setMessage("Do you want to clear attendance records?")
+
+                                                            // Positive button functionality
+                                                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+
+
+                                                                    Cursor c3=db.getSubjects();
+                                                                    dba.deleteEverything();
+                                                                    if(c3.moveToFirst())
+                                                                    {
+                                                                        do{
+
+                                                                            String s=c3.getString(c3.getColumnIndex(DBAdapter.SUBJECT));
+                                                                            dba.insertContact(s);
+
+
+                                                                        }while (c3.moveToNext());
+                                                                    }
+
+
+                                                                }
+
+
+
+                                                            });
+
+
+
+                                                }
+                                                else
+                                                {
+                                                    Cursor c3=db.getSubjects();
+
+                                                    if(c3.moveToFirst())
+                                                    {
+                                                        do{
+
+                                                            String s=c3.getString(c3.getColumnIndex(DBAdapter.SUBJECT));
+                                                            dba.insertContact(s);
+
+
+                                                        }while (c3.moveToNext());
+                                                    }
+
+                                                }
+
+
+                                                db.close();
+                                                dba.close();
+
+                                                getActivity().finish();
+
+
+                                            }
+                                        });
+
+
+
+
+                                                    //TODO: Put the code to load the time table here according to the val
 
                                         Toast.makeText(getActivity(), "Loading", Toast.LENGTH_SHORT).show();
                                     }

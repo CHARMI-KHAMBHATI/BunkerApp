@@ -10,6 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class SelectYear extends Fragment {
     private DownloadTTAdapter mAdapter;
 
     Bundle bundle = new Bundle();
+    Bundle bundle2=new Bundle();
 
     List<String> data = new ArrayList<String>();
 
@@ -89,6 +91,10 @@ public class SelectYear extends Fragment {
             current = Years[i%Years.length];
             data.add(current);
         }
+
+        ProgressBar progress;
+        progress=(ProgressBar)rootView.findViewById(R.id.progress);
+        progress.setVisibility(View.GONE);
 
 
 

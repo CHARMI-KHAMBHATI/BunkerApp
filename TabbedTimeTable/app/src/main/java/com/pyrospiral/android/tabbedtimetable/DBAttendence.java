@@ -158,6 +158,10 @@ public class DBAttendence {
         return db.update(DATABASE_TABLE, args, ROW_ID + "=" + rowId, null) > 0;
     }
 
+    public void deleteEverything() {
+        db.delete(DATABASE_TABLE, null, null);
+    }
+
 
 }
 

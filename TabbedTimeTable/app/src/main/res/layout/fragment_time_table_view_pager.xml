@@ -11,7 +11,7 @@
         android:textColor="#fff"
         android:layout_width="match_parent"
         android:layout_height="48dip"
-        android:background="@color/adesh_color2"
+        android:background="@color/primaryColor"
         app:pstsIndicatorColor="@color/accentColor"
         app:pstsDividerColor="@color/primaryColor"
 

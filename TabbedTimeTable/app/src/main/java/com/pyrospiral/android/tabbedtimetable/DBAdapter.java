@@ -108,7 +108,7 @@ public class DBAdapter {
 
         initialValues.put(DONE, 0);
 
-        initialValues.put(DAY_WEEK,day);
+        initialValues.put(DAY_WEEK, day);
 
 
         return db.insert(DATABASE_TABLE, null, initialValues);
@@ -156,6 +156,12 @@ public class DBAdapter {
         //args.put(DAY,x);
         args.put(DONE,1);
         return db.update(DATABASE_TABLE, args, DBAdapter.SUBJECT + "= '" + subjects+"' AND "+DBAdapter.DAY_WEEK + "= '" + day+"'", null) > 0;
+    }
+
+    public Cursor getSubjects(){
+
+        return db.query(true,DATABASE_TABLE, new String[]{SUBJECT},null,
+                null, null, null, null,null);
     }
 
     public void deleteEverything() {

@@ -54,7 +54,7 @@ public class TimeTableViewPagerFragment extends Fragment {
         // Bind the tabs to the ViewPager
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
         tabs.setViewPager(viewPager);
-        tabs.setTextColor(Color.BLUE);
+        //tabs.setTextColor(Color.BLUE);
         ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("TimeTable");
         return rootView;
     }
