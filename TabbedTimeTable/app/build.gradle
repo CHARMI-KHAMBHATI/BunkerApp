@@ -29,7 +29,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:21.0.3'
     compile 'com.android.support:support-v4:21.0.3'
     compile project(':HoloGraphLibrary')
-    compile files('/Users/adeshkala/Desktop/testtttt/TabbedTimeTable/libs/Parse-1.9.0.jar')
-    compile files('/Users/adeshkala/Desktop/testtttt/TabbedTimeTable/libs/bolts-android-1.1.4.jar')
+    compile files('E:\\Development\\ANDROID DEV\\Projects\\Tabbed TimeTable App\\BunkerApp\\TabbedTimeTable\\libs\\Parse-1.9.0.jar')
+    compile files('E:\\Development\\ANDROID DEV\\Projects\\Tabbed TimeTable App\\BunkerApp\\TabbedTimeTable\\libs\\bolts-android-1.1.4.jar')
 
 }
