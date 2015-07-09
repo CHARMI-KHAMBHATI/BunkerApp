@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +50,7 @@ public class PieFragment extends Fragment {
         final DBAttendence dba=new DBAttendence(getActivity());
         dba.open();
         Cursor c=dba.getContact(check);
-       if(c.moveToFirst())
+        if(c.moveToFirst())
         {
             int index1,index2;
             float a,b;
@@ -60,13 +59,10 @@ public class PieFragment extends Fragment {
             a=c.getFloat(index1);
             b=c.getFloat(index2);
 
-            Log.e("",""+a+"");
-            Log.e("",""+b+"");
-            Log.e("",""+a/b+"");
 
 
             if(b!=0.0)
-            value=a/b*100;
+                value=a/b*100;
             else
                 value=100;
         }
@@ -94,36 +90,36 @@ public class PieFragment extends Fragment {
         percent.setText(value+"%");
 
         if(value<10) {
-            text.setText("I think you don't go to college anymore, you might wanna uninstall this app.");
+            //text.setText("I think you don't go to college anymore, you might wanna uninstall this app.");
             slice2.setColor(resources.getColor(R.color.attendance10));
         }
         else if(value<20){
-            text.setText("You really don't like this subject do you?");
+            //text.setText("You really don't like this subject do you?");
             slice2.setColor(resources.getColor(R.color.attendance20));
         }
         else if(value<30){
-            text.setText("Abandon all hope - ye who enter");
+            //text.setText("Abandon all hope - ye who enter");
             slice2.setColor(resources.getColor(R.color.attendance30));}
         else if(value<40){
-            text.setText("This is your attendance, not your marks in electrical, keep the percentage up!");
+            //text.setText("This is your attendance, not your marks in electrical, keep the percentage up!");
             slice2.setColor(resources.getColor(R.color.attendance40));}
         else if(value<50){
-            text.setText("Are you planning to repeat this semester?");
+            //text.setText("Are you planning to repeat this semester?");
             slice2.setColor(resources.getColor(R.color.attendance50));}
         else if(value<60){
-            text.setText("You better have your medical certificate.");
+            //text.setText("You better have your medical certificate.");
             slice2.setColor(resources.getColor(R.color.attendance60));}
         else if(value<70){
-            text.setText("Attend your classes dude or you're going to be in trouble.");
+            //text.setText("Attend your classes dude or you're going to be in trouble.");
             slice2.setColor(resources.getColor(R.color.attendance70));}
         else if(value<80){
-            text.setText("You might wanna keep your bunks limited.");
+            //text.setText("You might wanna keep your bunks limited.");
             slice2.setColor(resources.getColor(R.color.attendance80));}
         else if(value<90){
-            text.setText("You're safe bro, keep up the bunks.");
+            //text.setText("You're safe bro, keep up the bunks.");
             slice2.setColor(resources.getColor(R.color.attendance90));}
         else if(value>90){
-            text.setText("Try not going to class once in a while, it's fun, I promise.");
+            //text.setText("Try not going to class once in a while, it's fun, I promise.");
             slice2.setColor(resources.getColor(R.color.highAttendance));}
 
 
@@ -166,12 +162,12 @@ public class PieFragment extends Fragment {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    Log.e("piefrag", "anim end");
+                    //Log.e("piefrag", "anim end");
                 }
 
                 @Override
                 public void onAnimationCancel(Animator animation) {//you might want to call slice.setvalue(slice.getGoalValue)
-                    Log.e("piefrag", "anim cancel");
+                    //Log.e("piefrag", "anim cancel");
                 }
 
                 @Override

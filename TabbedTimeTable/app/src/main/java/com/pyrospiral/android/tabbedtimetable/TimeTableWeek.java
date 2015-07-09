@@ -46,7 +46,7 @@ public class TimeTableWeek extends Activity {
         TableLayout table = (TableLayout) findViewById(R.id.gridtable);
 
 
-      //  LinearLayout header = createHeaderRow();
+        //  LinearLayout header = createHeaderRow();
         //TableRow headrow = createRow();
         //headrow.addView(header);
         //table.addView(headrow);
@@ -73,7 +73,7 @@ public class TimeTableWeek extends Activity {
                 if(y<10)
                     timing_[i][j]=Integer.toString(x)+":0"+Integer.toString(y);
                 else
-                timing_[i][j]=Integer.toString(x)+":"+Integer.toString(y);
+                    timing_[i][j]=Integer.toString(x)+":"+Integer.toString(y);
 
                 int index8=c1.getColumnIndex(DBAdapter.END_TIME);
 
@@ -197,7 +197,7 @@ public class TimeTableWeek extends Activity {
         //thursday
 
 
-      //  final DBAdapterTh dbth=new DBAdapterTh(TimeTableWeek.this);
+        //  final DBAdapterTh dbth=new DBAdapterTh(TimeTableWeek.this);
         db.open();
         c2=db.getAllContacts("THURSDAY");
         if(c2.moveToFirst())
@@ -245,7 +245,7 @@ public class TimeTableWeek extends Activity {
         //friday
 
 
-       // final DBAdapterF dbf=new DBAdapterF(TimeTableWeek.this);
+        // final DBAdapterF dbf=new DBAdapterF(TimeTableWeek.this);
         db.open();
         c2=db.getAllContacts("FRIDAY");
         if(c2.moveToFirst())
@@ -345,24 +345,24 @@ public class TimeTableWeek extends Activity {
             //Create linear layouts
 
 
-                LinearLayout  layout1 = createLinearLayout();
-                fillLayout(layout1,subject_[i][j],timing_[i][j]);
-                 j++;
-
-                LinearLayout  layout2 = createLinearLayout();
-                fillLayout(layout2,subject_[i][j],timing_[i][j]);
+            LinearLayout  layout1 = createLinearLayout();
+            fillLayout(layout1,subject_[i][j],timing_[i][j]);
             j++;
 
-                LinearLayout  layout3 = createLinearLayout();
-                fillLayout(layout3,subject_[i][j],timing_[i][j]);
+            LinearLayout  layout2 = createLinearLayout();
+            fillLayout(layout2,subject_[i][j],timing_[i][j]);
             j++;
 
-                LinearLayout  layout4 = createLinearLayout();
-                fillLayout(layout4,subject_[i][j],timing_[i][j]);
+            LinearLayout  layout3 = createLinearLayout();
+            fillLayout(layout3,subject_[i][j],timing_[i][j]);
             j++;
 
-                LinearLayout  layout5 = createLinearLayout();
-                fillLayout(layout5,subject_[i][j],timing_[i][j]);
+            LinearLayout  layout4 = createLinearLayout();
+            fillLayout(layout4,subject_[i][j],timing_[i][j]);
+            j++;
+
+            LinearLayout  layout5 = createLinearLayout();
+            fillLayout(layout5,subject_[i][j],timing_[i][j]);
             j++;
             LinearLayout  layout6 = createLinearLayout();
             fillLayout(layout6,subject_[i][j],timing_[i][j]);
@@ -397,74 +397,72 @@ public class TimeTableWeek extends Activity {
         //Create time text view
 
         layout.addView(subtext);
-       // layout.addView(timetext);
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TimeTableWeek.this,SubjectDetail.class));
-            }
-        });
 
         return layout;
     }
 
 
 
-        private LinearLayout fillLayout(LinearLayout layout,String s1,String s2){
-            //Create Subject text view
-            TextView subtext = createSubjectText(s1);
-            //Create time text view
-            TextView timetext = createTimeText(s2);
-            //Add to linear layout
-            if(s2==null){
-                return layout;
+    private LinearLayout fillLayout(LinearLayout layout,String s1,String s2){
+        //Create Subject text view
+        TextView subtext = createSubjectText(s1);
+        //Create time text view
+        TextView timetext = createTimeText(s2);
+        //subject name for intent
+        final String subName = s1;
+
+
+        if(s2==null){
+            return layout;
+        }
+        layout.addView(subtext);
+        layout.addView(timetext);
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimeTableWeek.this, SubjectDetail.class).putExtra(Intent
+                        .EXTRA_TEXT, subName);
+                TimeTableWeek.this.startActivity(intent);
             }
-            layout.addView(subtext);
-            layout.addView(timetext);
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(TimeTableWeek.this,SubjectDetail.class));
-                }
-            });
+        });
 
-            return layout;
-        }
+        return layout;
+    }
 
-        private TextView createSubjectText(String s1){
-            TextView text = new TextView(this);
-            text.setLayoutParams(subjectTextParams);
-            text.setText(s1);
-            text.setGravity(Gravity.CENTER);
-            text.setBackgroundColor(getResources().getColor(R.color.primaryColor));
-            text.setTextColor(getResources().getColor(R.color.accentColor));
-            return text;
-        }
+    private TextView createSubjectText(String s1){
+        TextView text = new TextView(this);
+        text.setLayoutParams(subjectTextParams);
+        text.setText(s1);
+        text.setGravity(Gravity.CENTER);
+        text.setBackgroundColor(getResources().getColor(R.color.primaryColor));
+        text.setTextColor(getResources().getColor(R.color.accentColor));
+        return text;
+    }
 
-        private TextView createTimeText(String s2){
-            TextView text = new TextView(this);
-            text.setLayoutParams(timeTextParams);
-            text.setGravity(Gravity.CENTER);
-            text.setBackgroundColor(getResources().getColor(R.color.primaryColorLight));
-            text.setTextColor(getResources().getColor(R.color.my_color_highlight));
-            text.setText(s2);
-            return text;
-        }
+    private TextView createTimeText(String s2){
+        TextView text = new TextView(this);
+        text.setLayoutParams(timeTextParams);
+        text.setGravity(Gravity.CENTER);
+        text.setBackgroundColor(getResources().getColor(R.color.primaryColorLight));
+        text.setTextColor(getResources().getColor(R.color.my_color_highlight));
+        text.setText(s2);
+        return text;
+    }
 
-        private LinearLayout createLinearLayout(){
-            LinearLayout layout = new LinearLayout(this);
-            layout.setOrientation(LinearLayout.VERTICAL);
-            layout.setLayoutParams(linearLayoutParams);
-            layout.setBackground(getResources().getDrawable(R.drawable.customborder));
-            return layout;
-        }
+    private LinearLayout createLinearLayout(){
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(linearLayoutParams);
+        layout.setBackground(getResources().getDrawable(R.drawable.customborder));
+        return layout;
+    }
 
-        private TableRow createRow(){
-            TableRow row = new TableRow(this);
-            row.setLayoutParams(trparams);
-            row.setGravity(Gravity.CENTER_HORIZONTAL);
-            return row;
-        }
+    private TableRow createRow(){
+        TableRow row = new TableRow(this);
+        row.setLayoutParams(trparams);
+        row.setGravity(Gravity.CENTER_HORIZONTAL);
+        return row;
+    }
 
     public int getPx(int dimensionDp) {
         return (int) (dimensionDp * density + 0.5f);
