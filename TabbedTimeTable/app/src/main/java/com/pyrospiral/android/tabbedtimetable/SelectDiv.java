@@ -1,7 +1,9 @@
 package com.pyrospiral.android.tabbedtimetable;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,8 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
+import org.apache.http.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +39,9 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class SelectDiv extends Fragment {
+
+    public static final String PREF_FILE = "divisionUpdated";
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -113,7 +121,7 @@ public class SelectDiv extends Fragment {
 
 
 
-
+       // Toast.makeText(getActivity(),value,Toast.LENGTH_LONG).show();
         querypassed="Time_Table_Btech";
         if(value.length()==1)
         {
@@ -121,7 +129,13 @@ public class SelectDiv extends Fragment {
         }
         else
         {
-            querypassed=querypassed+"2_";
+            if(value.charAt(0)=='1')
+                querypassed=querypassed+"2_";
+            else if(value.charAt(0)=='2')
+                querypassed=querypassed+"3_";
+            else if(value.charAt(0)=='3')
+                querypassed=querypassed+"4_";
+
             int branch=Integer.parseInt(value.charAt(1)+"");
             switch (branch) {
                 case 0:
@@ -153,51 +167,64 @@ public class SelectDiv extends Fragment {
         query = ParseQuery.getQuery(querypassed);
 
 
-        final DBAllTimeTable dbt=new DBAllTimeTable(getActivity());
-        dbt.open();
-        Cursor c=dbt.getAllContact();
+        try {
 
-        if(c.moveToFirst()){
+            final DBAllTimeTable dbt = new DBAllTimeTable(getActivity());
+            dbt.open();
+            int alreadydone=Integer.parseInt(readFromPreferences(getActivity(), "divisionsUpdated", "0"));
 
-            //Toast.makeText(getActivity(),"TRD"+value,Toast.LENGTH_LONG).show();
+            if (alreadydone==1) {
 
-
-        }
-        else {
-
-            query.findInBackground(new FindCallback<ParseObject>() {
+                //Toast.makeText(getActivity(),"TRD"+value,Toast.LENGTH_LONG).show();
 
 
-                @Override
-                public void done(List<ParseObject> list, com.parse.ParseException e) {
-                    int datalenn=0;
-                    for (ParseObject totem :list)
-                    {
-                        datalenn++;
-                        String data= totem.getString("Division");
-                        dbt.insertContact(data);
+            } else {
+
+                query.findInBackground(new FindCallback<ParseObject>() {
+
+
+                    @Override
+                    public void done(List<ParseObject> list, com.parse.ParseException e) {
+                        saveToPreferences(getActivity(),"divisionsUpdated","1");
+                        int datalenn = 0;
+                        for (ParseObject totem : list) {
+                            datalenn++;
+                            String data = totem.getString("Division");
+                            dbt.insertContact(data);
+                        }
+                        dbt.close();
+                        if (datalenn == 0) {
+                            //Toast.makeText(getActivity(), "SORRY NO DATA", Toast.LENGTH_SHORT).show();
+                            try {
+                                //Toast.makeText(getActivity(),"No Data found",Toast.LENGTH_SHORT).show();
+
+                            }
+                            catch (Exception es)
+                            {
+                                Toast.makeText(getActivity(),es.toString(),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        SelectDiv newFragment = new SelectDiv();
+
+                        bundle.putString(key, value);
+                        newFragment.setArguments(bundle);
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(android.R.id.content, newFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+
+
                     }
-                    dbt.close();
-                    if (datalenn==0){
-                        Toast.makeText(getActivity(),"SORRY NO DATA",Toast.LENGTH_SHORT).show();
 
-                        getActivity().finish();
-                    }
-                    SelectDiv newFragment = new SelectDiv();
-
-                    bundle.putString(key, value);
-                    newFragment.setArguments(bundle);
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(android.R.id.content, newFragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-
-
-
-                }
-
-            });
+                });
+            }
         }
+        catch (Exception e)
+        {
+            Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_SHORT).show();
+        }
+
+
 
 
     }
@@ -207,6 +234,9 @@ public class SelectDiv extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_select_year, container, false);
+
+
+
 
 
         final DBAllTimeTable dbt=new DBAllTimeTable(getActivity());
@@ -221,6 +251,7 @@ public class SelectDiv extends Fragment {
         {
             ProgressBar progress;
             progress=(ProgressBar)rootView.findViewById(R.id.progress);
+
             progress.setVisibility(View.GONE);
             int j=0;
             do{
@@ -233,8 +264,20 @@ public class SelectDiv extends Fragment {
         }
         else
         {
-           // Toast.makeText(getActivity(),"HERE",Toast.LENGTH_SHORT).show();
 
+            int isdone=Integer.parseInt(readFromPreferences(getActivity(),"divisionsUpdated","0"));
+            if(isdone==1) {
+
+                Toast.makeText(getActivity(), "No data found", Toast.LENGTH_SHORT).show();
+                ProgressBar progress;
+                progress=(ProgressBar)rootView.findViewById(R.id.progress);
+
+                progress.setVisibility(View.GONE);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(android.R.id.content, new SelectYear());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
         }
         //dbt.deleteEverything();
         int lengthh=0;
@@ -396,6 +439,8 @@ public class SelectDiv extends Fragment {
                                                 if(c2.moveToFirst())
                                                 {
 
+                                                    Toast.makeText(getActivity(),"fgd",Toast.LENGTH_SHORT).show();
+
                                                     AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
 
 
@@ -428,6 +473,10 @@ public class SelectDiv extends Fragment {
                                                                         }while (c3.moveToNext());
                                                                     }
 
+                                                                    db.close();
+                                                                    dba.close();
+                                                                    getActivity().finish();
+
 
                                                                 }
 
@@ -436,18 +485,25 @@ public class SelectDiv extends Fragment {
                                                             })
 
 
-                                                             // Negative button functionality
-                                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int arg0) {
-                                                        dialog.cancel();
-                                                    }
-                                                    });
+                                                                    // Negative button functionality
+                                                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                                public void onClick(DialogInterface dialog, int arg0) {
+                                                                    dialog.cancel();
+                                                                    db.close();
+                                                                    dba.close();
+                                                                    getActivity().finish();
+                                                                }
+                                                            });
 
                                                     // Create the Alert Dialog
                                                     AlertDialog alertdialog = builder2.create();
 
                                                     // Show Alert Dialog
                                                     alertdialog.show();
+
+
+
+
 
 
                                                 }
@@ -465,19 +521,26 @@ public class SelectDiv extends Fragment {
 
                                                         }while (c3.moveToNext());
                                                     }
+                                                    db.close();
+                                                    dba.close();
+                                                    getActivity().finish();
 
                                                 }
 
 
-                                                db.close();
-                                                dba.close();
 
-                                                getActivity().finish();
+
+
 
 
                                             }
                                         });
-                                        
+
+
+
+
+                                                    //TODO: Put the code to load the time table here according to the val
+
                                         Toast.makeText(getActivity(), "Loading", Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -545,5 +608,19 @@ public class SelectDiv extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+    public static void saveToPreferences(Context context, String preferenceName, String preferenceValue) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putString(preferenceName, preferenceValue);
+        edit.apply();
+    }
+
+
+    public static String readFromPreferences(Context context, String preferenceName, String defaultValue) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(preferenceName, defaultValue);
+    }
+
 
 }

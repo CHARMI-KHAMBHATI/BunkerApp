@@ -1,5 +1,7 @@
 package com.pyrospiral.android.tabbedtimetable;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +28,9 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class SelectBranch extends Fragment {
+
+    public static final String PREF_FILE = "divisionUpdated";
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,6 +83,7 @@ public class SelectBranch extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            saveToPreferences(getActivity(), "divisionsUpdated", "0");
         }
     }
 
@@ -185,6 +191,13 @@ public class SelectBranch extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    public static void saveToPreferences(Context context, String preferenceName, String preferenceValue) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putString(preferenceName, preferenceValue);
+        edit.apply();
     }
 
 }
