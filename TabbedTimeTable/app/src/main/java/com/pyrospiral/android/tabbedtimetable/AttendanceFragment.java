@@ -1,6 +1,8 @@
 package com.pyrospiral.android.tabbedtimetable;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,7 +35,7 @@ public class AttendanceFragment extends Fragment {
 
     public RecyclerView mrecyclerView;
     private AttendanceAdapter mAdapter;
-    List<Info> data = new ArrayList<>();
+    List<Info> data = new ArrayList<Info>();
 
     public Button all_P,all_A,all_C;
     public ImageView cancel;
@@ -460,7 +462,7 @@ public class AttendanceFragment extends Fragment {
 
 
         // setting up array list
-        data = new ArrayList<>();
+        data = new ArrayList<Info>();
 
         //String array for Subject Name
        // final String[] subName = {};
@@ -520,365 +522,454 @@ public class AttendanceFragment extends Fragment {
         all_P.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(getActivity(),"All Present", Toast.LENGTH_SHORT).show();
 
-                    Calendar calendar = Calendar.getInstance();
-                    int day = calendar.get(Calendar.DAY_OF_WEEK);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                    Cursor c1;
+                // Set Alert Dialog Title
+                builder.setTitle("Alert!");
+
+                // Set an Icon for this Alert Dialog
+                builder.setIcon(R.drawable.warning);
+
+                // Set Alert Dialog Message
+                builder.setMessage("Are you sure you were present in all the classes?")
+
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int arg0) {
+
+                                Calendar calendar = Calendar.getInstance();
+                                int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+                                Cursor c1;
+
+                                switch (day) {
+                                    case Calendar.MONDAY:
+
+                                        final DBAdapter dbm=new DBAdapter(getActivity());
+                                        dbm.open();
+
+                                        c1=dbm.getAllContacts("MONDAY");
+
+                                        if(c1.moveToFirst()) {
+                                            do {
+                                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
+                                                    continue;
+                                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                                dbA.open();
+
+                                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                                int present, absent, total, row;
+                                                if (c2.moveToFirst()) {
+                                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+
+                                                    dbm.updateSubject(subname,"MONDAY");
+
+                                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                                    dbA.updateContact(row, present+1, absent, total + 1);
+                                                }
+
+                                            }
+                                            while (c1.moveToNext()) ;
+                                        }
 
 
-                    switch (day) {
-                        case Calendar.MONDAY:
+                                        dbm.close();
 
-                            final DBAdapter dbm=new DBAdapter(getActivity());
-                            dbm.open();
 
-                            c1=dbm.getAllContacts("MONDAY");
+                                        break;
+                                    case Calendar.TUESDAY:
+                                        final DBAdapter dbtu=new DBAdapter(getActivity());
+                                        dbtu.open();
+                                        // Cursor c2=dbm.getPosition(subName[position]);
+                                        c1=dbtu.getAllContacts("TUESDAY");
+                                        if(c1.moveToFirst()) {
+                                            do {
+                                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
+                                                    continue;
+                                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                                dbA.open();
 
-                            if(c1.moveToFirst()) {
-                                do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
-                                        continue;
-                                    final DBAttendence dbA = new DBAttendence(getActivity());
-                                    dbA.open();
+                                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                                int present, absent, total, row;
+                                                if (c2.moveToFirst()) {
+                                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
 
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
-                                    int present, absent, total, row;
-                                    if (c2.moveToFirst()) {
-                                        String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+                                                    dbtu.updateSubject(subname,"TUESDAY");
+                                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                                    dbA.updateContact(row, present+1, absent, total + 1);
+                                                }
 
-                                        dbm.updateSubject(subname,"MONDAY");
+                                            }
+                                            while (c1.moveToNext()) ;
+                                        }
+                                        dbtu.close();
+                                        break;
+                                    case Calendar.WEDNESDAY:
+                                        final DBAdapter dbw=new DBAdapter(getActivity());
+                                        dbw.open();
+                                        // Cursor c2=dbm.getPosition(subName[position]);
+                                        c1=dbw.getAllContacts("WEDNESDAY");
 
-                                        present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                        absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                        total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                        row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                        dbA.updateContact(row, present+1, absent, total + 1);
-                                    }
+                                        if(c1.moveToFirst()) {
+                                            do {
+                                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
+                                                    continue;
+                                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                                dbA.open();
+                                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                                int present, absent, total, row;
+                                                String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+                                                dbw.updateSubject(subname,"WEDNESDAY");
+                                                if (c2.moveToFirst()) {
+                                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                                    dbA.updateContact(row, present+1, absent, total + 1);
+                                                }
 
-                                    }
-                                    while (c1.moveToNext()) ;
+                                            }
+                                            while (c1.moveToNext()) ;
+                                        }
+                                        dbw.close();
+                                        break;
+                                    case Calendar.THURSDAY:
+                                        final DBAdapter dbth=new DBAdapter(getActivity());
+                                        dbth.open();
+                                        // Cursor c2=dbm.getPosition(subName[position]);
+                                        c1=dbth.getAllContacts("THURSDAY");
+
+                                        if(c1.moveToFirst()) {
+                                            do {
+                                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
+                                                    continue;
+
+                                                String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+                                                dbth.updateSubject(subname,"THURSDAY");
+                                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                                dbA.open();
+                                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                                int present, absent, total, row;
+                                                if (c2.moveToFirst()) {
+                                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                                    dbA.updateContact(row, present+1, absent, total + 1);
+                                                }
+
+                                            }
+                                            while (c1.moveToNext()) ;
+                                        }
+                                        dbth.close();
+                                        break;
+                                    case Calendar.FRIDAY:
+                                        final DBAdapter dbf=new DBAdapter(getActivity());
+                                        dbf.open();
+                                        // Cursor c2=dbm.getPosition(subName[position]);
+                                        c1=dbf.getAllContacts("FRIDAY");
+
+                                        if(c1.moveToFirst()) {
+                                            do {
+                                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
+                                                    continue;
+                                                String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+
+                                                dbf.updateSubject(subname,"FRIDAY");
+                                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                                dbA.open();
+                                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                                int present, absent, total, row;
+                                                if (c2.moveToFirst()) {
+                                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                                    dbA.updateContact(row, present+1, absent, total + 1);
+                                                }
+
+                                            }
+                                            while (c1.moveToNext()) ;
+                                        }
+                                        dbf.close();
+                                        break;
+
+
+
                                 }
 
-
-                            dbm.close();
-
-
-                            break;
-                        case Calendar.TUESDAY:
-                            final DBAdapter dbtu=new DBAdapter(getActivity());
-                            dbtu.open();
-                            // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbtu.getAllContacts("TUESDAY");
-                            if(c1.moveToFirst()) {
-                                do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
-                                        continue;
-                                    final DBAttendence dbA = new DBAttendence(getActivity());
-                                    dbA.open();
-
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
-                                    int present, absent, total, row;
-                                    if (c2.moveToFirst()) {
-                                        String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
-
-                                        dbtu.updateSubject(subname,"TUESDAY");
-                                        present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                        absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                        total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                        row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                        dbA.updateContact(row, present+1, absent, total + 1);
-                                    }
-
-                                }
-                                while (c1.moveToNext()) ;
                             }
-                            dbtu.close();
-                            break;
-                        case Calendar.WEDNESDAY:
-                            final DBAdapter dbw=new DBAdapter(getActivity());
-                            dbw.open();
-                            // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbw.getAllContacts("WEDNESDAY");
+                        })
 
-                            if(c1.moveToFirst()) {
-                                do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
-                                        continue;
-                                    final DBAttendence dbA = new DBAttendence(getActivity());
-                                    dbA.open();
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
-                                    int present, absent, total, row;
-                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
-                                    dbw.updateSubject(subname,"WEDNESDAY");
-                                    if (c2.moveToFirst()) {
-                                        present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                        absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                        total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                        row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                        dbA.updateContact(row, present+1, absent, total + 1);
-                                    }
+                                // Negative button functionality
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int arg0) {
 
-                                }
-                                while (c1.moveToNext()) ;
+                                dialog.cancel();
                             }
-                            dbw.close();
-                            break;
-                        case Calendar.THURSDAY:
-                            final DBAdapter dbth=new DBAdapter(getActivity());
-                            dbth.open();
-                            // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbth.getAllContacts("THURSDAY");
+                        });
 
-                            if(c1.moveToFirst()) {
-                                do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
-                                        continue;
+                // Create the Alert Dialog
+                AlertDialog alertdialog = builder.create();
 
-                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
-                                     dbth.updateSubject(subname,"THURSDAY");
-                                    final DBAttendence dbA = new DBAttendence(getActivity());
-                                    dbA.open();
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
-                                    int present, absent, total, row;
-                                    if (c2.moveToFirst()) {
-                                        present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                        absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                        total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                        row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                        dbA.updateContact(row, present+1, absent, total + 1);
-                                    }
-
-                                }
-                                while (c1.moveToNext()) ;
-                            }
-                            dbth.close();
-                            break;
-                        case Calendar.FRIDAY:
-                            final DBAdapter dbf=new DBAdapter(getActivity());
-                            dbf.open();
-                            // Cursor c2=dbm.getPosition(subName[position]);
-                            c1=dbf.getAllContacts("FRIDAY");
-
-                            if(c1.moveToFirst()) {
-                                do {
-                                    if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
-                                        continue;
-                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
-
-                                    dbf.updateSubject(subname,"FRIDAY");
-                                    final DBAttendence dbA = new DBAttendence(getActivity());
-                                    dbA.open();
-                                    Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
-                                    int present, absent, total, row;
-                                    if (c2.moveToFirst()) {
-                                        present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                        absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                        total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                        row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                        dbA.updateContact(row, present+1, absent, total + 1);
-                                    }
-
-                                }
-                                while (c1.moveToNext()) ;
-                            }
-                            dbf.close();
-                            break;
+                // Show Alert Dialog
+                alertdialog.show();
 
 
-
-                    }
-                }
-
-
+            }
         });
 
         all_A.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Calendar calendar = Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_WEEK);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                Cursor c1;
+                // Set Alert Dialog Title
+                builder.setTitle("Alert!");
+
+                // Set an Icon for this Alert Dialog
+                builder.setIcon(R.drawable.warning);
+
+                // Set Alert Dialog Message
+                builder.setMessage("Are you sure you were absent in all the classes?")
+
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int arg0) {
+
+                                Calendar calendar = Calendar.getInstance();
+                                int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+                                Cursor c1;
 
 
-                switch (day) {
-                    case Calendar.MONDAY:
+                                switch (day) {
+                                    case Calendar.MONDAY:
 
-                        final DBAdapter dbm=new DBAdapter(getActivity());
-                        dbm.open();
+                                        final DBAdapter dbm = new DBAdapter(getActivity());
+                                        dbm.open();
 
-                        c1=dbm.getAllContacts("MONDAY");
+                                        c1 = dbm.getAllContacts("MONDAY");
 
-                        if(c1.moveToFirst()) {
-                            do {
-                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
-                                    continue;
-                                final DBAttendence dbA = new DBAttendence(getActivity());
-                                dbA.open();
+                                        if (c1.moveToFirst()) {
+                                            do {
+                                                if (c1.getInt(c1.getColumnIndex(DBAdapter.DONE)) == 1)
+                                                    continue;
+                                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                                dbA.open();
 
-                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
-                                int present, absent, total, row;
-                                if (c2.moveToFirst()) {
-                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+                                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                                int present, absent, total, row;
+                                                if (c2.moveToFirst()) {
+                                                    String subname = c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
 
-                                    dbm.updateSubject(subname,"MONDAY");
+                                                    dbm.updateSubject(subname, "MONDAY");
 
-                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                    dbA.updateContact(row, present, absent+1, total + 1);
+                                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                                    dbA.updateContact(row, present, absent + 1, total + 1);
+                                                }
+
+                                            }
+                                            while (c1.moveToNext());
+                                        }
+
+
+                                        dbm.close();
+
+
+                                        break;
+                                    case Calendar.TUESDAY:
+                                        final DBAdapter dbtu = new DBAdapter(getActivity());
+                                        dbtu.open();
+                                        // Cursor c2=dbm.getPosition(subName[position]);
+                                        c1 = dbtu.getAllContacts("TUESDAY");
+                                        if (c1.moveToFirst()) {
+                                            do {
+                                                if (c1.getInt(c1.getColumnIndex(DBAdapter.DONE)) == 1)
+                                                    continue;
+                                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                                dbA.open();
+
+                                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                                int present, absent, total, row;
+                                                if (c2.moveToFirst()) {
+                                                    String subname = c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+
+                                                    dbtu.updateSubject(subname, "TUESDAY");
+                                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                                    dbA.updateContact(row, present, absent + 1, total + 1);
+                                                }
+
+                                            }
+                                            while (c1.moveToNext());
+                                        }
+                                        dbtu.close();
+                                        break;
+                                    case Calendar.WEDNESDAY:
+                                        final DBAdapter dbw = new DBAdapter(getActivity());
+                                        dbw.open();
+                                        // Cursor c2=dbm.getPosition(subName[position]);
+                                        c1 = dbw.getAllContacts("WEDNESDAY");
+
+                                        if (c1.moveToFirst()) {
+                                            do {
+                                                if (c1.getInt(c1.getColumnIndex(DBAdapter.DONE)) == 1)
+                                                    continue;
+                                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                                dbA.open();
+                                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                                int present, absent, total, row;
+                                                String subname = c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+                                                dbw.updateSubject(subname, "WEDNESDAY");
+                                                if (c2.moveToFirst()) {
+                                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                                    dbA.updateContact(row, present, absent + 1, total + 1);
+                                                }
+
+                                            }
+                                            while (c1.moveToNext());
+                                        }
+                                        dbw.close();
+                                        break;
+                                    case Calendar.THURSDAY:
+                                        final DBAdapter dbth = new DBAdapter(getActivity());
+                                        dbth.open();
+                                        // Cursor c2=dbm.getPosition(subName[position]);
+                                        c1 = dbth.getAllContacts("THURSDAY");
+
+                                        if (c1.moveToFirst()) {
+                                            do {
+                                                if (c1.getInt(c1.getColumnIndex(DBAdapter.DONE)) == 1)
+                                                    continue;
+
+                                                String subname = c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+                                                dbth.updateSubject(subname, "THURSDAY");
+                                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                                dbA.open();
+                                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                                int present, absent, total, row;
+                                                if (c2.moveToFirst()) {
+                                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                                    dbA.updateContact(row, present, absent + 1, total + 1);
+                                                }
+
+                                            }
+                                            while (c1.moveToNext());
+                                        }
+                                        dbth.close();
+                                        break;
+                                    case Calendar.FRIDAY:
+                                        final DBAdapter dbf = new DBAdapter(getActivity());
+                                        dbf.open();
+                                        // Cursor c2=dbm.getPosition(subName[position]);
+                                        c1 = dbf.getAllContacts("FRIDAY");
+
+                                        if (c1.moveToFirst()) {
+                                            do {
+                                                if (c1.getInt(c1.getColumnIndex(DBAdapter.DONE)) == 1)
+                                                    continue;
+                                                String subname = c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
+
+                                                dbf.updateSubject(subname, "FRIDAY");
+                                                final DBAttendence dbA = new DBAttendence(getActivity());
+                                                dbA.open();
+                                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
+                                                int present, absent, total, row;
+                                                if (c2.moveToFirst()) {
+                                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
+                                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
+                                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
+                                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
+                                                    dbA.updateContact(row, present, absent + 1, total + 1);
+                                                }
+
+                                            }
+                                            while (c1.moveToNext());
+                                        }
+                                        dbf.close();
+                                        break;
+
+
                                 }
 
                             }
-                            while (c1.moveToNext()) ;
-                        }
+                        })
 
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int arg0) {
 
-                        dbm.close();
-
-
-                        break;
-                    case Calendar.TUESDAY:
-                        final DBAdapter dbtu=new DBAdapter(getActivity());
-                        dbtu.open();
-                        // Cursor c2=dbm.getPosition(subName[position]);
-                        c1=dbtu.getAllContacts("TUESDAY");
-                        if(c1.moveToFirst()) {
-                            do {
-                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
-                                    continue;
-                                final DBAttendence dbA = new DBAttendence(getActivity());
-                                dbA.open();
-
-                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
-                                int present, absent, total, row;
-                                if (c2.moveToFirst()) {
-                                    String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
-
-                                    dbtu.updateSubject(subname,"TUESDAY");
-                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                    dbA.updateContact(row, present, absent+1, total + 1);
-                                }
-
+                                dialog.cancel();
                             }
-                            while (c1.moveToNext()) ;
-                        }
-                        dbtu.close();
-                        break;
-                    case Calendar.WEDNESDAY:
-                        final DBAdapter dbw=new DBAdapter(getActivity());
-                        dbw.open();
-                        // Cursor c2=dbm.getPosition(subName[position]);
-                        c1=dbw.getAllContacts("WEDNESDAY");
+                        });
 
-                        if(c1.moveToFirst()) {
-                            do {
-                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
-                                    continue;
-                                final DBAttendence dbA = new DBAttendence(getActivity());
-                                dbA.open();
-                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
-                                int present, absent, total, row;
-                                String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
-                                dbw.updateSubject(subname,"WEDNESDAY");
-                                if (c2.moveToFirst()) {
-                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                    dbA.updateContact(row, present, absent+1, total + 1);
-                                }
+                // Create the Alert Dialog
+                AlertDialog alertdialog = builder.create();
 
-                            }
-                            while (c1.moveToNext()) ;
-                        }
-                        dbw.close();
-                        break;
-                    case Calendar.THURSDAY:
-                        final DBAdapter dbth=new DBAdapter(getActivity());
-                        dbth.open();
-                        // Cursor c2=dbm.getPosition(subName[position]);
-                        c1=dbth.getAllContacts("THURSDAY");
-
-                        if(c1.moveToFirst()) {
-                            do {
-                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
-                                    continue;
-
-                                String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
-                                dbth.updateSubject(subname,"THURSDAY");
-                                final DBAttendence dbA = new DBAttendence(getActivity());
-                                dbA.open();
-                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
-                                int present, absent, total, row;
-                                if (c2.moveToFirst()) {
-                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                    dbA.updateContact(row, present, absent+1, total + 1);
-                                }
-
-                            }
-                            while (c1.moveToNext()) ;
-                        }
-                        dbth.close();
-                        break;
-                    case Calendar.FRIDAY:
-                        final DBAdapter dbf=new DBAdapter(getActivity());
-                        dbf.open();
-                        // Cursor c2=dbm.getPosition(subName[position]);
-                        c1=dbf.getAllContacts("FRIDAY");
-
-                        if(c1.moveToFirst()) {
-                            do {
-                                if(c1.getInt(c1.getColumnIndex(DBAdapter.DONE))==1)
-                                    continue;
-                                String subname=c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT));
-
-                                dbf.updateSubject(subname,"FRIDAY");
-                                final DBAttendence dbA = new DBAttendence(getActivity());
-                                dbA.open();
-                                Cursor c2 = dbA.getContact(c1.getString(c1.getColumnIndex(DBAdapter.SUBJECT)));
-                                int present, absent, total, row;
-                                if (c2.moveToFirst()) {
-                                    present = c2.getInt(c2.getColumnIndex(DBAttendence.PRESENT));
-                                    absent = c2.getInt(c2.getColumnIndex(DBAttendence.ABSENT));
-                                    total = c2.getInt(c2.getColumnIndex(DBAttendence.TOTAL));
-                                    row = c2.getInt(c2.getColumnIndex(DBAttendence.ROW_ID));
-                                    dbA.updateContact(row, present, absent+1, total + 1);
-                                }
-
-                            }
-                            while (c1.moveToNext()) ;
-                        }
-                        dbf.close();
-                        break;
+                // Show Alert Dialog
+                alertdialog.show();
 
 
 
 
-                }
-                }
-
-
+            }
         });
 
         all_C.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-            for (int i = 0; i < subName.length; i++) {
-                Toast.makeText(getActivity(), "All Cancelled", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                // Set Alert Dialog Title
+                builder.setTitle("Alert!");
+
+                // Set an Icon for this Alert Dialog
+                builder.setIcon(R.drawable.warning);
+
+                // Set Alert Dialog Message
+                builder.setMessage("Are you sure all the classes were cancelled?")
+
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int arg0) {
+
+
+                                //TODO : Add what we need to do when he clicks all cancelled
+
+                            }
+                        })
+
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int arg0) {
+
+                                dialog.cancel();
+                            }
+                        });
+
+                // Create the Alert Dialog
+                AlertDialog alertdialog = builder.create();
+
+                // Show Alert Dialog
+                alertdialog.show();
+
 
             }
-        }
         });
 
 
