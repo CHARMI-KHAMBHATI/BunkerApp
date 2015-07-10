@@ -1,6 +1,7 @@
 package com.pyrospiral.android.tabbedtimetable;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import java.util.List;
  * Created by kaano8 on 30/6/15.
  */
 public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyViewHolder> {
+
+
 
 
     private LayoutInflater inflater;
@@ -37,18 +40,22 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
     @Override
     public void onBindViewHolder(AllEventsAdapter.MyViewHolder holder, int position) {
 
-        EventData current= data.get(position);
+        final EventData current= data.get(position);
         holder.logo.setText(current.chapterName.substring(0,1));
         holder.name_event.setText(current.eventName);
         holder.chapter_name.setText(current.chapterName);
         holder.date_event.setText(current.date);
         holder.time_event.setText(current.time);
+
     }
 
     @Override
     public int getItemCount() {
         return data.size();
     }
+
+
+
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -69,11 +76,18 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
             date_event = (TextView) itemView.findViewById(R.id.date);
             time_event = (TextView) itemView.findViewById(R.id.time);
 
+
+
         }
 
         @Override
         public void onClick(View v) {
 
+
+
         }
+    }
+    public interface ClickListener{
+        public void itemClicked(View view, int position);
     }
 }
