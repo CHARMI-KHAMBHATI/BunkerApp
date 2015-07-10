@@ -2,7 +2,6 @@ package com.pyrospiral.android.tabbedtimetable;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +62,6 @@ public class TimeTableListAdapter extends BaseAdapter {
 
         final String subject = item.subject;
 
-
-        Log.e("TimeTableList Adapter ", "" + subject.charAt(0));
         circ.setText(""+subject.charAt(0));
 
         return vi;
