@@ -18,11 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-
-import org.apache.http.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -436,8 +433,21 @@ public class SelectDiv extends Fragment {
 
 
 
-                                                            });
+                                                            })
 
+
+                                                             // Negative button functionality
+                                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int arg0) {
+                                                        dialog.cancel();
+                                                    }
+                                                    });
+
+                                                    // Create the Alert Dialog
+                                                    AlertDialog alertdialog = builder2.create();
+
+                                                    // Show Alert Dialog
+                                                    alertdialog.show();
 
 
                                                 }
@@ -467,12 +477,7 @@ public class SelectDiv extends Fragment {
 
                                             }
                                         });
-
-
-
-
-                                                    //TODO: Put the code to load the time table here according to the val
-
+                                        
                                         Toast.makeText(getActivity(), "Loading", Toast.LENGTH_SHORT).show();
                                     }
                                 })
