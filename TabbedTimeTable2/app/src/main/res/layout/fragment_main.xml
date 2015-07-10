@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity$AttendanceFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#333"
+        android:layout_alignParentTop="true"
+        android:id="@+id/top_bar">
+
+        <Button
+            android:id="@+id/all_absent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/all_absent"
+            android:textSize="13sp"
+            android:background="#333"
+            android:textColor="@color/accentColor"
+            style="?android:attr/borderlessButtonStyle"/>
+
+        <LinearLayout
+            android:layout_width="2dp"
+            android:layout_height="1dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/all_cancelled"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/all_cancelled"
+            android:textSize="13sp"
+            android:background="#333"
+            android:textColor="@color/accentColor"
+            style="?android:attr/borderlessButtonStyle"/>
+
+        <LinearLayout
+            android:layout_width="2dp"
+            android:layout_height="1dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/all_present"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/all_present"
+            android:textSize="13sp"
+            android:background="#333"
+            android:textColor="@color/accentColor"
+            style="?android:attr/borderlessButtonStyle"/>
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:layout_below="@+id/top_bar">
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>
+
