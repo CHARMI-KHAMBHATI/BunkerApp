@@ -140,7 +140,7 @@ public class SelectBranch extends Fragment {
                             newFragment.setArguments(bundle);
                             FragmentTransaction transaction = getFragmentManager().beginTransaction();
                             transaction.replace(android.R.id.content, newFragment);
-                            transaction.addToBackStack(null);
+                            //transaction.addToBackStack(null);
                             transaction.commit();
                     }
                 })

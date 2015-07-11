@@ -44,13 +44,13 @@ public class MainActivity extends ActionBarActivity {
         Calendar calendar = Calendar.getInstance();
         Intent intent1 = new Intent(this,NotificationMaker.class);
 
-        if(calendar.get(Calendar.HOUR_OF_DAY)>23 && Calendar.MINUTE>54)
+        if(calendar.get(Calendar.HOUR_OF_DAY)>21 && Calendar.MINUTE>0)
         {
             calendar.add(Calendar.DAY_OF_MONTH,1);
         }
 
-        calendar.set(Calendar.HOUR_OF_DAY, 23); // For 9PM
-        calendar.set(Calendar.MINUTE, 54);
+        calendar.set(Calendar.HOUR_OF_DAY, 21); // For 9PM
+        calendar.set(Calendar.MINUTE, 00);
         calendar.set(Calendar.SECOND, 00);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);

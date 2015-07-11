@@ -20,10 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.apache.http.ParseException;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -118,7 +122,8 @@ public class SelectDiv extends Fragment {
 
 
 
-       // Toast.makeText(getActivity(),value,Toast.LENGTH_LONG).show();
+
+        //Toast.makeText(getActivity(),value,Toast.LENGTH_LONG).show();
         querypassed="Time_Table_Btech";
         if(value.length()==1)
         {
@@ -162,6 +167,7 @@ public class SelectDiv extends Fragment {
         }
 
         query = ParseQuery.getQuery(querypassed);
+        query.selectKeys(Arrays.asList("Division"));
 
 
         try {
@@ -169,6 +175,7 @@ public class SelectDiv extends Fragment {
             final DBAllTimeTable dbt = new DBAllTimeTable(getActivity());
             dbt.open();
             int alreadydone=Integer.parseInt(readFromPreferences(getActivity(), "divisionsUpdated", "0"));
+            //Toast.makeText(getActivity(),Integer.toString(alreadydone),Toast.LENGTH_LONG).show();
 
             if (alreadydone==1) {
 
@@ -265,14 +272,14 @@ public class SelectDiv extends Fragment {
             int isdone=Integer.parseInt(readFromPreferences(getActivity(),"divisionsUpdated","0"));
             if(isdone==1) {
 
-                Toast.makeText(getActivity(), "No data found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "No data downloaded", Toast.LENGTH_SHORT).show();
                 ProgressBar progress;
-                progress=(ProgressBar)rootView.findViewById(R.id.progress);
+                progress=(ProgressBar) rootView.findViewById(R.id.progress);
 
                 progress.setVisibility(View.GONE);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(android.R.id.content, new SelectYear());
-                transaction.addToBackStack(null);
+                //transaction.addToBackStack(null);
                 transaction.commit();
             }
         }
@@ -436,6 +443,8 @@ public class SelectDiv extends Fragment {
                                                 if(c2.moveToFirst())
                                                 {
 
+                                                   // Toast.makeText(getActivity(),"fgd",Toast.LENGTH_SHORT).show();
+
                                                     AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
 
 
@@ -532,6 +541,9 @@ public class SelectDiv extends Fragment {
                                         });
 
 
+
+
+                                                    //TODO: Put the code to load the time table here according to the val
 
                                         Toast.makeText(getActivity(), "Loading", Toast.LENGTH_SHORT).show();
                                     }

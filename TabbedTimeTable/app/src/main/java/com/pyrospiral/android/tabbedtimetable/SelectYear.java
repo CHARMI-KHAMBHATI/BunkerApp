@@ -88,8 +88,12 @@ public class SelectYear extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_select_year, container, false);
+
+        getFragmentManager().popBackStack();
+
 
         for (int i=0;i<Years.length;i++)
         {
@@ -131,7 +135,7 @@ public class SelectYear extends Fragment {
                         newFragment.setArguments(bundle);
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
                         transaction.replace(android.R.id.content, newFragment);
-                        transaction.addToBackStack(null);
+                        //transaction.addToBackStack(null);
                         transaction.commit();
 
                     }
