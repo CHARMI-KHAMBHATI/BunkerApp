@@ -20,11 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-
-import org.apache.http.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -439,8 +436,6 @@ public class SelectDiv extends Fragment {
                                                 if(c2.moveToFirst())
                                                 {
 
-                                                    Toast.makeText(getActivity(),"fgd",Toast.LENGTH_SHORT).show();
-
                                                     AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
 
 
@@ -537,9 +532,6 @@ public class SelectDiv extends Fragment {
                                         });
 
 
-
-
-                                                    //TODO: Put the code to load the time table here according to the val
 
                                         Toast.makeText(getActivity(), "Loading", Toast.LENGTH_SHORT).show();
                                     }
