@@ -195,14 +195,13 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
                                 db.insertContact(names_event[i], chapter_name[i], date_event[i], time_event[i], location[i], teamsize[i], fee[i],
                                         link[i], cordi1N[i], cordi2N[i], cordi1NU[i], cordi2NU[i], description[i]);
                                 i++;
-
-                               
+                             
                             }
 
                             Calendar c = Calendar.getInstance();
                             int date = c.get(Calendar.DAY_OF_YEAR);
                             saveToPreferences(getActivity(), "Last_Refresh", Integer.toString(date));
-                             db.close();
+                            db.close();
 
                             FragmentManager fragmentManager = getFragmentManager();
 
