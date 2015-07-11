@@ -144,9 +144,12 @@ public class DrawerFragment extends Fragment {
                     case 4:
                         startActivity(new Intent(getActivity(), SettingsActivity.class));
                         break;
+
+                    //TODO: CHANGE THIS LATER!!!!! EventFragment instead of All_events_fragment
+
                     case 3:
                         fragmentManager.beginTransaction()
-                                .replace(R.id.container, new EventFragment())
+                                .replace(R.id.container, new All_events_fragment())
                                 .commit();
                         break;
                 }

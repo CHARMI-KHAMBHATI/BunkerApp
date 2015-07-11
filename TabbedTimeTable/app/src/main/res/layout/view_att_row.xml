@@ -25,7 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/subName"
-            android:gravity="left"
             android:background="@color/primaryColor"
             android:padding="12dp"
             android:textColor="@color/primaryColorLight"
@@ -38,7 +37,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/teacherName"
             android:gravity="center_vertical"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:textSize="15sp"
             android:paddingLeft="10dp"
             />
@@ -51,7 +50,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/timings"
             android:gravity="center_vertical"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:textSize="15sp"
             android:paddingLeft="10dp"
             />

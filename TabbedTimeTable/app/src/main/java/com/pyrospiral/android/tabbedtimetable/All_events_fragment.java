@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -147,6 +148,7 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
 
 
 
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Events");
 
         return rootView;
     }
@@ -193,6 +195,8 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
                                 db.insertContact(names_event[i], chapter_name[i], date_event[i], time_event[i], location[i], teamsize[i], fee[i],
                                         link[i], cordi1N[i], cordi2N[i], cordi1NU[i], cordi2NU[i], description[i]);
                                 i++;
+
+                                db.close();
                             }
 
                             Calendar c = Calendar.getInstance();

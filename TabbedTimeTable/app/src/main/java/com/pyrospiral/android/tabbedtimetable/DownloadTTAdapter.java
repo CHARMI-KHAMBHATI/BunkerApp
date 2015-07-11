@@ -42,7 +42,7 @@ public class DownloadTTAdapter extends RecyclerView.Adapter<DownloadTTAdapter.My
         final String current = data.get(position);
         holder.title.setText(current);
         if(current.length()<=3) {
-            holder.title.setTextSize(getPx(30));
+            holder.title.setTextSize(getPx(15));
             holder.title.setPadding(getPx(50),getPx(50),getPx(50),getPx(50));
 
         }

@@ -34,7 +34,7 @@
                 android:textSize="35sp"
                 android:paddingLeft="80dp"
                 android:paddingRight="80dp"
-                android:text="ldkflksdjfksldjfkldsaaaaaaaaaaaaaaaaaaaaaaaaaaaaajfk" />
+                android:text="100%" />
 
             <TextView
                 android:id="@+id/text"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="80dp"
                 android:paddingRight="80dp"
-                android:text="ldkflksdjfksldjfkldsaaaaaaaaaaaaaaaaaaaaaaaaaaaaajfk" />
+                android:text="" />
 
         </LinearLayout>
 

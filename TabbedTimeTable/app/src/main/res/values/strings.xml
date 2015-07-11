@@ -42,7 +42,7 @@
     <string name="cancel" translatable="false">CANCEL</string>
 
     <!-- Strings related to detail fragment -->
-    <string name="timingsInaWeek" translatable="false">Timings in a Week</string>
+    <string name="timingsInaWeek" translatable="false">Timings</string>
     <string name="classesAttended" translatable="false">Classes Attended Till Now</string>
     <string name="classCanBunk" translatable="false">Classes safely can be bunked</string>
     <string name="title_activity_subject_detail">Subject Detail</string>
@@ -51,6 +51,6 @@
     <string name="title_activity_fill_attendance">FillAttendance</string>
 
     <!-- Strings related to fragment details -->
-    <string name="taughtBy" translatable="false">Taught By</string>
+    <string name="taughtBy" translatable="false">Teachers</string>
     <string name="title_activity_event_details">EventDetails</string>
 </resources>

@@ -59,8 +59,8 @@ public class ViewAttFragment extends Fragment implements ViewAttAdapter.ClickLis
                 index4=c.getColumnIndex(DBAttendence.TOTAL);
 
                 subName[i]=c.getString(index1);
-                teacherName[i]="PRESENT CLASSES : "+c.getString(index2);
-                timings[i]="TOTAL CLASSES : "+c.getString(index4);
+                teacherName[i]="Classes Present : "+c.getString(index2);
+                timings[i]="Total Classes : "+c.getString(index4);
 
                 i++;
 

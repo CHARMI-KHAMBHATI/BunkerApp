@@ -138,7 +138,7 @@ public class DetailsFragment extends Fragment {
 //    Algorithm to set the size of the font
         int temp = subject.length();
         float text_size;
-        int max_value = 80;
+        int max_value = 20;
 
         if(temp<5) {
             text_size = max_value - (temp * 10);
