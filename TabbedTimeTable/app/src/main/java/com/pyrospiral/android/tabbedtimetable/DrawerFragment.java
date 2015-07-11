@@ -149,7 +149,7 @@ public class DrawerFragment extends Fragment {
 
                     case 3:
                         fragmentManager.beginTransaction()
-                                .replace(R.id.container, new EventFragment())
+                                .replace(R.id.container, new All_events_fragment())
                                 .commit();
                         break;
                 }
