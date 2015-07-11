@@ -3,17 +3,14 @@ package com.pyrospiral.android.tabbedtimetable;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -66,8 +63,6 @@ public class TimeTableViewPagerFragment extends Fragment {
         //Toast.makeText(getActivity(),"HEY",Toast.LENGTH_SHORT).show();
         doing=Integer.parseInt(readFromPreferences(getActivity(), "Refresh_State_Controller",""));
         saveToPreferences(getActivity(), "Refresh_State_Controller", "0");
-        Log.e("", "onResume");
-        Log.e("", "value of doing is " + doing + "");
 
 
             final FragmentManager fragmentManager = getFragmentManager();

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,22 +139,25 @@ public class DetailsFragment extends Fragment {
 //    Algorithm to set the size of the font
         int temp = subject.length();
         float text_size;
-        int max_value = 20;
+        int max_value = 160;
 
-        if(temp<5) {
+        if(temp<=5) {
             text_size = max_value - (temp * 10);
         }
-        else if(temp<10){
+        else if(temp<=10){
+            text_size = max_value - (temp * 6);
+        }
+        else if(temp<=15){
             text_size = max_value - (temp * 5);
         }
-        else {
+        else{
             text_size = max_value - (temp * 4);
         }
 
         subName.setText(subject);
         subName.setTypeface(null, Typeface.BOLD);
         subName.setBackgroundColor(rainbow[n]);
-        subName.setTextSize(getPx(text_size));
+        subName.setTextSize(TypedValue.COMPLEX_UNIT_SP, (text_size/density));
         subName.setText(subject);
         teacherName.setText(teacher);
         timings.setText(timing);
@@ -178,10 +182,6 @@ public class DetailsFragment extends Fragment {
 
 
         return rootView;
-    }
-
-    public int getPx(float dimensionDp) {
-        return (int) (dimensionDp * density + 0.5f);
     }
 
 }

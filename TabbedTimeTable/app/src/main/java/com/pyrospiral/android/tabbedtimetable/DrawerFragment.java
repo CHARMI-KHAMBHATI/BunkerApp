@@ -168,7 +168,7 @@ public class DrawerFragment extends Fragment {
     public static List<DrawerData> getData(){
 
         List<DrawerData> data = new ArrayList<>();
-        int[] icons = {R.drawable.timetable, R.drawable.assignments, R.drawable.attendance,R.drawable.timetable, R.drawable.settings };
+        int[] icons = {R.drawable.timetable, R.drawable.assignments, R.drawable.attendance,R.drawable.events, R.drawable.settings };
         String[] titles = {"Timetable", "Assignments", "Attendance","Events", "Settings"};
         for(int i=0;i<titles.length && i<icons.length ;i++)
         {

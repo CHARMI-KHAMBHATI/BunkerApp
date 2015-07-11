@@ -2,6 +2,7 @@ package com.pyrospiral.android.tabbedtimetable;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class DownloadTTAdapter extends RecyclerView.Adapter<DownloadTTAdapter.My
         final String current = data.get(position);
         holder.title.setText(current);
         if(current.length()<=3) {
-            holder.title.setTextSize(getPx(15));
+            holder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, (120/density));
             holder.title.setPadding(getPx(50),getPx(50),getPx(50),getPx(50));
 
         }
