@@ -206,7 +206,7 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
                             FragmentManager fragmentManager = getFragmentManager();
 
                             fragmentManager.beginTransaction()
-                                    .replace(R.id.container5, new EventFragment())
+                                    .replace(R.id.container, new All_events_fragment())
                                     .commit();
                         } else {
 
