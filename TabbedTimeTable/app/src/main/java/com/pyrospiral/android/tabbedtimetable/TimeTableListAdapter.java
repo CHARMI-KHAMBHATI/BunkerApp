@@ -2,7 +2,6 @@ package com.pyrospiral.android.tabbedtimetable;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,7 @@ public class TimeTableListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         TimeTableArrayList.TimeTableArrayListItems item = items.get(position);
 
@@ -52,17 +51,18 @@ public class TimeTableListAdapter extends BaseAdapter {
         if (convertView == null)
             vi = inflater.inflate(R.layout.timetable_row, null);
 
-        TextView sub = (TextView) vi.findViewById(R.id.subjecttext);
-        TextView tim = (TextView) vi.findViewById(R.id.timingtext);
-        TextView ass = (TextView) vi.findViewById(R.id.teachertext);
-        TextView circ = (TextView) vi.findViewById(R.id.asscircle);
+
+        final TextView sub = (TextView) vi.findViewById(R.id.subjecttext);
+        final TextView tim = (TextView) vi.findViewById(R.id.timingtext);
+        final TextView ass = (TextView) vi.findViewById(R.id.teachertext);
+        final TextView circ = (TextView) vi.findViewById(R.id.asscircle);
 
         sub.setText(item.subject);
         tim.setText(item.timing);
         ass.setText(item.teacher);
 
-        //int subjectWidth = sub.getLayout().getWidth();
-        //Log.e("TimetableListAdapter","Width  "+sub.getLayout());
+
+
 
         final String subject = item.subject;
 
