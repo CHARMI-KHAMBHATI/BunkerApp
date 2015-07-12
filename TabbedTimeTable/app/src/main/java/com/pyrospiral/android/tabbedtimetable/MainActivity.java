@@ -85,6 +85,39 @@ public class MainActivity extends ActionBarActivity {
 
         //End looping
 
+
+
+        //TODO: For Events
+
+        /*
+        //Start looping
+
+            Calendar Eventcal = Calendar.getInstance();
+
+            Intent eintent = new Intent(this, EventNotificationReceiver.class);
+
+            //SET THESE FROM DATABASE
+            String description = "aaa";
+            String chapter = "aaa";
+            String timing = "aaa";
+            int id = 234;
+            Eventcal.add(Calendar.MINUTE, 1);// set calander time from database
+
+
+            eintent.putExtra("description",description).putExtra("chapter",chapter).putExtra("timing",timing).putExtra("id",id);
+
+            int eintentNum = 435;  //change this for every alarm
+
+            //This remains the same
+            PendingIntent p = PendingIntent.getBroadcast(this, eintentNum, eintent, PendingIntent.FLAG_ONE_SHOT);
+            AlarmManager eventAlarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+            eventAlarm.set(AlarmManager.RTC_WAKEUP, Eventcal.getTimeInMillis(), p);
+
+
+        //End looping
+
+        */
+
     }
 
 

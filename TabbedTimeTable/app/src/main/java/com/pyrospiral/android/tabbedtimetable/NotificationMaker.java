@@ -37,10 +37,12 @@ public class NotificationMaker extends BroadcastReceiver {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(
-                context).setSmallIcon(R.drawable.ic_launcher)
+                context)
+                .setSmallIcon(R.drawable.ic_launcher)
                 .setTicker("Did you go to class today?")
                 .setContentTitle("Bunker App")
-                .setContentText("Fill today's attendance").setSound(alarmSound)
+                .setContentText("Fill today's attendance")
+                .setSound(alarmSound)
                 .setAutoCancel(true)
                 .setWhen(when)
                 .setContentIntent(pi2);
