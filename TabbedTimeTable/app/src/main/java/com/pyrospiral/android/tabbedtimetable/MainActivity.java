@@ -74,13 +74,13 @@ public class MainActivity extends ActionBarActivity {
 
             Intent intent = new Intent(this, SilenceReceiver.class);
 
-            intent.putExtra("value",2);  //PUT 1 for silent (when class starts) , 2 for normal (when class ends)
+            intent.putExtra("value",1);  //PUT 1 for silent (when class starts) , 2 for normal (when class ends)
             int intentNum = 435;  //change this for every alarm
 
             //This remains the same
             PendingIntent sender = PendingIntent.getBroadcast(this, intentNum, intent, PendingIntent.FLAG_ONE_SHOT);
             AlarmManager silenceAlarm = (AlarmManager) getSystemService(ALARM_SERVICE);
-            silenceAlarm.set(AlarmManager.RTC_WAKEUP, Silencecal.getTimeInMillis(), sender);
+            silenceAlarm.setRepeating(AlarmManager.RTC_WAKEUP, Silencecal.getTimeInMillis(),AlarmManager.INTERVAL_DAY * 7, sender);
 
 
         //End looping
