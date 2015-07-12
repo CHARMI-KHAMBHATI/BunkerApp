@@ -44,14 +44,14 @@ public class MainActivity extends ActionBarActivity {
         Calendar calendar = Calendar.getInstance();
         Intent intent1 = new Intent(this,NotificationMaker.class);
 
-        if(calendar.get(Calendar.HOUR_OF_DAY)>21 && Calendar.MINUTE>0)
+        if(calendar.get(Calendar.HOUR_OF_DAY) > 21)
         {
             calendar.add(Calendar.DAY_OF_MONTH,1);
         }
 
         calendar.set(Calendar.HOUR_OF_DAY, 21); // For 9PM
-        calendar.set(Calendar.MINUTE, 00);
-        calendar.set(Calendar.SECOND, 00);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
@@ -62,7 +62,28 @@ public class MainActivity extends ActionBarActivity {
         // Enable Local Datastore.
 
 
+        //For Silence
 
+
+        //Start looping
+
+            Calendar Silencecal = Calendar.getInstance();
+
+
+            Silencecal.add(Calendar.MINUTE, 1);// set calander time from database
+
+            Intent intent = new Intent(this, SilenceReceiver.class);
+
+            intent.putExtra("value",2);  //PUT 1 for silent (when class starts) , 2 for normal (when class ends)
+            int intentNum = 435;  //change this for every alarm
+
+            //This remains the same
+            PendingIntent sender = PendingIntent.getBroadcast(this, intentNum, intent, PendingIntent.FLAG_ONE_SHOT);
+            AlarmManager silenceAlarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+            silenceAlarm.set(AlarmManager.RTC_WAKEUP, Silencecal.getTimeInMillis(), sender);
+
+
+        //End looping
 
     }
 
