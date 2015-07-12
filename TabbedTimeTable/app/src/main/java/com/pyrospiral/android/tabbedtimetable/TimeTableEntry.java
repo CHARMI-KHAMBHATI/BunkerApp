@@ -19,7 +19,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -96,7 +95,6 @@ public class TimeTableEntry extends ActionBarActivity {
         monStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Entry", "Button Clicked");
                 showTimePickerDialog();
                 TimePicker.updateTime(monStartTime,monCalStart,0);
             }
@@ -104,7 +102,6 @@ public class TimeTableEntry extends ActionBarActivity {
         tueStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
                 TimePicker.updateTime(tueStartTime,tueCalStart,1);
             }
@@ -112,7 +109,6 @@ public class TimeTableEntry extends ActionBarActivity {
         wedStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
                 TimePicker.updateTime(wedStartTime,wedCalStart,2);
             }
@@ -120,7 +116,6 @@ public class TimeTableEntry extends ActionBarActivity {
         thuStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
                 TimePicker.updateTime(thuStartTime,thuCalStart,3);
             }
@@ -128,7 +123,6 @@ public class TimeTableEntry extends ActionBarActivity {
         friStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
                 TimePicker.updateTime(friStartTime,friCalStart,4);
             }
@@ -136,7 +130,6 @@ public class TimeTableEntry extends ActionBarActivity {
         monEndTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
                 TimePicker.updateTime(monEndTime,monCalEnd,0);
             }
@@ -144,7 +137,6 @@ public class TimeTableEntry extends ActionBarActivity {
         tueEndTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
                 TimePicker.updateTime(tueEndTime,tueCalEnd,1);
             }
@@ -152,7 +144,6 @@ public class TimeTableEntry extends ActionBarActivity {
         wedEndTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
                 TimePicker.updateTime(wedEndTime,wedCalEnd,2);
             }
@@ -160,7 +151,6 @@ public class TimeTableEntry extends ActionBarActivity {
         thuEndTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
                 TimePicker.updateTime(thuEndTime,thuCalEnd,3);
             }
@@ -168,7 +158,6 @@ public class TimeTableEntry extends ActionBarActivity {
         friEndTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Entry","Button Clicked");
                 showTimePickerDialog();
                 TimePicker.updateTime(friEndTime,friCalEnd,4);
             }
@@ -647,13 +636,13 @@ public class TimeTableEntry extends ActionBarActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean value = prefs.getBoolean("silent_checkbox", true);
 
-        Log.e("Alarm set"," value "+silenceValue+" "+cal);
+        //Log.e("Alarm set"," value "+silenceValue+" "+cal);
 
         if(value) {
 
             Intent i = new Intent(this, SilenceReceiver.class).putExtra("value", silenceValue).setAction(""+cal);
             int a  = i.getIntExtra("value",9);
-            Log.e("intent extra silence "," "+a);
+            //Log.e("intent extra silence "," "+a);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, i, 0);
 
 
