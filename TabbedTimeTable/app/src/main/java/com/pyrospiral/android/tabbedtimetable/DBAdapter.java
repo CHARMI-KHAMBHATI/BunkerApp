@@ -124,6 +124,11 @@ public class DBAdapter {
                 DBAdapter.DAY_WEEK+" = '"+day+"'", null, null, null,START_TIME+ " ASC");
     }
 
+    public Cursor getAll() {
+        return db.query(DATABASE_TABLE, new String[]{ROW_ID,LEC_NO,SUBJECT,TEACHER,START_TIME,END_TIME,DAY,DONE,DAY_WEEK},
+                null, null, null, null,START_TIME+ " ASC");
+    }
+
 
     //  ---retrieves a particular contact---
     public Cursor getContact(String days) throws SQLException {
