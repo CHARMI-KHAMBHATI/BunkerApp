@@ -4,12 +4,14 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -29,7 +31,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         DrawerFragment drawerFragment = (DrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_fragment);
-        drawerFragment.setup(R.id.navigation_fragment,(DrawerLayout)findViewById(R.id.drawer_layout),toolbar);
+        drawerFragment.setup(R.id.navigation_fragment, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -38,86 +40,178 @@ public class MainActivity extends ActionBarActivity {
         }
 
 
-
         //FOR DAILY ATTENDANCE NOTIFICATION
 
         Calendar calendar = Calendar.getInstance();
-        Intent intent1 = new Intent(this,NotificationMaker.class);
+        Intent intent1 = new Intent(this, NotificationMaker.class);
 
-        if(calendar.get(Calendar.HOUR_OF_DAY) > 21)
-        {
-            calendar.add(Calendar.DAY_OF_MONTH,1);
+        if (calendar.get(Calendar.HOUR_OF_DAY) > 21) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
         calendar.set(Calendar.HOUR_OF_DAY, 21); // For 9PM
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pendingIntent);
 
 
         // Enable Local Datastore.
-
+        DBAdapter dba = new DBAdapter(MainActivity.this);
+        dba.open();
+        Cursor c1 = dba.getAll();
 
         //For Silence
 
+        int intentNum = 1;
+
 
         //Start looping
+        if (c1.moveToFirst()) {
 
-            Calendar Silencecal = Calendar.getInstance();
+            do {
+                Calendar Silencecal = Calendar.getInstance();
+
+                //day
+
+                int index5 = c1.getColumnIndex(DBAdapter.DAY_WEEK);
+                String day = c1.getString(index5);
+                int dayofweek = getDay(day);
+                //start time
+                int index7 = c1.getColumnIndex(DBAdapter.START_TIME);
+                double a = Double.parseDouble(c1.getString(index7));
+                int x = (int) a;
+                a = a - x;
+                a = a * 60;
+                a = (double) Math.round(a * 100) / 100;
+                int y = (int) a;
+
+                Silencecal.set(Calendar.DAY_OF_WEEK, dayofweek);
+                Silencecal.set(Calendar.HOUR_OF_DAY, x);
+                Silencecal.set(Calendar.MINUTE, y);
+                Silencecal.set(Calendar.SECOND, 0);
+
+                Intent intent = new Intent(this, SilenceReceiver.class);
+
+                intent.putExtra("value", 1);  //PUT 1 for silent (when class starts) , 2 for normal (when class ends)
+                //change this for every alarm
+
+                //This remains the same
+                PendingIntent sender = PendingIntent.getBroadcast(this, intentNum, intent, PendingIntent.FLAG_ONE_SHOT);
+                AlarmManager silenceAlarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+                silenceAlarm.setRepeating(AlarmManager.RTC_WAKEUP, Silencecal.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, sender);
+                intentNum++;
 
 
-            Silencecal.add(Calendar.MINUTE, 1);// set calander time from database
+                //end time
+                int index8 = c1.getColumnIndex(DBAdapter.END_TIME);
+                a = Double.parseDouble(c1.getString(index8));
+                x = (int) a;
+                a = a - x;
+                a = a * 60;
+                a = (double) Math.round(a * 100) / 100;
+                y = (int) a;
 
-            Intent intent = new Intent(this, SilenceReceiver.class);
+                Calendar Silencecal2 = Calendar.getInstance();
 
-            intent.putExtra("value",1);  //PUT 1 for silent (when class starts) , 2 for normal (when class ends)
-            int intentNum = 435;  //change this for every alarm
+                Silencecal2.set(Calendar.DAY_OF_WEEK, dayofweek);
+                Silencecal2.set(Calendar.HOUR_OF_DAY, x);
+                Silencecal2.set(Calendar.MINUTE, y);
+                Silencecal2.set(Calendar.SECOND, 0);
 
-            //This remains the same
-            PendingIntent sender = PendingIntent.getBroadcast(this, intentNum, intent, PendingIntent.FLAG_ONE_SHOT);
-            AlarmManager silenceAlarm = (AlarmManager) getSystemService(ALARM_SERVICE);
-            silenceAlarm.setRepeating(AlarmManager.RTC_WAKEUP, Silencecal.getTimeInMillis(),AlarmManager.INTERVAL_DAY * 7, sender);
+                Intent intent2 = new Intent(this, SilenceReceiver.class);
 
+                intent2.putExtra("value", 2);  //PUT 1 for silent (when class starts) , 2 for normal (when class ends)
+                //change this for every alarm
 
-        //End looping
+                //This remains the same
+                PendingIntent senders = PendingIntent.getBroadcast(this, intentNum, intent2, PendingIntent.FLAG_ONE_SHOT);
+                AlarmManager silenceAlarms = (AlarmManager) getSystemService(ALARM_SERVICE);
+                silenceAlarms.setRepeating(AlarmManager.RTC_WAKEUP, Silencecal2.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, senders);
+                intentNum++;
 
+            } while (c1.moveToNext());
+            //End looping
+        }
+
+        dba.close();
 
 
         //TODO: For Events
 
-        /*
+        DBEvent dbe = new DBEvent(MainActivity.this);
+        dbe.open();
+        int eintentNum=0;
+        Cursor c2 = dbe.getAllContacts();
+        if(c2.moveToFirst())
+        {
+            do{
         //Start looping
 
-            Calendar Eventcal = Calendar.getInstance();
+                Calendar Eventcal = Calendar.getInstance();
 
-            Intent eintent = new Intent(this, EventNotificationReceiver.class);
+                Intent eintent = new Intent(this, EventNotificationReceiver.class);
 
-            //SET THESE FROM DATABASE
-            String description = "aaa";
-            String chapter = "aaa";
-            String timing = "aaa";
-            int id = 234;
-            Eventcal.add(Calendar.MINUTE, 1);// set calander time from database
+                //SET THESE FROM DATABASE
+                String description = c2.getString(c2.getColumnIndex(DBEvent.DESCRIPTION));
+                String chapter =  c2.getString(c2.getColumnIndex(DBEvent.CHAPTER));
+                String timing =  c2.getString(c2.getColumnIndex(DBEvent.TIME));
+                String date=c2.getString(c2.getColumnIndex(DBEvent.DATE));
+
+                String a=""+timing.charAt(0)+timing.charAt(1);
+                int hour=Integer.parseInt(a)-5;
+                Eventcal.set(Calendar.HOUR_OF_DAY,hour);
+
+                a=""+timing.charAt(3)+timing.charAt(4);
+                int minute=Integer.parseInt(a);
+                Eventcal.set(Calendar.MINUTE,minute);
+
+                String day_of_month=""+date.charAt(0)+date.charAt(1);
+                String month=""+date.charAt(3)+date.charAt(4);
+                Eventcal.set(Calendar.DAY_OF_MONTH,Integer.parseInt(day_of_month)-1);
+                Eventcal.set(Calendar.MONTH,Integer.parseInt(month)-1);
 
 
-            eintent.putExtra("description",description).putExtra("chapter",chapter).putExtra("timing",timing).putExtra("id",id);
+                //int id = 234;
+                //Eventcal.add(Calendar.MINUTE, 1);// set calander time from database
 
-            int eintentNum = 435;  //change this for every alarm
+                eintentNum++;
+               eintent.putExtra("description", description).putExtra("chapter", chapter).putExtra("timing", timing).putExtra("id", eintentNum);
 
-            //This remains the same
-            PendingIntent p = PendingIntent.getBroadcast(this, eintentNum, eintent, PendingIntent.FLAG_ONE_SHOT);
-            AlarmManager eventAlarm = (AlarmManager) getSystemService(ALARM_SERVICE);
-            eventAlarm.set(AlarmManager.RTC_WAKEUP, Eventcal.getTimeInMillis(), p);
+                  //change this for every alarm
+
+                //This remains the same
+                PendingIntent p = PendingIntent.getBroadcast(this, eintentNum, eintent, PendingIntent.FLAG_ONE_SHOT);
+                AlarmManager eventAlarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+                eventAlarm.set(AlarmManager.RTC_WAKEUP, Eventcal.getTimeInMillis(), p);
 
 
-        //End looping
 
-        */
+            }while(c2.moveToNext());
 
+        }
+        dbe.close();
+
+    }
+
+    public int getDay(String day)
+    {
+        int ans=0;
+        if (day.equals("MONDAY"))
+            ans=2;
+        else if (day.equals("TUESDAY"))
+            ans=3;
+        else if (day.equals("WEDNESDAY"))
+            ans=4;
+        else if (day.equals("THURSDAY"))
+            ans=5;
+        else if (day.equals("FRIDAY"))
+            ans=6;
+
+        return ans;
     }
 
 
