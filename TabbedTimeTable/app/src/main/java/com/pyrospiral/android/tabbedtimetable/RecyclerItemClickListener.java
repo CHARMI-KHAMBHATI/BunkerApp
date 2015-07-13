@@ -2,6 +2,7 @@ package com.pyrospiral.android.tabbedtimetable;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,7 +14,7 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 
     GestureDetector mGestureDetector;
@@ -22,6 +23,7 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
         mListener = listener;
         mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override public boolean onSingleTapUp(MotionEvent e) {
+                Log.e("RecyclerItemClick  ","asd");
                 return true;
             }
         });
@@ -31,6 +33,7 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
         View childView = view.findChildViewUnder(e.getX(), e.getY());
         if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
             mListener.onItemClick(childView, view.getChildPosition(childView));
+            Log.e("RecyclerItemClick  ","here!!"+childView);
             return true;
         }
         return false;

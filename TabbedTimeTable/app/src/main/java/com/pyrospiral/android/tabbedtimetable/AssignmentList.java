@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.github.mrengineer13.snackbar.SnackBar;
@@ -107,7 +106,6 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
             data.add(current);
         }
 
-        Log.e("","onCreate");
 
         super.onCreate(savedInstanceState);
     }
@@ -117,7 +115,6 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
 
 
-        Log.e("before adding position",""+dataPosition);
         data.add(dataPosition,temp);
         mAdapter.notifyDataSetChanged();
 
@@ -142,7 +139,6 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
         db.close();
 
 
-        Log.e("on adding position",temp.subject+"  "+dataPosition);
     }
 
     public AssignmentList() {
@@ -155,8 +151,6 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
                          ){
 
        super.onResume();
-        Log.e("","onResume");
-       Log.e("","value of doing is "+doing+"");
        if(doing==0) {
 
            final FragmentManager fragmentManager = getFragmentManager();
@@ -187,15 +181,6 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
         doing=1;
 
         rootView = inflater.inflate(R.layout.fragment_assignment, container, false);
-
-
-
-
-        Log.e("","onCreateView");
-
-
-
-
 
 
 
@@ -290,7 +275,6 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
 
 
 
-                                    Log.e("set position",""+position);
                                     //Create Snackbar
                                    new SnackBar.Builder(getActivity().getApplicationContext(), rootView)
                                             .withMessage("Assignment Deleted.")
@@ -308,17 +292,13 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
                                     data.remove(position);
 
 
-                                    Log.e("after removing position",""+position);
-
                                     int length =data.size();
-                                    Log.e("size is ",""+length);
 
 
                                 }
                                 // do not call notifyItemRemoved for every item, it will cause gaps on deleting items
                                 mAdapter.notifyDataSetChanged();
 
-                                Log.e("after notifying position",""+dataPosition);
                             }
                         });
 

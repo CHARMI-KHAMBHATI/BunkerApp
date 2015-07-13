@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -57,6 +57,8 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
 
 
 
+
+
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
@@ -65,7 +67,7 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
         public TextView chapter_name;
         public TextView date_event;
         public TextView time_event;
-        public ImageButton star;
+        public ImageView star;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -75,7 +77,10 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
             chapter_name = (TextView) itemView.findViewById(R.id.chapter_name);
             date_event = (TextView) itemView.findViewById(R.id.date);
             time_event = (TextView) itemView.findViewById(R.id.time);
+            star = (ImageView) itemView.findViewById(R.id.favorite);
 
+            itemView.setOnClickListener(this);
+            star.setOnClickListener(this);
 
 
         }
@@ -83,11 +88,14 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
         @Override
         public void onClick(View v) {
 
-
+            if (v == star) {
+                star.setImageResource(R.drawable.selectedstar);
+            }
+            else{
+                Intent intent=new Intent(context, EventDetails.class);
+                context.startActivity(intent);
+            }
 
         }
-    }
-    public interface ClickListener{
-        public void itemClicked(View view, int position);
     }
 }

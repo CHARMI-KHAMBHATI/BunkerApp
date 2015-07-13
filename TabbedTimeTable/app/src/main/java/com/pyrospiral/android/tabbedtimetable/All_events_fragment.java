@@ -1,7 +1,6 @@
 package com.pyrospiral.android.tabbedtimetable;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -112,7 +111,7 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
 
 
 
-
+/*
 
         mrecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -121,9 +120,12 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
                         Intent intent=new Intent(getActivity(), EventDetails.class).putExtra(Intent.EXTRA_TEXT,Integer.toString(position));
                         startActivity(intent);
                     }
+
+
+
                 })
         );
-
+*/
         Calendar c = Calendar.getInstance();
         int date=c.get(Calendar.DAY_OF_YEAR);
         String date_saved=readFromPreferences(getActivity(),"Last_Refresh","");
@@ -226,7 +228,7 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
             }
         }
         else
-            Toast.makeText(getActivity(),"No Internet Found",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"No Internet Connection",Toast.LENGTH_SHORT).show();
         swf.setRefreshing(false);
 
 
