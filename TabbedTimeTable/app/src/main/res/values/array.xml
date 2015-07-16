@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="pref_events_values">
+        <item>none</item>
+        <item>fav</item>
+        <item>all</item>
+    </array>
+
+    <array name="pref_events_options">
+        <item>None</item>
+        <item>Favourites</item>
+        <item>All</item>
+    </array>
+
+</resources>
