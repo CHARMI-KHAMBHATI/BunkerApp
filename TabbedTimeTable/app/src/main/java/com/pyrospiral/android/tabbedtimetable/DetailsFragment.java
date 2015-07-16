@@ -139,19 +139,19 @@ public class DetailsFragment extends Fragment {
 //    Algorithm to set the size of the font
         int temp = subject.length();
         float text_size;
-        int max_value = 125;
-
+        int max_value = 65;
+        
         if(temp<=5) {
-            text_size = max_value - (temp * 8);
-        }
-        else if(temp<=10){
-            text_size = max_value - (temp * 6);
-        }
-        else if(temp<=15){
             text_size = max_value - (temp * 5);
         }
-        else{
+        else if(temp<=10){
             text_size = max_value - (temp * 4);
+        }
+        else if(temp<=15){
+            text_size = max_value - (temp * 3);
+        }
+        else{
+            text_size = max_value - (temp * 2);
         }
 
         subName.setText(subject);
