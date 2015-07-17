@@ -2,6 +2,7 @@ package com.pyrospiral.android.tabbedtimetable;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,16 +36,25 @@ public class Modify_Attendance extends Fragment {
 
         new_data = new ArrayList<>();
 
-        //String array for Subject Name
-        final String[] subName = {"DBMS",
-                "TCS",
-                "CS",
-                "Cont. S",
-                "EM III",
-                "SW II"};
+        DBAttendence dba=new DBAttendence(getActivity());
+        dba.open();
+        Cursor c=dba.getAllContacts();
+        String[] subName=new String[100];
+        if(c.moveToFirst()) {
+            int t=0;
+            do{
+                subName[t]=c.getString(c.getColumnIndex(DBAttendence.SUBJECT));
+                t++;
+
+
+            }while (c.moveToNext());
+        }
 
         for(int i=0;i<subName.length;i++)
         {
+            if (subName[i%subName.length]==null)
+                continue;
+
             Info current = new Info();
             current.subName = subName[i%subName.length];
             new_data.add(current);
