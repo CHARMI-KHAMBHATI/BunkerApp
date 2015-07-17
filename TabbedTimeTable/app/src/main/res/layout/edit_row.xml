@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:padding="12dp"
+            android:singleLine="true"
             android:text="@string/subjectName"
             android:textSize="18sp"/>
 
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignParentRight="true"
+            android:background="#eee"
             android:layout_marginTop="5dp">
         <!-- Button for Plus one -->
          <ImageButton
