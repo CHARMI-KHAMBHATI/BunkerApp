@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -116,20 +115,6 @@ public class EventDetails extends ActionBarActivity {
         event_logo.setText(logo);
         event_link.setText(link);
         chapter_name.setText(chapterName);
-        ImageView img = (ImageView) findViewById(R.id.poster);
-
-        if (chapterName.toUpperCase().equals("ACM"))
-            img.setImageResource(R.drawable.acm);
-        else if (chapterName.toUpperCase().equals("DRISHTI"))
-            img.setImageResource(R.drawable.drishti);
-        else if (chapterName.toUpperCase().equals("CES"))
-            img.setImageResource(R.drawable.ces);
-        else if (chapterName.toUpperCase().equals("EES"))
-            img.setImageResource(R.drawable.ees);
-        else if (chapterName.toUpperCase().equals("SAE"))
-            img.setImageResource(R.drawable.sae);
-        else
-            img.setImageResource(R.drawable.nit_admin);
 
 
 
