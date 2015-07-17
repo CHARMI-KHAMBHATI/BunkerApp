@@ -37,7 +37,7 @@
             fab:fab_colorNormal="#ff4433"
             fab:fab_title="Add Subject"
             fab:fab_size="mini"
-            fab:fab_icon="@drawable/settings"
+            fab:fab_icon="@drawable/plus_one"
             fab:fab_colorPressed="#99ff4433"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -47,7 +47,7 @@
             fab:fab_colorNormal="#ff4433"
             fab:fab_title="Remove Subject"
             fab:fab_size="mini"
-            fab:fab_icon="@drawable/settings"
+            fab:fab_icon="@drawable/minus_one"
             fab:fab_colorPressed="#99ff4433"/>
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_c"
@@ -56,7 +56,7 @@
             fab:fab_colorNormal="#ff4433"
             fab:fab_title="Download TimeTable"
             fab:fab_size="mini"
-            fab:fab_icon="@drawable/settings"
+            fab:fab_icon="@drawable/download"
             fab:fab_colorPressed="#99ff4433"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="horizontal"
-        android:background="#000033"
+        android:background="#eee"
         android:padding="10dp">
 
         <!-- Title text view -->
@@ -27,8 +27,7 @@
             android:gravity="left"
             android:padding="12dp"
             android:text="@string/subjectName"
-            android:textSize="18sp"
-            android:textColor="@color/text_icons"/>
+            android:textSize="18sp"/>
 
 
         <LinearLayout
@@ -43,13 +42,13 @@
              android:layout_height="wrap_content"
              android:id="@+id/plus_one"
              android:src="@drawable/plus_one"
-             android:background="#000033"
+             android:background="#eee"
              />
 
           <LinearLayout
               android:layout_width="20dp"
               android:layout_height="wrap_content"
-              android:background="#000033"/>
+              android:background="#eee"/>
 
         <!-- Button for Minus one -->
         <ImageButton
@@ -57,7 +56,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/minus_one"
             android:src="@drawable/minus_one"
-            android:background="#000033"/>
+            android:background="#eee"/>
         </LinearLayout>
 
     </RelativeLayout>

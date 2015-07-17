@@ -436,6 +436,7 @@ public class TimeTableWeek extends Activity {
         text.setGravity(Gravity.CENTER);
         text.setBackgroundColor(getResources().getColor(R.color.primaryColor));
         text.setTextColor(getResources().getColor(R.color.accentColor));
+        text.setSingleLine(true);
         return text;
     }
 
