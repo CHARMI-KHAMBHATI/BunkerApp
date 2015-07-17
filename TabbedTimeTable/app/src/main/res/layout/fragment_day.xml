@@ -15,6 +15,14 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"/>
 
+    <TextView
+        android:id="@android:id/empty"
+        android:text="Please add or download your subjects by clicking the + button."
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        />
+
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions"
         android:layout_width="wrap_content"
