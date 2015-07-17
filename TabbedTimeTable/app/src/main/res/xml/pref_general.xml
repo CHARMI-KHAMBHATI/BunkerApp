@@ -1,12 +1,39 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <CheckBoxPreference
-        android:key="silent_checkbox"
-        android:title="Silent mode"
-        android:summary="Sets your phone to silent automatically during class hours."
-        android:defaultValue="true" />
+    <PreferenceCategory
+        android:title="@string/pref_header_notifications_label"
+        android:key="@string/pref_header_notifications_key">
 
+        <SwitchPreference
+            android:title="@string/pref_fillAttendance_label"
+            android:key="@string/pref_fillAttendance_key"
+            android:summary="@string/pref_fillAttendance_sum"
+            android:defaultValue="true"/>
+
+
+        <ListPreference
+            android:title="@string/pref_Events_label"
+            android:key="@string/pref_Events_label"
+            android:summary="@string/pref_events_sum"
+            android:defaultValue="@string/pref_events_all"
+            android:entryValues="@array/pref_events_values"
+            android:entries="@array/pref_events_options"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="@string/pref_silent_label"
+        android:key="@string/pref_silent_key">
+
+        <CheckBoxPreference
+            android:key="@string/pref_silent_key"
+            android:title="@string/pref_silent_label"
+            android:summary="Sets your phone to silent automatically during class hours."
+            android:defaultValue="true" />
+
+    </PreferenceCategory>
 
 
 </PreferenceScreen>

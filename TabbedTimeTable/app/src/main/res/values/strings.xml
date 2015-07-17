@@ -53,4 +53,22 @@
     <!-- Strings related to fragment details -->
     <string name="taughtBy" translatable="false">Teachers</string>
     <string name="title_activity_event_details">EventDetails</string>
+
+
+    <!--  Strings for notifications settings -->
+    <string name="pref_header_notifications_label">Notifications</string>
+    <string name="pref_header_notifications_key" translatable="false">notifications</string>
+    <string name="pref_fillAttendance_label">Fill Attendance</string>
+    <string name="pref_fillAttendance_key" translatable="false">fillAttendance</string>
+    <string name="pref_fillAttendance_sum">Notify everyday to fill attendance of that day.</string>
+    <string name="pref_Events_label">Events</string>
+    <string name="pref_Events_key">events</string>
+    <string name="pref_events_all">all</string>
+    <string name="pref_events_sum">Notify about your events.</string>
+
+    <!-- Strings for silence service-->
+    <string name="pref_header_silent_label">Silence</string>
+    <string name="pref_header_silent_key" translatable="false">silence</string>
+    <string name="pref_silent_label">Silent Mode</string>
+    <string name="pref_silent_key">silent_checkbox</string>
 </resources>

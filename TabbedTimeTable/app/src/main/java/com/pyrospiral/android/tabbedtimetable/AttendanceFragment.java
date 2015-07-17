@@ -1,10 +1,15 @@
 package com.pyrospiral.android.tabbedtimetable;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -132,329 +137,329 @@ public class AttendanceFragment extends Fragment {
                 }
 
 
-                        break;
+                break;
 
-                        case Calendar.TUESDAY:
-
-
-                            i = 0;
-                            final DBAdapter dbtu = new DBAdapter(getActivity());
-                            dbtu.open();
-                             c = dbtu.getAllContacts("TUESDAY");
-                            if (c.moveToFirst()) {
-                                do {
-                                    flag = 0;
-                                    index9 = c.getColumnIndex(DBAdapter.DAY);
-                                    index10 = c.getColumnIndex(DBAdapter.DONE);
-                                    day_get = c.getDouble(index9);
-                                    index11 = c.getColumnIndex(DBAdapter.ROW_ID);
-                                    done = c.getDouble(index10);
-                                    int x = calendar.get(Calendar.DATE);
-                                    if (x == day_get) {
-                                        //Toast.makeText(getActivity(),"YOLO",Toast.LENGTH_SHORT).show();
-                                        if (done == 1) {
-                                            i++;
-                                            flag = 1;
-                                            continue;
-                                        }
-
-                                    } else {
-                                        dbtu.updateContact(c.getInt(index11),x,0,"TUESDAY");
-                                    }
-                                } while (c.moveToNext());
-                            }
-                            i=0;
-                            c=dbtu.getAllContacts("TUESDAY");
-                            if(c.moveToFirst() ){
-                                do{
-                                    int x;
-
-                                    if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
-                                        continue;
-
-                                    index9 = c.getColumnIndex(DBAdapter.DAY);
-                                    //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
-                                    index1 = c.getColumnIndex(DBAdapter.SUBJECT);
-                                    subName[i] = c.getString(index1);
-                                    index2 = c.getColumnIndex(DBAdapter.TEACHER);
-                                    teacherName[i] = c.getString(index2);
-
-                                    index3 = c.getColumnIndex(DBAdapter.START_TIME);
-                                    double a = Double.parseDouble(c.getString(index3));
-                                    x = (int) a;
-                                    a = a - x;
-                                    a = a * 60;
-                                    a = (double) Math.round(a * 100) / 100;
-                                    int y = (int) a;
-                                    if (y < 10)
-                                        timings[i] = Integer.toString(x) + ":0" + Integer.toString(y);
-                                    else
-                                        timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
-
-                                    index4 = c.getColumnIndex(DBAdapter.END_TIME);
-
-                                    a = Double.parseDouble(c.getString(index4));
-                                    x = (int) a;
-                                    a = a - x;
-                                    a = a * 60;
-                                    a = (double) Math.round(a * 100) / 100;
-                                    y = (int) a;
-                                    if (y < 10)
-                                        timings[i] = timings[i] + "-" + Integer.toString(x) + ":0" + Integer.toString(y);
-                                    else
-                                        timings[i] = timings[i] + "-" + Integer.toString(x) + ":" + Integer.toString(y);
-
-                                    i++;
+            case Calendar.TUESDAY:
 
 
-                                    dbtu.close();
-                                } while (c.moveToNext());
+                i = 0;
+                final DBAdapter dbtu = new DBAdapter(getActivity());
+                dbtu.open();
+                c = dbtu.getAllContacts("TUESDAY");
+                if (c.moveToFirst()) {
+                    do {
+                        flag = 0;
+                        index9 = c.getColumnIndex(DBAdapter.DAY);
+                        index10 = c.getColumnIndex(DBAdapter.DONE);
+                        day_get = c.getDouble(index9);
+                        index11 = c.getColumnIndex(DBAdapter.ROW_ID);
+                        done = c.getDouble(index10);
+                        int x = calendar.get(Calendar.DATE);
+                        if (x == day_get) {
+                            //Toast.makeText(getActivity(),"YOLO",Toast.LENGTH_SHORT).show();
+                            if (done == 1) {
+                                i++;
+                                flag = 1;
+                                continue;
                             }
 
+                        } else {
+                            dbtu.updateContact(c.getInt(index11),x,0,"TUESDAY");
+                        }
+                    } while (c.moveToNext());
+                }
+                i=0;
+                c=dbtu.getAllContacts("TUESDAY");
+                if(c.moveToFirst() ){
+                    do{
+                        int x;
 
-                            break;
+                        if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
+                            continue;
 
-                        case Calendar.WEDNESDAY:
+                        index9 = c.getColumnIndex(DBAdapter.DAY);
+                        //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
+                        index1 = c.getColumnIndex(DBAdapter.SUBJECT);
+                        subName[i] = c.getString(index1);
+                        index2 = c.getColumnIndex(DBAdapter.TEACHER);
+                        teacherName[i] = c.getString(index2);
 
-                            i = 0;
-                            final DBAdapter dbw = new DBAdapter(getActivity());
-                            dbw.open();
-                            c = dbw.getAllContacts("WEDNESDAY");
-                            if (c.moveToFirst()) {
-                                do {
-                                    flag = 0;
-                                    index9 = c.getColumnIndex(DBAdapter.DAY);
-                                    index10 = c.getColumnIndex(DBAdapter.DONE);
-                                    day_get = c.getDouble(index9);
-                                    index11 = c.getColumnIndex(DBAdapter.ROW_ID);
-                                    done = c.getDouble(index10);
-                                    int x = calendar.get(Calendar.DATE);
-                                    if (x == day_get) {
-                                        //Toast.makeText(getActivity(),"YOLO",Toast.LENGTH_SHORT).show();
-                                        if (done == 1) {
-                                            i++;
-                                            flag = 1;
-                                            continue;
-                                        }
+                        index3 = c.getColumnIndex(DBAdapter.START_TIME);
+                        double a = Double.parseDouble(c.getString(index3));
+                        x = (int) a;
+                        a = a - x;
+                        a = a * 60;
+                        a = (double) Math.round(a * 100) / 100;
+                        int y = (int) a;
+                        if (y < 10)
+                            timings[i] = Integer.toString(x) + ":0" + Integer.toString(y);
+                        else
+                            timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
 
-                                    } else {
-                                        dbw.updateContact(c.getInt(index11), x,0,"WEDNESDAY");
-                                    }
-                                } while (c.moveToNext());
-                            }
-                            i=0;
-                            c=dbw.getAllContacts("WEDNESDAY");
-                            if(c.moveToFirst() ){
-                                do{
-                                    int x;
+                        index4 = c.getColumnIndex(DBAdapter.END_TIME);
 
-                                    if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
-                                        continue;
+                        a = Double.parseDouble(c.getString(index4));
+                        x = (int) a;
+                        a = a - x;
+                        a = a * 60;
+                        a = (double) Math.round(a * 100) / 100;
+                        y = (int) a;
+                        if (y < 10)
+                            timings[i] = timings[i] + "-" + Integer.toString(x) + ":0" + Integer.toString(y);
+                        else
+                            timings[i] = timings[i] + "-" + Integer.toString(x) + ":" + Integer.toString(y);
 
-                                    index9 = c.getColumnIndex(DBAdapter.DAY);
-                                    //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
-                                    index1 = c.getColumnIndex(DBAdapter.SUBJECT);
-                                    subName[i] = c.getString(index1);
-                                    index2 = c.getColumnIndex(DBAdapter.TEACHER);
-                                    teacherName[i] = c.getString(index2);
-
-                                    index3 = c.getColumnIndex(DBAdapter.START_TIME);
-                                    double a = Double.parseDouble(c.getString(index3));
-                                    x = (int) a;
-                                    a = a - x;
-                                    a = a * 60;
-                                    a = (double) Math.round(a * 100) / 100;
-                                    int y = (int) a;
-                                    if (y < 10)
-                                        timings[i] = Integer.toString(x) + ":0" + Integer.toString(y);
-                                    else
-                                        timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
-
-                                    index4 = c.getColumnIndex(DBAdapter.END_TIME);
-
-                                    a = Double.parseDouble(c.getString(index4));
-                                    x = (int) a;
-                                    a = a - x;
-                                    a = a * 60;
-                                    a = (double) Math.round(a * 100) / 100;
-                                    y = (int) a;
-                                    if (y < 10)
-                                        timings[i] = timings[i] + "-" + Integer.toString(x) + ":0" + Integer.toString(y);
-                                    else
-                                        timings[i] = timings[i] + "-" + Integer.toString(x) + ":" + Integer.toString(y);
-
-                                    i++;
+                        i++;
 
 
-                                    dbw.close();
-                                } while (c.moveToNext());
-                            }
+                        dbtu.close();
+                    } while (c.moveToNext());
+                }
 
 
-                            break;
+                break;
 
+            case Calendar.WEDNESDAY:
 
-                        case Calendar.THURSDAY:
-
-
-                            i = 0;
-                            final DBAdapter dbth = new DBAdapter(getActivity());
-                            dbth.open();
-                            c = dbth.getAllContacts("THURSDAY");
-                            if (c.moveToFirst()) {
-                                do {
-                                    flag = 0;
-                                    index9 = c.getColumnIndex(DBAdapter.DAY);
-                                    index10 = c.getColumnIndex(DBAdapter.DONE);
-                                    day_get = c.getDouble(index9);
-                                    index11 = c.getColumnIndex(DBAdapter.ROW_ID);
-                                    done = c.getDouble(index10);
-                                    int x = calendar.get(Calendar.DATE);
-                                    if (x == day_get) {
-                                        //Toast.makeText(getActivity(),"YOLO",Toast.LENGTH_SHORT).show();
-                                        if (done == 1) {
-                                            i++;
-                                            flag = 1;
-                                            continue;
-                                        }
-
-                                    } else {
-                                        dbth.updateContact(c.getInt(index11), x,0,"THURSDAY");
-                                    }
-                                } while (c.moveToNext());
-                            }
-                            i=0;
-                            c=dbth.getAllContacts("THURSDAY");
-                            if(c.moveToFirst() ){
-                                do{
-                                    int x;
-
-                                    if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
-                                        continue;
-
-                                    index9 = c.getColumnIndex(DBAdapter.DAY);
-                                    //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
-                                    index1 = c.getColumnIndex(DBAdapter.SUBJECT);
-                                    subName[i] = c.getString(index1);
-                                    index2 = c.getColumnIndex(DBAdapter.TEACHER);
-                                    teacherName[i] = c.getString(index2);
-
-                                    index3 = c.getColumnIndex(DBAdapter.START_TIME);
-                                    double a = Double.parseDouble(c.getString(index3));
-                                    x = (int) a;
-                                    a = a - x;
-                                    a = a * 60;
-                                    a = (double) Math.round(a * 100) / 100;
-                                    int y = (int) a;
-                                    if (y < 10)
-                                        timings[i] = Integer.toString(x) + ":0" + Integer.toString(y);
-                                    else
-                                        timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
-
-                                    index4 = c.getColumnIndex(DBAdapter.END_TIME);
-
-                                    a = Double.parseDouble(c.getString(index4));
-                                    x = (int) a;
-                                    a = a - x;
-                                    a = a * 60;
-                                    a = (double) Math.round(a * 100) / 100;
-                                    y = (int) a;
-                                    if (y < 10)
-                                        timings[i] = timings[i] + "-" + Integer.toString(x) + ":0" + Integer.toString(y);
-                                    else
-                                        timings[i] = timings[i] + "-" + Integer.toString(x) + ":" + Integer.toString(y);
-
-                                    i++;
-
-
-                                    dbth.close();
-                                } while (c.moveToNext());
+                i = 0;
+                final DBAdapter dbw = new DBAdapter(getActivity());
+                dbw.open();
+                c = dbw.getAllContacts("WEDNESDAY");
+                if (c.moveToFirst()) {
+                    do {
+                        flag = 0;
+                        index9 = c.getColumnIndex(DBAdapter.DAY);
+                        index10 = c.getColumnIndex(DBAdapter.DONE);
+                        day_get = c.getDouble(index9);
+                        index11 = c.getColumnIndex(DBAdapter.ROW_ID);
+                        done = c.getDouble(index10);
+                        int x = calendar.get(Calendar.DATE);
+                        if (x == day_get) {
+                            //Toast.makeText(getActivity(),"YOLO",Toast.LENGTH_SHORT).show();
+                            if (done == 1) {
+                                i++;
+                                flag = 1;
+                                continue;
                             }
 
+                        } else {
+                            dbw.updateContact(c.getInt(index11), x,0,"WEDNESDAY");
+                        }
+                    } while (c.moveToNext());
+                }
+                i=0;
+                c=dbw.getAllContacts("WEDNESDAY");
+                if(c.moveToFirst() ){
+                    do{
+                        int x;
 
-                            break;
+                        if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
+                            continue;
 
-                        case Calendar.FRIDAY:
+                        index9 = c.getColumnIndex(DBAdapter.DAY);
+                        //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
+                        index1 = c.getColumnIndex(DBAdapter.SUBJECT);
+                        subName[i] = c.getString(index1);
+                        index2 = c.getColumnIndex(DBAdapter.TEACHER);
+                        teacherName[i] = c.getString(index2);
 
-                            i = 0;
-                            final DBAdapter dbf = new DBAdapter(getActivity());
-                            dbf.open();
-                            c = dbf.getAllContacts("FRIDAY");
-                            if (c.moveToFirst()) {
-                                do {
-                                    flag = 0;
-                                    index9 = c.getColumnIndex(DBAdapter.DAY);
-                                    index10 = c.getColumnIndex(DBAdapter.DONE);
-                                    day_get = c.getDouble(index9);
-                                    index11 = c.getColumnIndex(DBAdapter.ROW_ID);
-                                    done = c.getDouble(index10);
-                                    int x = calendar.get(Calendar.DATE);
-                                    if (x == day_get) {
-                                        //Toast.makeText(getActivity(),"YOLO",Toast.LENGTH_SHORT).show();
-                                        if (done == 1) {
-                                            i++;
-                                            flag = 1;
-                                            continue;
-                                        }
+                        index3 = c.getColumnIndex(DBAdapter.START_TIME);
+                        double a = Double.parseDouble(c.getString(index3));
+                        x = (int) a;
+                        a = a - x;
+                        a = a * 60;
+                        a = (double) Math.round(a * 100) / 100;
+                        int y = (int) a;
+                        if (y < 10)
+                            timings[i] = Integer.toString(x) + ":0" + Integer.toString(y);
+                        else
+                            timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
 
-                                    } else {
-                                        dbf.updateContact(c.getInt(index11), x,0,"FRIDAY");
-                                    }
-                                } while (c.moveToNext());
+                        index4 = c.getColumnIndex(DBAdapter.END_TIME);
+
+                        a = Double.parseDouble(c.getString(index4));
+                        x = (int) a;
+                        a = a - x;
+                        a = a * 60;
+                        a = (double) Math.round(a * 100) / 100;
+                        y = (int) a;
+                        if (y < 10)
+                            timings[i] = timings[i] + "-" + Integer.toString(x) + ":0" + Integer.toString(y);
+                        else
+                            timings[i] = timings[i] + "-" + Integer.toString(x) + ":" + Integer.toString(y);
+
+                        i++;
+
+
+                        dbw.close();
+                    } while (c.moveToNext());
+                }
+
+
+                break;
+
+
+            case Calendar.THURSDAY:
+
+
+                i = 0;
+                final DBAdapter dbth = new DBAdapter(getActivity());
+                dbth.open();
+                c = dbth.getAllContacts("THURSDAY");
+                if (c.moveToFirst()) {
+                    do {
+                        flag = 0;
+                        index9 = c.getColumnIndex(DBAdapter.DAY);
+                        index10 = c.getColumnIndex(DBAdapter.DONE);
+                        day_get = c.getDouble(index9);
+                        index11 = c.getColumnIndex(DBAdapter.ROW_ID);
+                        done = c.getDouble(index10);
+                        int x = calendar.get(Calendar.DATE);
+                        if (x == day_get) {
+                            //Toast.makeText(getActivity(),"YOLO",Toast.LENGTH_SHORT).show();
+                            if (done == 1) {
+                                i++;
+                                flag = 1;
+                                continue;
                             }
-                            i=0;
-                            c=dbf.getAllContacts("FRIDAY");
-                            if(c.moveToFirst() ){
-                                do{
-                                    int x;
 
-                                    if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
-                                        continue;
+                        } else {
+                            dbth.updateContact(c.getInt(index11), x,0,"THURSDAY");
+                        }
+                    } while (c.moveToNext());
+                }
+                i=0;
+                c=dbth.getAllContacts("THURSDAY");
+                if(c.moveToFirst() ){
+                    do{
+                        int x;
 
-                                    index9 = c.getColumnIndex(DBAdapter.DAY);
-                                    //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
-                                    index1 = c.getColumnIndex(DBAdapter.SUBJECT);
-                                    subName[i] = c.getString(index1);
-                                    index2 = c.getColumnIndex(DBAdapter.TEACHER);
-                                    teacherName[i] = c.getString(index2);
+                        if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
+                            continue;
 
-                                    index3 = c.getColumnIndex(DBAdapter.START_TIME);
-                                    double a = Double.parseDouble(c.getString(index3));
-                                    x = (int) a;
-                                    a = a - x;
-                                    a = a * 60;
-                                    a = (double) Math.round(a * 100) / 100;
-                                    int y = (int) a;
-                                    if (y < 10)
-                                        timings[i] = Integer.toString(x) + ":0" + Integer.toString(y);
-                                    else
-                                        timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
+                        index9 = c.getColumnIndex(DBAdapter.DAY);
+                        //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
+                        index1 = c.getColumnIndex(DBAdapter.SUBJECT);
+                        subName[i] = c.getString(index1);
+                        index2 = c.getColumnIndex(DBAdapter.TEACHER);
+                        teacherName[i] = c.getString(index2);
 
-                                    index4 = c.getColumnIndex(DBAdapter.END_TIME);
+                        index3 = c.getColumnIndex(DBAdapter.START_TIME);
+                        double a = Double.parseDouble(c.getString(index3));
+                        x = (int) a;
+                        a = a - x;
+                        a = a * 60;
+                        a = (double) Math.round(a * 100) / 100;
+                        int y = (int) a;
+                        if (y < 10)
+                            timings[i] = Integer.toString(x) + ":0" + Integer.toString(y);
+                        else
+                            timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
 
-                                    a = Double.parseDouble(c.getString(index4));
-                                    x = (int) a;
-                                    a = a - x;
-                                    a = a * 60;
-                                    a = (double) Math.round(a * 100) / 100;
-                                    y = (int) a;
-                                    if (y < 10)
-                                        timings[i] = timings[i] + "-" + Integer.toString(x) + ":0" + Integer.toString(y);
-                                    else
-                                        timings[i] = timings[i] + "-" + Integer.toString(x) + ":" + Integer.toString(y);
+                        index4 = c.getColumnIndex(DBAdapter.END_TIME);
 
-                                    i++;
+                        a = Double.parseDouble(c.getString(index4));
+                        x = (int) a;
+                        a = a - x;
+                        a = a * 60;
+                        a = (double) Math.round(a * 100) / 100;
+                        y = (int) a;
+                        if (y < 10)
+                            timings[i] = timings[i] + "-" + Integer.toString(x) + ":0" + Integer.toString(y);
+                        else
+                            timings[i] = timings[i] + "-" + Integer.toString(x) + ":" + Integer.toString(y);
+
+                        i++;
 
 
-                                    dbf.close();
-                                } while (c.moveToNext());
+                        dbth.close();
+                    } while (c.moveToNext());
+                }
+
+
+                break;
+
+            case Calendar.FRIDAY:
+
+                i = 0;
+                final DBAdapter dbf = new DBAdapter(getActivity());
+                dbf.open();
+                c = dbf.getAllContacts("FRIDAY");
+                if (c.moveToFirst()) {
+                    do {
+                        flag = 0;
+                        index9 = c.getColumnIndex(DBAdapter.DAY);
+                        index10 = c.getColumnIndex(DBAdapter.DONE);
+                        day_get = c.getDouble(index9);
+                        index11 = c.getColumnIndex(DBAdapter.ROW_ID);
+                        done = c.getDouble(index10);
+                        int x = calendar.get(Calendar.DATE);
+                        if (x == day_get) {
+                            //Toast.makeText(getActivity(),"YOLO",Toast.LENGTH_SHORT).show();
+                            if (done == 1) {
+                                i++;
+                                flag = 1;
+                                continue;
                             }
 
+                        } else {
+                            dbf.updateContact(c.getInt(index11), x,0,"FRIDAY");
+                        }
+                    } while (c.moveToNext());
+                }
+                i=0;
+                c=dbf.getAllContacts("FRIDAY");
+                if(c.moveToFirst() ){
+                    do{
+                        int x;
 
-                            break;
-                        default:
+                        if(c.getInt(c.getColumnIndex(DBAdapter.DONE))==1)
+                            continue;
 
-                            break;
+                        index9 = c.getColumnIndex(DBAdapter.DAY);
+                        //Toast.makeText(getActivity(), "DAY IS " + c.getInt(index9) + " DAY OF MONTH is" + calendar.get(Calendar.DATE) + "", Toast.LENGTH_SHORT).show();
+                        index1 = c.getColumnIndex(DBAdapter.SUBJECT);
+                        subName[i] = c.getString(index1);
+                        index2 = c.getColumnIndex(DBAdapter.TEACHER);
+                        teacherName[i] = c.getString(index2);
+
+                        index3 = c.getColumnIndex(DBAdapter.START_TIME);
+                        double a = Double.parseDouble(c.getString(index3));
+                        x = (int) a;
+                        a = a - x;
+                        a = a * 60;
+                        a = (double) Math.round(a * 100) / 100;
+                        int y = (int) a;
+                        if (y < 10)
+                            timings[i] = Integer.toString(x) + ":0" + Integer.toString(y);
+                        else
+                            timings[i] = Integer.toString(x) + ":" + Integer.toString(y);
+
+                        index4 = c.getColumnIndex(DBAdapter.END_TIME);
+
+                        a = Double.parseDouble(c.getString(index4));
+                        x = (int) a;
+                        a = a - x;
+                        a = a * 60;
+                        a = (double) Math.round(a * 100) / 100;
+                        y = (int) a;
+                        if (y < 10)
+                            timings[i] = timings[i] + "-" + Integer.toString(x) + ":0" + Integer.toString(y);
+                        else
+                            timings[i] = timings[i] + "-" + Integer.toString(x) + ":" + Integer.toString(y);
+
+                        i++;
+
+
+                        dbf.close();
+                    } while (c.moveToNext());
+                }
+
+
+                break;
+            default:
+
+                break;
 
 
 
@@ -465,14 +470,14 @@ public class AttendanceFragment extends Fragment {
         data = new ArrayList<Info>();
 
         //String array for Subject Name
-       // final String[] subName = {};
+        // final String[] subName = {};
 
         //String array for Teacher Name
-       // String[] teacherName = {};
+        // String[] teacherName = {};
 
 
         //String to get timings
-       // String[] timings = {"8:30-9:25","9:25-10:20","10:30-11:25","11:25-12:20","2:00-2:55","2:55-3:50"};
+        // String[] timings = {"8:30-9:25","9:25-10:20","10:30-11:25","11:25-12:20","2:00-2:55","2:55-3:50"};
 
         //Inserting some fake data
         for(i=0;i<subName.length && i<teacherName.length;i++)
@@ -506,6 +511,32 @@ public class AttendanceFragment extends Fragment {
         if(mAdapter.getItemCount()==0)
         {
             Toast.makeText(getActivity(), "Thanks for your Response ", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            boolean notifications = prefs.getBoolean(getString(R.string.pref_fillAttendance_key), true);
+
+            //FOR DAILY ATTENDANCE NOTIFICATION
+
+            if(notifications == true) {
+
+                Intent intent1 = new Intent(getActivity(), NotificationMaker.class);
+
+                if (calendar.get(Calendar.HOUR_OF_DAY) > 22 && Calendar.MINUTE > 00) {
+                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                }
+
+                calendar.set(Calendar.HOUR_OF_DAY, 22); // For 10PM
+                calendar.set(Calendar.MINUTE, 00);
+                calendar.set(Calendar.SECOND, 00);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                        AlarmManager.INTERVAL_DAY, pendingIntent);
+            }
+
         }
 
         //Function for swipe to dismiss
@@ -698,6 +729,9 @@ public class AttendanceFragment extends Fragment {
                                             while (c1.moveToNext()) ;
                                         }
                                         dbf.close();
+
+
+
                                         break;
 
 
@@ -949,8 +983,8 @@ public class AttendanceFragment extends Fragment {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int arg0) {
 
-
-                                //TODO : Add what we need to do when he clicks all cancelled
+                                //TODO : The data is showing up again even when we have clicked all cancelled once.
+                                //TODO : Add the following code that prevents that
 
                             }
                         })
@@ -995,47 +1029,47 @@ public class AttendanceFragment extends Fragment {
                                     Calendar calendar = Calendar.getInstance();
                                     int day = calendar.get(Calendar.DAY_OF_WEEK);
                                     switch (day)
-                                            {
-                                                case Calendar.MONDAY:
-                                                    final DBAdapter dbm=new DBAdapter(getActivity());
-                                                    dbm.open();
-                                                   // Cursor c2=dbm.getPosition(subName[position]);
-                                                    dbm.updateSubject(subName[position],"MONDAY");
-                                                    dbm.close();
-                                                    break;
-                                                case Calendar.TUESDAY:
-                                                    final DBAdapter dbtu=new DBAdapter(getActivity());
-                                                    dbtu.open();
-                                                    // Cursor c2=dbm.getPosition(subName[position]);
-                                                    dbtu.updateSubject(subName[position],"TUESDAY");
-                                                    dbtu.close();
-                                                    break;
-                                                case Calendar.WEDNESDAY:
-                                                    final DBAdapter dbw=new DBAdapter(getActivity());
-                                                    dbw.open();
-                                                    // Cursor c2=dbm.getPosition(subName[position]);
-                                                    dbw.updateSubject(subName[position],"WEDNESDAY");
-                                                    dbw.close();
-                                                    break;
-                                                case Calendar.THURSDAY:
-                                                    final DBAdapter dbth=new DBAdapter(getActivity());
-                                                    dbth.open();
-                                                    // Cursor c2=dbm.getPosition(subName[position]);
-                                                    dbth.updateSubject(subName[position],"THURSDAY");
-                                                    dbth.close();
-                                                    break;
-                                                case Calendar.FRIDAY:
-                                                    final DBAdapter dbf=new DBAdapter(getActivity());
-                                                    dbf.open();
-                                                    // Cursor c2=dbm.getPosition(subName[position]);
-                                                    dbf.updateSubject(subName[position],"FRIDAY");
-                                                    dbf.close();
-                                                    break;
-                                                default:
+                                    {
+                                        case Calendar.MONDAY:
+                                            final DBAdapter dbm=new DBAdapter(getActivity());
+                                            dbm.open();
+                                            // Cursor c2=dbm.getPosition(subName[position]);
+                                            dbm.updateSubject(subName[position],"MONDAY");
+                                            dbm.close();
+                                            break;
+                                        case Calendar.TUESDAY:
+                                            final DBAdapter dbtu=new DBAdapter(getActivity());
+                                            dbtu.open();
+                                            // Cursor c2=dbm.getPosition(subName[position]);
+                                            dbtu.updateSubject(subName[position],"TUESDAY");
+                                            dbtu.close();
+                                            break;
+                                        case Calendar.WEDNESDAY:
+                                            final DBAdapter dbw=new DBAdapter(getActivity());
+                                            dbw.open();
+                                            // Cursor c2=dbm.getPosition(subName[position]);
+                                            dbw.updateSubject(subName[position],"WEDNESDAY");
+                                            dbw.close();
+                                            break;
+                                        case Calendar.THURSDAY:
+                                            final DBAdapter dbth=new DBAdapter(getActivity());
+                                            dbth.open();
+                                            // Cursor c2=dbm.getPosition(subName[position]);
+                                            dbth.updateSubject(subName[position],"THURSDAY");
+                                            dbth.close();
+                                            break;
+                                        case Calendar.FRIDAY:
+                                            final DBAdapter dbf=new DBAdapter(getActivity());
+                                            dbf.open();
+                                            // Cursor c2=dbm.getPosition(subName[position]);
+                                            dbf.updateSubject(subName[position],"FRIDAY");
+                                            dbf.close();
+                                            break;
+                                        default:
 
 
 
-                                            }
+                                    }
 
 
                                     final DBAttendence dbA=new DBAttendence(getActivity());
@@ -1060,7 +1094,7 @@ public class AttendanceFragment extends Fragment {
 
 
 
-                                      dbA.close();
+                                    dbA.close();
 
 
 
