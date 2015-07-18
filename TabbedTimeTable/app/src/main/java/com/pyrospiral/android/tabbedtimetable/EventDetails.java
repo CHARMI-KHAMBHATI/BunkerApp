@@ -35,26 +35,26 @@ public class EventDetails extends ActionBarActivity {
         setContentView(R.layout.fragment_event_details);
 
         String recieved=null;
-        int val=-1;
 
         Intent intent = this.getIntent();
 
         if(intent != null )
         {
-            recieved=intent.getStringExtra(Intent.EXTRA_TEXT);
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                recieved= null;
+            } else {
+                recieved= extras.getString("#123");
+            }
 
         }
-
-        if (recieved!=null)
-            val=Integer.parseInt(recieved);
-
+        
         DBEvent dbe=new DBEvent(EventDetails.this);
         dbe.open();
         Cursor c2=dbe.getAllContacts();
 
         TextView event_name, chapter_name, event_date, event_time, event_location, event_desciption, event_logo,event_fee,event_size,
         event_co1,event_co2,event_con1,event_con2,event_link;
-        int i=0;
 
         if(c2.moveToFirst()) {
 
@@ -76,10 +76,10 @@ public class EventDetails extends ActionBarActivity {
 
 
 
-                if(i==val)
+                if(eventName.equalsIgnoreCase(recieved))
+                {
                     break;
-
-                i++;
+                }
 
             }while (c2.moveToNext());
         }

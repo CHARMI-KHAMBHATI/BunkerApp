@@ -88,12 +88,16 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
         @Override
         public void onClick(View v) {
 
+            int position = this.getPosition();
+            final EventData current= data.get(position);
+
             if (v == star) {
                 star.setImageResource(R.drawable.selectedstar);
             }
             else{
-                Intent intent=new Intent(context, EventDetails.class);
+                Intent intent=new Intent(context, EventDetails.class).putExtra("#123", current.eventName);
                 context.startActivity(intent);
+
             }
 
         }
