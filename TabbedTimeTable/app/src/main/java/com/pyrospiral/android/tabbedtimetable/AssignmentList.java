@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.github.mrengineer13.snackbar.SnackBar;
@@ -213,6 +214,14 @@ public class AssignmentList extends Fragment implements SnackBar.OnMessageClickL
         mrecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         applyToRecycler();
+
+        int count = mAdapter.getItemCount();
+        TextView helpText = (TextView) rootView.findViewById(R.id.empty);
+
+        if (count == 0)
+        {
+            helpText.setVisibility(View.VISIBLE);
+        }
 
         ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Assignments");
 

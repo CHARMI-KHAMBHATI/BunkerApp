@@ -2,7 +2,6 @@ package com.pyrospiral.android.tabbedtimetable;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -133,6 +132,7 @@ public class MainActivity extends ActionBarActivity {
         //Start looping
 
                 Calendar Eventcal = Calendar.getInstance();
+                Calendar currentCal = Calendar.getInstance();
 
                 Intent eintent = new Intent(this, EventNotificationReceiver.class);
 
@@ -158,18 +158,19 @@ public class MainActivity extends ActionBarActivity {
 
                 //int id = 234;
                 //Eventcal.add(Calendar.MINUTE, 1);// set calander time from database
+                if (Eventcal.getTimeInMillis() > currentCal.getTimeInMillis()) {
 
-                eintentNum++;
-               eintent.putExtra("description", description).putExtra("chapter", chapter).putExtra("timing", timing).putExtra("id", eintentNum);
+                    eintentNum++;
+                    eintent.putExtra("description", description).putExtra("chapter", chapter).putExtra("timing", timing).putExtra("id", eintentNum);
 
-                  //change this for every alarm
+                    //change this for every alarm
 
-                //This remains the same
-                PendingIntent p = PendingIntent.getBroadcast(this, eintentNum, eintent, PendingIntent.FLAG_ONE_SHOT);
-                AlarmManager eventAlarm = (AlarmManager) getSystemService(ALARM_SERVICE);
-                eventAlarm.set(AlarmManager.RTC_WAKEUP, Eventcal.getTimeInMillis(), p);
+                    //This remains the same
+                    PendingIntent p = PendingIntent.getBroadcast(this, eintentNum, eintent, PendingIntent.FLAG_ONE_SHOT);
+                    AlarmManager eventAlarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    eventAlarm.set(AlarmManager.RTC_WAKEUP, Eventcal.getTimeInMillis(), p);
 
-
+                }
 
             }while(c2.moveToNext());
 
