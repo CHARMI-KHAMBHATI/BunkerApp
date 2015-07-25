@@ -119,7 +119,7 @@ public class MainActivity extends ActionBarActivity {
                     silenceAlarms.setRepeating(AlarmManager.RTC_WAKEUP, Silencecal2.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, senders);
                     intentNum++;
                 }
-                
+
             } while (c1.moveToNext());
             //End looping
         }
