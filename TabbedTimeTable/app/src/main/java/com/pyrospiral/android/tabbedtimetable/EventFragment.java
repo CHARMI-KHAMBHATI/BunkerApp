@@ -7,11 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -27,7 +25,7 @@ public class EventFragment extends Fragment {
 
 
     private ViewPager viewPager;
-    private EventAdapter adapter;
+    public static EventAdapter adapter;
 
     private Toolbar toolbar;
 
@@ -48,20 +46,7 @@ public class EventFragment extends Fragment {
         viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
         adapter = new EventAdapter(getChildFragmentManager());
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-          @Override
-          public void onPageScrolled(final int i, final float v, final int i2) {
-              Toast.makeText(getActivity(),"HERE",Toast.LENGTH_SHORT).show();
-          }
-            @Override
-            public void onPageSelected(final int i) {
-                Toast.makeText(getActivity(),"HERE",Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onPageScrollStateChanged(final int i) {
-                Toast.makeText(getActivity(),Integer.toString(i),Toast.LENGTH_SHORT).show();
-            }
-        });
+
         viewPager.setAdapter(adapter);
 
 

@@ -32,7 +32,7 @@ public class DBEvent {
     private static final String TAG = "Event";
     private static final String DATABASE_NAME = "MyDBE";
     private static final String DATABASE_TABLE = "event";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_CREATE =
             "create table "+DATABASE_TABLE+" ("+ROW_ID+" integer primary key autoincrement, "
                     +EVENT+" VARCHAR(255), "+CHAPTER+" VARCHAR(255), "+TIME+" VARCHAR(255), "+DESCRIPTION+" VARCHAR(1255), "

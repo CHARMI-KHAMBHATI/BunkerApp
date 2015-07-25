@@ -5,4 +5,4 @@
     <item android:state_focused="true" android:drawable="@color/background_tab_pressed"/>
     <item android:drawable="@android:color/transparent"/>
 
-</selector><!-- From: file:/home/kaano8/myProApp/BunkerApp/TabbedTimeTable/pagerslider_library/res/drawable/background_tab.xml -->
+</selector><!-- From: file:/E:/Development/ANDROID%20DEV/Projects/Tabbed%20TimeTable%20App/BunkerApp/TabbedTimeTable/pagerslider_library/res/drawable/background_tab.xml -->

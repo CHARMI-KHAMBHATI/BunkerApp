@@ -2,16 +2,12 @@ package com.pyrospiral.android.tabbedtimetable;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,7 +22,7 @@ public class All_fav_fragment extends android.support.v4.app.Fragment {
 
     }
 
-    public RecyclerView mrecyclerView;
+    public static RecyclerView mrecyclerView;
     private FavEventAdapter mAdapter;
 
     public ArrayList<EventData> data=new ArrayList<EventData>();
@@ -51,8 +47,11 @@ public class All_fav_fragment extends android.support.v4.app.Fragment {
             }while (c.moveToNext());
         }
 
+        db.close();
 
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +62,6 @@ public class All_fav_fragment extends android.support.v4.app.Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_fav_event, container, false);
 
         mrecyclerView = (RecyclerView) rootView.findViewById(R.id.fav_event_view);
-        mrecyclerView.setHasFixedSize(true);
         mrecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new FavEventAdapter(getActivity(),data);
         //mAdapter.setClickListener(this);
@@ -76,10 +74,10 @@ public class All_fav_fragment extends android.support.v4.app.Fragment {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         mrecyclerView.setLayoutManager(llm);
 
-        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(" FAV Events");
 
         return rootView;
     }
+
 
 
     }

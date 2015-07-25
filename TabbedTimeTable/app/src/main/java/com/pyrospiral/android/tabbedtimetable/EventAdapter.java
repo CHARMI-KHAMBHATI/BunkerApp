@@ -28,6 +28,7 @@ public class EventAdapter extends FragmentStatePagerAdapter {
         return null;
     }
 
+
     @Override
     public int getCount() {
         // return no of pages

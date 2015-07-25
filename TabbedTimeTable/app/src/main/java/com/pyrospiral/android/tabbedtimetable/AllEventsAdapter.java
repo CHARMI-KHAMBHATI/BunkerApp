@@ -1,18 +1,16 @@
 package com.pyrospiral.android.tabbedtimetable;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -117,8 +115,7 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
 
             if (v == star) {
 
-                //FavEventAdapter mAdapter=new FavEventAdapter(context,data);
-                //mAdapter.notifyDataSetChanged();
+
 
                 DBEvent dbe=new DBEvent(context);
                 dbe.open();
@@ -134,6 +131,34 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
                     star.setImageResource(R.drawable.selectedstar);
                 }
                 dbe.close();
+
+
+
+
+                ArrayList<EventData> data=new ArrayList<EventData>();
+
+                DBEvent db=new DBEvent(context);
+                db.open();
+                Cursor c=db.getFavEvent();
+                int i=0;
+                if(c.moveToFirst())
+                {
+                    do{
+                        EventData aa=new EventData();
+                        aa.eventName = c.getString(c.getColumnIndex(DBEvent.EVENT));
+                        aa.chapterName = c.getString(c.getColumnIndex(DBEvent.CHAPTER));
+                        aa.date = c.getString(c.getColumnIndex(DBEvent.DATE));
+                        aa.time = c.getString(c.getColumnIndex(DBEvent.TIME));
+                        data.add(aa);
+                    }while (c.moveToNext());
+                }
+
+                db.close();
+
+                FavEventAdapter adapter = new FavEventAdapter(context,data);
+
+                All_fav_fragment.mrecyclerView.setAdapter(adapter);
+
 
 
             }

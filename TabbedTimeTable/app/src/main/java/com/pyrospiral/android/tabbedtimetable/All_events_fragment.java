@@ -15,7 +15,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -84,7 +83,7 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
             }while (c.moveToNext());
         }
 
-
+        db.close();
         }
 
     @Override
@@ -97,7 +96,6 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
         swf.setOnRefreshListener(this);
 
         mrecyclerView = (RecyclerView) rootView.findViewById(R.id.event_view);
-        mrecyclerView.setHasFixedSize(true);
         mrecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new AllEventsAdapter(getActivity(),data);
         //mAdapter.setClickListener(this);
