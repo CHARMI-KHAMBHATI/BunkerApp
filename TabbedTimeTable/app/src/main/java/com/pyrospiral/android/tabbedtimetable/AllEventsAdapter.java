@@ -1,13 +1,17 @@
 package com.pyrospiral.android.tabbedtimetable;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,6 +51,23 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
         holder.date_event.setText(current.date);
         holder.time_event.setText(current.time);
 
+        DBEvent dbe=new DBEvent(context);
+        dbe.open();
+        Cursor c1=dbe.isFavEvent(current.eventName);
+        if(c1.moveToFirst())
+        {
+            holder.star.setImageResource(R.drawable.selectedstar);
+            //dbe.makeFav(current.eventName,0);
+
+        }
+        else{
+           // dbe.makeFav(current.eventName, 1);
+
+            holder.star.setImageResource(R.drawable.notselectedstar);
+        }
+        dbe.close();
+
+
     }
 
     @Override
@@ -67,7 +88,7 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
         public TextView chapter_name;
         public TextView date_event;
         public TextView time_event;
-        public ImageView star;
+        public ImageView star,share;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -78,9 +99,12 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
             date_event = (TextView) itemView.findViewById(R.id.date);
             time_event = (TextView) itemView.findViewById(R.id.time);
             star = (ImageView) itemView.findViewById(R.id.favorite);
+            share=(ImageView)itemView.findViewById(R.id.shares);
+
 
             itemView.setOnClickListener(this);
             star.setOnClickListener(this);
+            share.setOnClickListener(this);
 
 
         }
@@ -92,7 +116,37 @@ public class AllEventsAdapter extends RecyclerView.Adapter<AllEventsAdapter.MyVi
             final EventData current= data.get(position);
 
             if (v == star) {
-                star.setImageResource(R.drawable.selectedstar);
+
+                //FavEventAdapter mAdapter=new FavEventAdapter(context,data);
+                //mAdapter.notifyDataSetChanged();
+
+                DBEvent dbe=new DBEvent(context);
+                dbe.open();
+                Cursor c1=dbe.isFavEvent(current.eventName);
+                if(c1.moveToFirst())
+                {
+                    star.setImageResource(R.drawable.notselectedstar);
+                    dbe.makeFav(current.eventName,0);
+
+                }
+                else{
+                    dbe.makeFav(current.eventName, 1);
+                    star.setImageResource(R.drawable.selectedstar);
+                }
+                dbe.close();
+
+
+            }
+            else if(v==share)
+            {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                String sending="Attend "+current.eventName+" on "+current.date+" at "+current.time+".For More details, check on the Schedulent.";
+                sendIntent.putExtra(Intent.EXTRA_TEXT, sending);
+                sendIntent.setType("text/plain");
+                context.startActivity(sendIntent);
+
+
             }
             else{
                 Intent intent=new Intent(context, EventDetails.class).putExtra("#123", current.eventName);

@@ -23,6 +23,7 @@ public class EventFragment extends Fragment {
 
 
     public static final String PREF_FILE = "testPrefs";
+    Bundle bundle = new Bundle();
 
 
     private ViewPager viewPager;
@@ -46,7 +47,26 @@ public class EventFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.event_view_pager, container, false);
         viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
         adapter = new EventAdapter(getChildFragmentManager());
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+          @Override
+          public void onPageScrolled(final int i, final float v, final int i2) {
+              Toast.makeText(getActivity(),"HERE",Toast.LENGTH_SHORT).show();
+          }
+            @Override
+            public void onPageSelected(final int i) {
+                Toast.makeText(getActivity(),"HERE",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onPageScrollStateChanged(final int i) {
+                Toast.makeText(getActivity(),Integer.toString(i),Toast.LENGTH_SHORT).show();
+            }
+        });
         viewPager.setAdapter(adapter);
+
+
+
+
         // Bind the tabs to the ViewPager
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
         tabs.setViewPager(viewPager);
@@ -59,7 +79,7 @@ public class EventFragment extends Fragment {
 
         super.onResume();
 
-        doing=Integer.parseInt(readFromPreferences(getActivity(), "Refresh_State_Controller",""));
+        doing=Integer.parseInt(readFromPreferences(getActivity(), "Refresh_State_Controller", ""));
         saveToPreferences(getActivity(), "Refresh_State_Controller", "0");
 
         final FragmentManager fragmentManager = getFragmentManager();

@@ -21,7 +21,7 @@ public class EventAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new All_events_fragment();
             case 1:
-              return new All_events_fragment();
+              return new All_fav_fragment();
 
         }
 
@@ -40,6 +40,8 @@ public class EventAdapter extends FragmentStatePagerAdapter {
         String[] days = {"All Events","Favourites"};
         return days[position];
     }
+
+    
 
 
 }

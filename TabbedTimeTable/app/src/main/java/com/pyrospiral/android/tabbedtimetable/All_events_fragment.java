@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -103,6 +104,9 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
         mrecyclerView.setAdapter(mAdapter);
 
 
+
+
+
         //Set out layout Manager
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.supportsPredictiveItemAnimations();
@@ -154,6 +158,7 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
 
         return rootView;
     }
+
 
 
     @Override
@@ -208,7 +213,7 @@ public class All_events_fragment extends android.support.v4.app.Fragment impleme
                             FragmentManager fragmentManager = getFragmentManager();
 
                             fragmentManager.beginTransaction()
-                                    .replace(R.id.container, new All_events_fragment())
+                                    .replace(R.id.container5, new EventFragment())
                                     .commit();
                         } else {
 

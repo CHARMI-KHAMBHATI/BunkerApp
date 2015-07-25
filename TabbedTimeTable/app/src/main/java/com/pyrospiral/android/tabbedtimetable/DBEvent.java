@@ -26,6 +26,7 @@ public class DBEvent {
     public static final String COORDI1NU="num1";
     public static final String COORDI2N="name2";
     public static final String COORDI2NU="num2";
+    public static final String FAVS="fav";
 
 
     private static final String TAG = "Event";
@@ -37,7 +38,7 @@ public class DBEvent {
                     +EVENT+" VARCHAR(255), "+CHAPTER+" VARCHAR(255), "+TIME+" VARCHAR(255), "+DESCRIPTION+" VARCHAR(1255), "
                     +LOCATION+" VARCHAR(255), "+TEAMSIZE+" VARCHAR(255), "+FEE+" VARCHAR(255), "+LINK+" VARCHAR(255), "
                     +COORDI1N+" VARCHAR(255), "+COORDI1NU+" VARCHAR(255), "+COORDI2N+" VARCHAR(255), "
-                    +COORDI2NU+" VARCHAR(255), "+DATE+" VARCHAR(255));";
+                    +COORDI2NU+" VARCHAR(255), "+FAVS+" INTEGER, "+DATE+" VARCHAR(255));";
     private final Context context;
     private DatabaseHelper DBHelper;
     private SQLiteDatabase db;
@@ -119,6 +120,8 @@ public class DBEvent {
 
         initialValues.put(DESCRIPTION,desc);
 
+        initialValues.put(FAVS,0);
+
 
 
         return db.insert(DATABASE_TABLE, null, initialValues);
@@ -130,6 +133,26 @@ public class DBEvent {
         return db.query(DATABASE_TABLE, new String[]{ROW_ID,EVENT,DATE,CHAPTER,TIME,LOCATION
                 ,TEAMSIZE,FEE,LINK,COORDI1N,COORDI2N,COORDI2NU,COORDI1NU,DESCRIPTION},
                 null, null, null, null,null);
+    }
+
+    public Cursor getFavEvent(){
+        return db.query(DATABASE_TABLE, new String[]{ROW_ID,EVENT,DATE,CHAPTER,TIME,LOCATION
+                        ,TEAMSIZE,FEE,LINK,COORDI1N,COORDI2N,COORDI2NU,COORDI1NU,DESCRIPTION},
+                DBEvent.FAVS + "=" + 1, null, null, null,null);
+    }
+
+    public Cursor isFavEvent(String eventName){
+        return db.query(DATABASE_TABLE, new String[]{FAVS},
+                DBEvent.FAVS + "=" + 1+" AND "+DBEvent.EVENT + "= '" + eventName+"'", null, null, null,null);
+    }
+
+
+    public boolean makeFav(String eventName,int fav_setting) {
+        ContentValues args = new ContentValues();
+
+
+        args.put(FAVS,fav_setting);
+        return db.update(DATABASE_TABLE, args, DBEvent.EVENT + "= '" + eventName+"'", null) > 0;
     }
 
 
