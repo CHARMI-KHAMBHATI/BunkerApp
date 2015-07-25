@@ -54,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
 
             do {
                 Calendar Silencecal = Calendar.getInstance();
+                Calendar currentCal = Calendar.getInstance();
 
                 //day
 
@@ -80,11 +81,14 @@ public class MainActivity extends ActionBarActivity {
                 //change this for every alarm
 
                 //This remains the same
-                PendingIntent sender = PendingIntent.getBroadcast(this, intentNum, intent, PendingIntent.FLAG_ONE_SHOT);
-                AlarmManager silenceAlarm = (AlarmManager) getSystemService(ALARM_SERVICE);
-                silenceAlarm.setRepeating(AlarmManager.RTC_WAKEUP, Silencecal.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, sender);
-                intentNum++;
+                if (Silencecal.getTimeInMillis() > currentCal.getTimeInMillis()) {
 
+
+                    PendingIntent sender = PendingIntent.getBroadcast(this, intentNum, intent, PendingIntent.FLAG_ONE_SHOT);
+                    AlarmManager silenceAlarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    silenceAlarm.setRepeating(AlarmManager.RTC_WAKEUP, Silencecal.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, sender);
+                    intentNum++;
+                }
 
                 //end time
                 int index8 = c1.getColumnIndex(DBAdapter.END_TIME);
@@ -108,11 +112,14 @@ public class MainActivity extends ActionBarActivity {
                 //change this for every alarm
 
                 //This remains the same
-                PendingIntent senders = PendingIntent.getBroadcast(this, intentNum, intent2, PendingIntent.FLAG_ONE_SHOT);
-                AlarmManager silenceAlarms = (AlarmManager) getSystemService(ALARM_SERVICE);
-                silenceAlarms.setRepeating(AlarmManager.RTC_WAKEUP, Silencecal2.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, senders);
-                intentNum++;
+                if (Silencecal.getTimeInMillis() > currentCal.getTimeInMillis()) {
 
+                    PendingIntent senders = PendingIntent.getBroadcast(this, intentNum, intent2, PendingIntent.FLAG_ONE_SHOT);
+                    AlarmManager silenceAlarms = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    silenceAlarms.setRepeating(AlarmManager.RTC_WAKEUP, Silencecal2.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, senders);
+                    intentNum++;
+                }
+                
             } while (c1.moveToNext());
             //End looping
         }
