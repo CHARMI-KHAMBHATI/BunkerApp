@@ -8,7 +8,15 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile,LineNumberTable
 
+-dontwarn org.apache.http.**
+-keep class org.apache.http.** { *; }
+-keep class com.parse.**{ *; }
+-dontwarn com.parse.**
+-keep public class android.net.**{ *; }
+-dontwarn android.net.**
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
